@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+* {
+   padding: 0;
+   margin: 0;
+   box-sizing: border-box;
+   outline: none;
+}
+
+$colorBackgroundBody: #066acd;
+$colorBackgroundFotter: #2c3154;
+
+html,
+body {
+   height: 100%;
+   background-color: $colorBackgroundBody;
+}
+
+.wrapper {
+   min-height: 100%;
+   display: flex;
+   flex-direction: column;
+}
+
+.container {
+   max-width: 1200px;
+   padding: 0 15px;
+   margin: 0 auto;
+}
+
+.main__wrapper {
+   flex: 1 1 auto;
+}
+
+.footer__wrapper {
+   background-color: $colorBackgroundFotter;
+}
+.footer-items {
+   display: flex;
+   justify-content: space-around;
+   margin-bottom: 10px;
+}
+.footer__team {
+   display:flex;
+   .team__title-item {
+      display:flex;
+      justify-content: center;
+      align-items: center;
+   }
+.footer-team__icon:hover path {
+   fill: $colorBackgroundBody;
+   color: $colorBackgroundBody;
+}
+}
+.footer__text {
+   text-align: center;
+}
