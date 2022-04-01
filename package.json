@@ -2,7 +2,6 @@
   "name": "task-meneger",
   "version": "1.0.0",
   "description": "The application that helps manage tasks",
-  "main": "index.js",
   "scripts": {
     "dev": "parcel ./src/index.html",
     "build": "parcel build ./src/index.html --no-source-maps"
