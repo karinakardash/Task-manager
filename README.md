@@ -1,2 +1,2 @@
-# Task-meneger
+# Task-manager
 The application that helps manage tasks
