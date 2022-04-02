@@ -66,11 +66,6 @@ body {
       background-color: $colorBackgroundManager;
       border-radius: 10px;
    }
-   .item {
-      display:flex;
-      justify-content: center;
-      align-items: center;
-   }
    &__title{
       font-size: 27px;
       line-height: 30px;
@@ -116,52 +111,56 @@ body {
    flex: 1 1 auto;
 }
 
-.board__wrapper {
+.board {
    display: grid;
    grid-template-columns: repeat(4, 1fr);
    column-gap: 30px;
-   .board__item {
+
+   &__box {
       background-color: $colorBackgroundBoards;
       border-radius: 10px;
-   }
-   .board__item-title {
-      text-transform: capitalize;
-      font-size: 22px;
-      line-height: 26px;
-      text-align: center;
+
+      &-title {
+         text-transform: capitalize;
+         font-size: 22px;
+         line-height: 26px;
+         text-align: center;
+      }
    }
 }
 
 /*footer*/
 
-.footer__wrapper {
+.footer{
    background-color: $colorBackgroundFotter;
    padding-top: 5px;
-}
-.footer-items {
-   display: flex;
-   justify-content: center;
-}
-.footer__team {
-   display:flex;
-   flex-basis: 12%;
-   .footer-team__title {
-      display:flex;
+
+   &-items {
+      display: flex;
       justify-content: center;
+   }
+
+   &__team {
+      display:flex;
+      flex-basis: 12%;
       align-items: center;
-      font-size: 18px;
-      line-height: 21px;
-      margin-left: 10px;
+
+      &-title {
+         font-size: 18px;
+         line-height: 21px;
+         margin-left: 10px;
+      }
+      &-icon svg {
+         width: 30px;
+         height: 30px;
+      }
+
+      &-icon:hover path {
+         fill: $colorBackgroundBody;
+         color: $colorBackgroundBody;
+      }
    }
-   .footer-team__icon svg {
-      width: 30px;
-      height: 30px;
+   &__text{
+      text-align: center;
    }
-   .footer-team__icon:hover path {
-      fill: $colorBackgroundBody;
-      color: $colorBackgroundBody;
-   }
-}
-.footer__text {
-   text-align: center;
 }
