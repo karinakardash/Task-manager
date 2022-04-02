@@ -10,15 +10,78 @@
 </head>
 
 <body>
+   <aside class="sidebar">
+      <nav class="sidebar__items">
+         <ul>
+            <li><a href="#">
+                  <div class="sidebar__feature">
+                     <!--here will be icon-->
+                  </div>Feature
+               </a>
+            </li>
+            <li><a href="#">
+                  <div class="sidebar__feature">
+                     <!--here will be icon-->
+                  </div>Feature
+               </a>
+            </li>
+            <li><a href="#">
+                  <div class="sidebar__feature">
+                     <!--here will be icon-->
+                  </div>Feature
+               </a>
+            </li>
+            <li><a href="#">
+                  <div class="sidebar__feature">
+                     <!--here will be icon-->
+                  </div>Feature
+               </a>
+            </li>
+         </ul>
+      </nav>
+   </aside>
    <div class="wrapper">
       <!--wrapper нужен только, чтобы прижать футтер к низу-->
       <header class="header__wrapper">
          <div class="container">
+            <div class="manager__wrapper">
+               <h1 class="item title__manager">Task manager</h1>
+               <div class="item search__manager">
+                  <input type="text" placeholder="Search tasks..." class="search__input" id="searchInput">
+               </div>
+               <div class="item time__manager">
+                  <p>TIME</p>
+               </div>
+            </div>
          </div>
       </header>
       <main class="main__wrapper">
-         <section>
-         </section>
+         <div class="container">
+            <div class="board__wrapper">
+               <article class="board__item">
+                  <h2 class="board__item-title">backlog</h2>
+                  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sunt nostrum error reprehenderit nemo
+                     minima esse quos eum voluptatibus, aliquam dolor id sed nam saepe. Aperiam nulla dignissimos, et
+                     quisquam ut corporis harum illo adipisci earum! Incidunt libero quisquam nesciunt, cum dicta
+                     atque
+                     unde tenetur. Iusto inventore quos neque nostrum voluptates consequuntur accusamus dignissimos
+                     iure
+                     tenetur molestias maxime a temporibus nam laborum fugit corrupti ea quam, esse voluptatibus
+                     similique, soluta placeat officia minima. Corrupti distinctio incidunt nostrum deleniti dolor at
+                     aperiam molestiae expedita porro libero a, error maxime nobis, unde earum dicta facilis? Minima
+                     labore enim rerum. Provident esse natus quae?</p>
+               </article>
+               <article class="board__item">
+                  <h2 class="board__item-title">in progress</h2>
+               </article>
+               <article class="board__item">
+                  <h2 class="board__item-title">review</h2>
+               </article>
+               <article class="board__item">
+                  <h2 class="board__item-title">done</h2>
+               </article>
+            </div>
+         </div>
       </main>
       <footer class="footer__wrapper">
          <div class="container">
@@ -34,7 +97,7 @@
                            fill="#CCCCCC" />
                      </svg>
                   </a>
-                  <h2 class="team__title-item">Person 1</h2>
+                  <h2 class="footer-team__title">Person</h2>
                </article>
                <article class="footer__team">
                   <a class="footer-team__icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
@@ -47,7 +110,7 @@
                            fill="#CCCCCC" />
                      </svg>
                   </a>
-                  <h2 class="team__title-item">Person 2</h2>
+                  <h2 class="footer-team__title">Person</h2>
                </article>
                <article class="footer__team">
                   <a class="footer-team__icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
@@ -60,7 +123,7 @@
                            fill="#CCCCCC" />
                      </svg>
                   </a>
-                  <h2 class="team__title-item">Person 3</h2>
+                  <h2 class="footer-team__title">Person</h2>
                </article>
                <article class="footer__team">
                   <a class="footer-team__icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
@@ -73,7 +136,7 @@
                            fill="#CCCCCC" />
                      </svg>
                   </a>
-                  <h2 class="team__title-item">Person 4</h2>
+                  <h2 class="footer-team__title">Person</h2>
                </article>
                <article class="footer__team">
                   <a class="footer-team__icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
@@ -86,7 +149,7 @@
                            fill="#CCCCCC" />
                      </svg>
                   </a>
-                  <h2 class="team__title-item">Person 5</h2>
+                  <h2 class="footer-team__title">Person</h2>
                </article>
             </div>
             <p class="text footer__text">© 2022 Call us if you want the same style
