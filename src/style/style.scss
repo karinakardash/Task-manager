@@ -14,6 +14,7 @@ $colorBackgroundManager: rgb(250, 250, 133);
 $colorBackgroundSidebar: rgb(255, 99, 71);
 $colorWhite: rgb(255, 255, 255);
 $colorBlack: rgb(0, 0, 0);
+$colorText: rgb(255, 255, 255);
 
 
 html,
@@ -54,54 +55,61 @@ body {
 
 /*header*/
 
-.header__wrapper {
+.header {
    padding-top: 20px;
    margin-bottom: 30px;
-}
 
-.manager__wrapper {
-   display: flex;
-   justify-content: space-between;
-   background-color: $colorBackgroundManager;
-   border-radius: 10px;
+   &__block {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: $colorBackgroundManager;
+      border-radius: 10px;
+   }
    .item {
       display:flex;
       justify-content: center;
       align-items: center;
    }
-   .title__manager {
+   &__title{
       font-size: 27px;
       line-height: 30px;
       margin-left: 20px;
    }
-   .search__manager {
-      flex-basis: 60%;
+   &__search {
+      width: 60%;
       position: relative;
+
       &::before {
          position: absolute;
          display: block;
          content: url(../media/icon_search.svg);
-         left:10px;
-         top:26px;   
+         left: 13px;
+         top: 10px;
+         z-index: 1;
       }
-      .search__input {
-         flex-basis: 100%;
-         cursor: pointer;
-         padding: 10px 35px;
-         border-radius: 10px;
-         border: 1px solid $colorBlack;
+   }
+   &__input {
+      width: 100%;
+      cursor: pointer;
+      padding: 10px 35px;
+      border-radius: 10px;
+      border: 1px solid $colorBlack;
+      position: relative;
+         
          &:focus {
             outline: auto;
          }
       }
-   }
-   .time__manager {
-      padding: 25px;
+
+   &__time {
+      padding: 15px;
       background-color: $colorWhite;
       margin-right: 20px;
+      font-size: 16px;
+      text-align: center;
    }
 }
-
 /*main*/
 
 .main__wrapper {

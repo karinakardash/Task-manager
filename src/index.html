@@ -42,15 +42,19 @@
    </aside>
    <div class="wrapper">
       <!--wrapper нужен только, чтобы прижать футтер к низу-->
-      <header class="header__wrapper">
+      <header class="header">
          <div class="container">
-            <div class="manager__wrapper">
-               <h1 class="item title__manager">Task manager</h1>
-               <div class="item search__manager">
-                  <input type="text" placeholder="Search tasks..." class="search__input" id="searchInput">
+            <div class="header__block">
+               <h1 class="header__title">Task manager</h1>
+               <div class="header__search">
+                  <input type="text" placeholder="Search tasks..." class="header__input" id="searchInput">
                </div>
-               <div class="item time__manager">
-                  <p>TIME</p>
+               <div class="header__time">
+                     <p class="header__time-clock" id="clock">20:15:43</p>
+                     <p class="header__time-date">
+                         <span class="month">September</span>
+                         <span class="day">13</span>,
+                         <span class="year">2022</span></p>
                </div>
             </div>
          </div>

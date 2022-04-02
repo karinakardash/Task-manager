@@ -52,23 +52,26 @@ body {
 }
 
 /*header*/
-.header__wrapper {
+.header {
   padding-top: 20px;
   margin-bottom: 30px;
 }
 
-.manager__wrapper {
+.header__block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #fafa85;
   border-radius: 10px;
 }
 
-.manager__wrapper .item {
+.header .item {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -80,43 +83,45 @@ body {
           align-items: center;
 }
 
-.manager__wrapper .title__manager {
+.header__title {
   font-size: 27px;
   line-height: 30px;
   margin-left: 20px;
 }
 
-.manager__wrapper .search__manager {
-  -ms-flex-preferred-size: 60%;
-      flex-basis: 60%;
+.header__search {
+  width: 60%;
   position: relative;
 }
 
-.manager__wrapper .search__manager::before {
+.header__search::before {
   position: absolute;
   display: block;
   content: url(../media/icon_search.svg);
-  left: 10px;
-  top: 26px;
+  left: 13px;
+  top: 10px;
+  z-index: 1;
 }
 
-.manager__wrapper .search__manager .search__input {
-  -ms-flex-preferred-size: 100%;
-      flex-basis: 100%;
+.header__input {
+  width: 100%;
   cursor: pointer;
   padding: 10px 35px;
   border-radius: 10px;
   border: 1px solid black;
+  position: relative;
 }
 
-.manager__wrapper .search__manager .search__input:focus {
+.header__input:focus {
   outline: auto;
 }
 
-.manager__wrapper .time__manager {
-  padding: 25px;
+.header__time {
+  padding: 15px;
   background-color: white;
   margin-right: 20px;
+  font-size: 16px;
+  text-align: center;
 }
 
 /*main*/
