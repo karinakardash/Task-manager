@@ -11,28 +11,19 @@
 
 <body>
    <aside class="sidebar">
-      <div class="sidebar__wrapper">
-         <a href="#" class="sidebar__logo">
-            <svg width="1024px" height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
-               <circle cx="512" cy="512" r="512" style="fill:rgb(204, 176, 52)" />
-               <path
-                  d="M680.9 290.4H343.1c-29.1 0-52.7 23.6-52.7 52.7v337.8c0 29.1 23.6 52.7 52.7 52.7h337.8c29.1 0 52.7-23.6 52.7-52.7V343.1c0-29.1-23.6-52.7-52.7-52.7zM481.3 609.6c0 9.7-7.8 17.5-17.5 17.5h-74c-9.7 0-17.5-7.8-17.5-17.5V389.7c0-9.7 7.8-17.5 17.5-17.5h74c9.7 0 17.5 7.8 17.5 17.5v219.9zm170.5-100.9c.2 9.7-7.5 17.7-17.2 17.9h-74.4c-9.7 0-17.5-7.8-17.5-17.5V389.7c0-9.7 7.8-17.5 17.5-17.5h74c9.7 0 17.5 7.8 17.5 17.5v119z"
-                  style="fill:#fff" />
-            </svg>
-            <span class="sidebar__title">Task Manager</span>
-         </a>
-         <nav class="sidebar__items">
-            <ul>
-               <li><a href="#">
-                     <div class="sidebar__feature">
-                        <!--here will be icon-->
-                     </div>My board
-                  </a>
-               </li>
-            </ul>
-         </nav>
-         <button class="sidebar__add" id="AddNewBoardBtn">Add new board</button>
-      </div>
+      <div class="sidebar__logo">Task Manager</div>
+      <nav class="sidebar__items">
+         <ul>
+            <li><a href="#">
+                  <div class="sidebar__feature">
+                     <!--here will be icon-->
+                  </div>My board
+               </a>
+            </li>
+
+         </ul>
+      </nav>
+      <button class="sidebar__add" id="AddNewBoardBtn">Add new board</button>
    </aside>
    <div class="wrapper">
       <!--wrapper нужен только, чтобы прижать футтер к низу-->
@@ -44,8 +35,8 @@
                   <input type="text" placeholder="Search tasks..." class="header__input" id="searchInput">
                </div>
                <div class="header__time">
-                  <p class="header__time-clock" id="currentClock"></p>
-                  <p class="header__time-date" id="currentDate"></p>
+                     <p class="header__time-clock" id="currentClock">20:15:43</p>
+                     <p class="header__time-date" id="currentDate"></p>
                </div>
             </div>
          </div>
@@ -57,24 +48,23 @@
                   <h2 class="board__box-title">backlog</h2>
                   <article class="card">
                      <div class="card__header">
-                        <p class="card__priority">High</p>
-                        <button class="card__edit">EDIT</button>
-                        <button class="card__delete"><svg style="width:29px;height:29px" viewBox="0 0 24 24">
-                              <path fill="red"
-                                 d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
-                           </svg></button>
+                         <p class="card__priority">High</p>
+                         <button class="card__edit">EDIT</button>
+                         <button class="card__delete"><svg style="width:29px;height:29px" viewBox="0 0 24 24">
+                             <path fill="red" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                         </svg></button>
                      </div>
                      <h3 class="card__title" contenteditable="true">Enter task title...</h3>
                      <p class="card__description"></p>
                      <div class="card__footer">
-                        <div class="card__user">+</div>
-                        <div class="card__confirmation">
-                           <button class="card__cancel">Cancel</button>
-                           <button class="card__confirm">Confirm</button>
-                        </div>
+                         <div class="card__user">+</div>
+                         <div class="card__confirmation">
+                             <button class="card__cancel">Cancel</button>
+                             <button class="card__confirm">Confirm</button>
+                         </div>
                      </div>
-                  </article>
-                  <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
+                 </article>
+                     <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
                </article>
                <article class="board__box">
                   <h2 class="board__box-title">in progress</h2>
@@ -157,9 +147,12 @@
                   <h3 class="footer__team-title">Igor</h3>
                </article>
             </div>
+            <p class="text footer__text">© 2022 Call us if you want the same style
+            </p>
          </div>
       </footer>
    </div>
+
    <script type="module" src="scripts/index.js"></script>
 </body>
 
