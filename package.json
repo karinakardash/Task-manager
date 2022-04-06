@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "task-meneger",
   "version": "1.0.0",
   "description": "The application that helps manage tasks",
@@ -24,29 +23,3 @@
     "sass": "^1.49.10"
   }
 }
-=======
-   "name": "task-meneger",
-   "version": "1.0.0",
-   "description": "The application that helps manage tasks",
-   "scripts": {
-      "dev": "parcel ./src/index.html",
-      "build": "parcel build ./src/index.html --no-source-maps"
-   },
-   "repository": {
-      "type": "git",
-      "url": "git+https://github.com/karinakardash/Task-meneger.git"
-   },
-   "author": "",
-   "license": "ISC",
-   "bugs": {
-      "url": "https://github.com/karinakardash/Task-meneger/issues"
-   },
-   "homepage": "https://github.com/karinakardash/Task-meneger#readme",
-   "devDependencies": {
-      "@parcel/transformer-sass": "^2.4.1",
-      "parcel": "^2.4.1",
-      "parcel-bundler": "^1.12.5",
-      "sass": "^1.49.10"
-   }
-}
->>>>>>> 9ba71eb2ca30d616be9c33ce08c5f5f857a21180
