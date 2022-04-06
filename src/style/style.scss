@@ -58,11 +58,26 @@ body {
       list-style-type: none;
    }
 
-   &__logo {
+   &__title{
+      display: block;
       color:$colorText;
       text-align: center;
-      font-size: 30px;
+      font-size: 22px;
       margin-bottom: 30px;
+   }
+   &__title1{
+      display: block;
+      color:red;
+      text-align: center;
+      font-size: 22px;
+      margin-bottom: 30px;
+   }
+
+
+   &__logo svg {
+      width: 65px;
+      height: 65px;
+      margin:0 0 10px 40px;
    }
 
    &__add {
@@ -209,6 +224,7 @@ body {
          margin-left: 10px;
          color: $colorText;
       }
+      
       &-icon svg {
          width: 30px;
          height: 30px;
@@ -218,10 +234,6 @@ body {
          fill: $colorBackgroundBody;
          color: $colorBackgroundBody;
       }
-   }
-   &__text{
-      text-align: center;
-      color: $colorText;
    }
 }
 
