@@ -140,10 +140,17 @@ body {
   color: white;
 }
 
+@media (max-width: 1024px) {
+  .header__title {
+    font-size: 22px;
+    line-height: 25px;
+  }
+}
+
 @media (max-width: 767px) {
   .header__title {
-    font-size: 24px;
-    line-height: 25px;
+    font-size: 20px;
+    line-height: 23px;
     margin-left: 0;
     text-align: center;
     padding: 0 10px;
@@ -153,6 +160,12 @@ body {
 .header__search {
   width: 60%;
   position: relative;
+}
+
+@media (max-width: 1024px) {
+  .header__search {
+    width: 50%;
+  }
 }
 
 .header__search::before {
@@ -193,8 +206,26 @@ body {
   }
 }
 
+@media (max-width: 545px) {
+  .header__time {
+    display: none;
+  }
+}
+
 .header__time-clock {
   font-size: 20px;
+}
+
+@media (max-width: 378px) {
+  .header__time-clock {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 545px) {
+  .header__time-clock {
+    display: none;
+  }
 }
 
 /*main*/
@@ -242,6 +273,20 @@ body {
   color: white;
   margin-bottom: 20px;
   position: relative;
+}
+
+@media (max-width: 1024px) {
+  .board__box-title {
+    font-size: 20px;
+    line-height: 22px;
+  }
+}
+
+@media (max-width: 845px) {
+  .board__box-title {
+    font-size: 16px;
+    line-height: 19px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -369,8 +414,14 @@ body {
   font-size: 12px;
   font-weight: 400;
   background-color: #b90000;
-  color: #ffffff;
+  color: white;
   border-radius: 6px;
+}
+
+@media (max-width: 1024px) {
+  .card__priority {
+    margin-right: 5px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -387,10 +438,16 @@ body {
   padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: black;
   border-radius: 6px;
   border: none;
+}
+
+@media (max-width: 1024px) {
+  .card__edit {
+    margin-right: 5px;
+  }
 }
 
 @media (max-width: 767px) {
@@ -448,7 +505,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: white;
   text-align: center;
   border: 1px solid #00000065;
 }
@@ -465,8 +522,8 @@ body {
   padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: white;
   border-radius: 6px;
   border: none;
 }
@@ -485,8 +542,8 @@ body {
   padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: white;
   border-radius: 6px;
   border: none;
 }
