@@ -32,6 +32,9 @@ body {
    margin-left: 150px;
    display: flex;
    flex-direction: column;
+   @media (max-width: 767px) {
+      width: 100%;
+   }
 }
 
 .container {
@@ -48,6 +51,10 @@ body {
    height: 100vh;
    padding-top: 20px;
    background-color: $colorBackgroundFotter;
+   @media (max-width: 767px) { 
+      padding-top: 25px;
+      height: 100%;
+   }
 
    a{
       text-decoration: none;
@@ -71,6 +78,10 @@ body {
       text-align: center;
       font-size: 22px;
       margin-bottom: 30px;
+      @media (max-width: 767px) {
+         font-size: 26px;
+         padding: 0 10px;
+      } 
    }
 
 
@@ -113,6 +124,13 @@ body {
       line-height: 30px;
       margin-left: 20px;
       color: $colorText;
+      @media (max-width: 767px) {
+         font-size: 24px;
+         line-height: 25px;
+         margin-left: 0;
+         text-align: center;
+         padding: 0 10px;
+      }
    }
    &__search {
       width: 60%;
@@ -146,6 +164,11 @@ body {
       font-size: 16px;
       text-align: center;
       color: $colorText;
+      @media (max-width: 767px) {
+         margin-right: 0;
+         padding: 10px;
+         font-size: 18px;
+      }
 
       &-clock{
          font-size: 20px;
@@ -156,12 +179,20 @@ body {
 
 .main__wrapper {
    flex: 1 1 auto;
+   @media (max-width: 767px) {
+      margin-bottom: 30px;
+   }
 }
 
 .board {
    display: grid;
    grid-template-columns: 1fr 1fr 1fr 1fr;
    column-gap: 27px;
+   @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+      grid-row-gap: 35px;
+      margin: 0 auto;
+   }
 
    &__box {
       background-color: $colorBackgroundBoards;
@@ -176,6 +207,11 @@ body {
          color: $colorText;
          margin-bottom: 20px;
          position: relative;
+         @media (max-width: 767px) {
+            font-size: 25px;
+            line-height: 28px;
+         }
+      
 
          &::before {
             content: "";
@@ -210,12 +246,19 @@ body {
    &-items {
       display: flex;
       justify-content: center;
+      @media (max-width: 767px) {
+         flex-wrap: wrap;
+         margin-bottom: 10px;
+      }
    }
 
    &__team {
       display:flex;
       flex-basis: 11%;
       align-items: center;
+      @media (max-width: 767px) {
+         padding: 0 5px;
+      }
 
       &-title {
          font-size: 16px;
@@ -223,6 +266,9 @@ body {
          font-weight: 400;
          margin-left: 10px;
          color: $colorText;
+         @media (max-width: 767px) {
+            font-size: 18px;
+         }
       }
       
       &-icon svg {
@@ -265,6 +311,9 @@ body {
        background-color: rgb(185, 0, 0);
        color: #ffffff;
        border-radius: 6px;
+       @media (max-width: 767px) {
+         font-size: 17px;
+         }
 
        &:hover {
            cursor: pointer;
@@ -279,6 +328,9 @@ body {
        color: #ffffff;
        border-radius: 6px;
        border: none;
+       @media (max-width: 767px) {
+         font-size: 17px;
+         }
 
        &:hover {
            cursor: pointer;
@@ -306,6 +358,9 @@ body {
        font-size: 16px;
        font-weight: 600;
        margin-bottom: 18px;
+       @media (max-width: 767px) {
+          font-size: 20px;
+         }
    }
 
    &__footer {
@@ -339,6 +394,9 @@ body {
        color: #ffffff;
        border-radius: 6px;
        border: none;
+       @media (max-width: 767px) {
+         font-size: 17px;
+         }
 
        &:hover {
            cursor: pointer;
@@ -353,6 +411,9 @@ body {
        color: #ffffff;
        border-radius: 6px;
        border: none;
+       @media (max-width: 767px) {
+         font-size: 17px;
+         }
 
        &:hover {
            cursor: pointer;
