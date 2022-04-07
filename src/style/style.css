@@ -70,18 +70,33 @@ body {
   list-style-type: none;
 }
 
-.sidebar__logo {
+.sidebar__title {
+  display: block;
   color: white;
   text-align: center;
-  font-size: 30px;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.sidebar__title1 {
+  display: block;
+  color: red;
+  text-align: center;
+  font-size: 22px;
   margin-bottom: 30px;
 }
 
 @media (max-width: 767px) {
-  .sidebar__logo {
+  .sidebar__title1 {
     font-size: 26px;
     padding: 0 10px;
   }
+}
+
+.sidebar__logo svg {
+  width: 65px;
+  height: 65px;
+  margin: 0 0 10px 40px;
 }
 
 .sidebar__add {
@@ -198,8 +213,8 @@ body {
 .board {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
   -webkit-column-gap: 27px;
           column-gap: 27px;
 }
@@ -321,11 +336,6 @@ body {
 .footer__team-icon:hover path {
   fill: #8e06cd;
   color: #8e06cd;
-}
-
-.footer__text {
-  text-align: center;
-  color: white;
 }
 
 .card {

@@ -65,15 +65,30 @@ body {
       list-style-type: none;
    }
 
-   &__logo {
+   &__title{
+      display: block;
       color:$colorText;
       text-align: center;
-      font-size: 30px;
+      font-size: 22px;
+      margin-bottom: 30px;
+   }
+   &__title1{
+      display: block;
+      color:red;
+      text-align: center;
+      font-size: 22px;
       margin-bottom: 30px;
       @media (max-width: 767px) {
          font-size: 26px;
          padding: 0 10px;
       } 
+   }
+
+
+   &__logo svg {
+      width: 65px;
+      height: 65px;
+      margin:0 0 10px 40px;
    }
 
    &__add {
@@ -171,7 +186,7 @@ body {
 
 .board {
    display: grid;
-   grid-template-columns: repeat(4, 1fr);
+   grid-template-columns: 1fr 1fr 1fr 1fr;
    column-gap: 27px;
    @media (max-width: 767px) {
       grid-template-columns: 1fr;
@@ -255,6 +270,7 @@ body {
             font-size: 18px;
          }
       }
+      
       &-icon svg {
          width: 30px;
          height: 30px;
@@ -264,10 +280,6 @@ body {
          fill: $colorBackgroundBody;
          color: $colorBackgroundBody;
       }
-   }
-   &__text{
-      text-align: center;
-      color: $colorText;
    }
 }
 
