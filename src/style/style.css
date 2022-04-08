@@ -70,18 +70,33 @@ body {
   list-style-type: none;
 }
 
-.sidebar__logo {
+.sidebar__title {
+  display: block;
   color: white;
   text-align: center;
-  font-size: 30px;
+  font-size: 22px;
+  margin-bottom: 30px;
+}
+
+.sidebar__title1 {
+  display: block;
+  color: red;
+  text-align: center;
+  font-size: 22px;
   margin-bottom: 30px;
 }
 
 @media (max-width: 767px) {
-  .sidebar__logo {
+  .sidebar__title1 {
     font-size: 26px;
     padding: 0 10px;
   }
+}
+
+.sidebar__logo svg {
+  width: 65px;
+  height: 65px;
+  margin: 0 0 10px 40px;
 }
 
 .sidebar__add {
@@ -165,6 +180,12 @@ body {
   }
 }
 
+@media (max-width: 1024px) {
+  .header__search {
+    width: 50%;
+  }
+}
+
 .header__search::before {
   position: absolute;
   display: block;
@@ -212,17 +233,16 @@ body {
 
 .header__time-clock {
   font-size: 20px;
-  display: block;
 }
 
 @media (max-width: 378px) {
-  .header__time {
+  .header__time-clock {
     font-size: 12px;
   }
 }
 
 @media (max-width: 545px) {
-  .header__time {
+  .header__time-clock {
     display: none;
   }
 }
@@ -243,8 +263,8 @@ body {
 .board {
   display: -ms-grid;
   display: grid;
-  -ms-grid-columns: (1fr)[4];
-      grid-template-columns: repeat(4, 1fr);
+  -ms-grid-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
   -webkit-column-gap: 27px;
           column-gap: 27px;
 }
@@ -382,11 +402,6 @@ body {
   color: #8e06cd;
 }
 
-.footer__text {
-  text-align: center;
-  color: white;
-}
-
 .card {
   width: 100%;
   padding: 8px;
@@ -418,7 +433,7 @@ body {
   font-size: 12px;
   font-weight: 400;
   background-color: #b90000;
-  color: #ffffff;
+  color: white;
   border-radius: 6px;
 }
 
@@ -442,8 +457,8 @@ body {
   padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: black;
   border-radius: 6px;
   border: none;
 }
@@ -509,7 +524,7 @@ body {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #ffffff;
+  background-color: white;
   text-align: center;
   border: 1px solid #00000065;
 }
@@ -526,8 +541,8 @@ body {
   padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: white;
   border-radius: 6px;
   border: none;
 }
@@ -546,8 +561,8 @@ body {
   padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: black;
+  color: white;
   border-radius: 6px;
   border: none;
 }
