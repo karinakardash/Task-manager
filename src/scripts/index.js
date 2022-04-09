@@ -45,9 +45,20 @@ function createTask(obj) {
     task_content_el.classList.add("card__header");
     card_el.appendChild(task_content_el);
 
-    const card_priority = document.createElement("p");
+    const card_priority = document.createElement("select");
     card_priority.classList.add("card__priority");
-    card_priority.innerText = 'Low';
+    const optionLow = document.createElement("option");
+    optionLow.innerText = 'Low';
+    optionLow.classList.add("card__option-low");
+    card_priority.appendChild(optionLow);
+    const optionMedium = document.createElement("option");
+    optionMedium.classList.add("card__option-medium");
+    optionMedium.innerText = 'Medium';
+    card_priority.appendChild(optionMedium);
+    const optionHigh = document.createElement("option");
+    optionHigh.innerText = 'High';
+    optionHigh.classList.add("card__option-high");
+    card_priority.appendChild(optionHigh);
     task_content_el.appendChild(card_priority);
 
     const editBtn = document.createElement("button");
