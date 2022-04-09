@@ -1,19 +1,23 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
 * {
    padding: 0;
    margin: 0;
    box-sizing: border-box;
    outline: none;
+   font-family: 'Open Sans', sans-serif;
 }
 
 /*подключить цвета через импорт*/
 $colorBackgroundBody: rgb(142, 6, 205);
 $colorBackgroundFotter: rgba(0, 0, 0, 0.6);
 $colorBackgroundBoards: rgba(7, 7, 7, 0.5);
-$colorBackgroundManager: rgb(250, 250, 133);
 $colorWhite: rgb(255, 255, 255);
 $colorBlack: rgb(0, 0, 0);
 $colorText: rgb(255, 255, 255);
+$colorTextLightTheme: rgb(0, 0, 0);
+$colorBackgroundFotterLightTheme:rgba(170, 170, 170, 0.4);
+$colorBackgroundBoardsLightTheme: rgba(255, 255, 255, 0.6);
+
 
 
 html,
@@ -84,7 +88,6 @@ body {
       } 
    }
 
-
    &__logo svg {
       width: 65px;
       height: 65px;
@@ -93,7 +96,7 @@ body {
 
    &__add {
       display: block;
-      padding:5px 10px;
+      padding:8px 10px;
       margin: 0 auto;
       background-color: $colorWhite;
       color: $colorBlack;
@@ -267,6 +270,7 @@ body {
          border-radius: 8px;
          color: $colorText;
          font-size: 18px;
+         cursor: pointer;
       }
    }
 }
@@ -315,6 +319,77 @@ body {
          color: $colorBackgroundBody;
       }
    }
+   
+   &__text{
+      text-align: center;
+      color: $colorText;
+   }
+}
+
+//form
+
+.form {
+   width: 100%;
+   padding: 8px;
+   border-radius: 3px;
+   background-color: rgba(248, 248, 248, 0.418);
+   border: 1px solid $colorWhite;
+   margin-top: auto;
+   display: none;
+
+   &__textarea {
+      font-size: 14px;
+      resize: none;
+      height: 60px;
+      border-radius: 3px;
+      border: none;
+      background-color: rgba(248, 248, 248, 0.418);
+      width: 100%;
+      color: $colorText;
+      padding: 10px;
+      &::placeholder {
+         color: $colorText;
+         font-size: 14px;
+      }
+      &:focus {
+         outline: none;
+      }
+   }
+
+   &__btn {
+      display: flex;
+      padding-top: 5px;
+      justify-content: center;
+   }
+
+   &__add-btn {
+      max-width: 100px;
+      width: 100%;
+      padding: 6px 15px;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      margin-right: 20px;
+   }
+
+   &__cancel-btn {
+      max-width: 100px;
+      width: 100%;
+      padding: 6px 15px;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: #b90000;
+      color: #ffffff;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+   }
 }
 
 //cards
@@ -323,13 +398,14 @@ body {
    width: 100%;
    padding: 8px;
    border-radius: 10px;
-   background-color: rgb(216, 244, 252);
-   border: 1px solid rgb(109, 189, 211);
+   background-color: #f8f8f86b;
+   border: 1px solid $colorWhite;
    margin-bottom: 10px;
 
    &.modal {
        width: 500px;
    }
+
 
    &__header {
        display: flex;
@@ -342,7 +418,7 @@ body {
        padding: 5px 15px;
        font-size: 12px;
        font-weight: 400;
-       background-color: rgb(185, 0, 0);
+       background-color: #b90000;
        color: $colorWhite;
        border-radius: 6px;
        @media (max-width: 1024px) {
@@ -362,7 +438,7 @@ body {
        font-size: 12px;
        font-weight: 400;
        background-color: $colorBlack;
-       color: $colorBlack;
+       color: $colorText;
        border-radius: 6px;
        border: none;
        @media (max-width: 1024px) {
@@ -382,8 +458,17 @@ body {
    }
 
    &__delete {
-       border: none;
-       background-color: transparent;
+      padding: 5px 15px;
+      font-size: 12px;
+      font-weight: 400;
+      background-color: #b90000;
+      color: #ffffff;
+      border-radius: 6px;
+      border: none;
+
+      @media (max-width: 767px) {
+         font-size: 17px;
+         }
 
        &:hover {
            cursor: pointer;
@@ -398,6 +483,7 @@ body {
        font-size: 16px;
        font-weight: 600;
        margin-bottom: 18px;
+       color: $colorText;
        @media (max-width: 767px) {
           font-size: 20px;
          }
@@ -412,10 +498,15 @@ body {
    &__user {
        width: 30px;
        height: 30px;
+       font-size: 20px;
        border-radius: 50%; 
-       background-color: $colorWhite;
+       background-color: transparent;
        text-align: center;
-       border: 1px solid #00000065;
+       border: 1px dashed #00000098;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       color: #00000098;
    }
 
    &__confirmation {
@@ -451,6 +542,8 @@ body {
        color: $colorWhite;
        border-radius: 6px;
        border: none;
+       margin-right: 10px;
+
        @media (max-width: 767px) {
          font-size: 17px;
          }
@@ -462,6 +555,8 @@ body {
 
    &__description {
        display: none;
+       color: $colorText;
+       margin-bottom: 30px;
 
        &.modal {
            display: block;
@@ -474,5 +569,131 @@ body {
            background-color: #fffffff1;
            padding: 8px;
        }
+   }
+}
+//switcher
+
+.sidebar__switch {
+   position: fixed;
+   left: 0;
+   bottom: 20px;
+}
+
+.switch {
+   position: relative;
+   left: 40px;
+   display: inline-block;
+   width: 70px;
+   height: 34px;
+
+   &::before {
+      content: '\263C';
+       position: absolute;
+       top: 8px;
+       right: -50px;
+       margin-right: 30px;
+       color: rgb(255, 238, 0);
+   }
+
+   &::after {
+     content: '\263E';
+       position: absolute;
+       top: 8px;
+       left: -20px;
+      color: rgb(38, 0, 255);
+  }
+
+   &__input {
+       opacity: 0;
+   }
+
+   &__slider {
+       position: absolute;
+       cursor: pointer;
+       top: 0;
+       left: 0;
+       right: 0;
+       bottom: 0;
+       background-color: #ccc;
+       transition: all 0.4s linear;
+       border-radius: 34px;
+       border: 1px solid rgba(255, 238, 0, 0.6);
+
+       &::before {
+           position: absolute;
+           content: "";
+           height: 26px;
+           width: 26px;
+           left: 4px;
+           bottom: 4px;
+           background-color: white;
+           transition: all 0.4s linear;
+           border-radius: 50%;
+         }
+     }
+ }
+
+.switch__input:checked + .switch__slider {
+   background-color: $colorBlack;
+ }    
+ 
+.switch__input:checked + .switch__slider::before {
+   transform: translateX(34px);
+}
+
+//light theme
+
+body.light {
+   background-image:url('../media/lightbg.jpeg');
+
+   .sidebar {
+      background-color: $colorBackgroundFotterLightTheme;
+      a{
+         color:$colorTextLightTheme;
+      }
+      &__title{
+         color:$colorTextLightTheme;
+      } 
+      &__add {
+         background-color: $colorBlack;
+         color: $colorWhite;
+      }
+   }
+
+   .header {
+      &__title{
+         color: $colorTextLightTheme;
+      }
+      &__time {
+         color: $colorTextLightTheme;
+      }
+   }
+
+   .board {
+      &__box {
+         background-color: $colorBackgroundBoardsLightTheme;
+
+         &-title {
+            color: $colorTextLightTheme;
+            &::before {
+               background-color: $colorBlack;
+            }
+         }
+         &-btn {
+            background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid white;
+            color: $colorTextLightTheme;
+         }
+      }
+   }
+
+   .footer{
+      background-color: $colorBackgroundFotterLightTheme;
+      &__team-title {
+            color: $colorTextLightTheme;
+      }
+      &__text{
+         color: $colorTextLightTheme;
+      }
    }
 }
