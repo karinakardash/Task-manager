@@ -2,7 +2,7 @@ const addTaskBtn = document.querySelector('#AddTaskBtn');
 const list_el = document.querySelector('#tasks');
 const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
-const textArea = document.getElementsByClassName('form__textarea');
+const textArea = document.querySelector('.form__textarea');
 const form = document.querySelector('.form');
 const itemDel = document.getElementsByClassName('card__delete');
 const editBtn = document.querySelector('.card__edit');
@@ -28,10 +28,10 @@ updateLocalStorage();
 
 // создание задачи
 
-function createTask(item) {
+function createTask(obj) {
     const card_el = document.createElement("article");
     card_el.classList.add("card");
-    card_el.setAttribute('id', item.id);
+    card_el.setAttribute('id', obj.id);
     card_el.draggable = true;
 
     const task_content_el = document.createElement("div");
@@ -40,7 +40,7 @@ function createTask(item) {
 
     const card_priority = document.createElement("p");
     card_priority.classList.add("card__priority");
-    card_priority.innerText = 'High';
+    card_priority.innerText = 'Low';
     task_content_el.appendChild(card_priority);
 
     const editBtn = document.createElement("button");
@@ -55,7 +55,7 @@ function createTask(item) {
 
     const cardTitle = document.createElement("h3");
     cardTitle.classList.add("card__title");
-    cardTitle.textContent = textArea.value;
+    cardTitle.textContent = obj.title;
     //cardTitle.contentEditable = true;
     card_el.appendChild(cardTitle);
 
@@ -87,10 +87,6 @@ function createTask(item) {
     revokeBtn.classList.add("card__confirm");
     revokeBtn.innerHTML = "Cancel";
     cardConfirm.appendChild(revokeBtn);
-    
-    form.style.display = 'none';
-    addTaskBtn.style.display = 'block';
-    textArea.value = '';
 
     return card_el;
 };
@@ -115,6 +111,9 @@ function addNewItem() {
         });
         displayTask();
         updateLocalStorage();
+        textArea.value = ''
+        form.style.display = 'none';
+        addTaskBtn.style.display = 'block';
 };
 
 addBtn.addEventListener('click', function() {
@@ -149,9 +148,6 @@ currentTime()
 
 import { getUsers } from './users.js';
 getUsers()
-
-import { searchItems } from './search.js';
-searchItems()
 
 //свитчер
 
