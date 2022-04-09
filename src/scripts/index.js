@@ -4,11 +4,18 @@ const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
 const textArea = document.querySelector('.form__textarea');
 const form = document.querySelector('.form');
-const itemDel = document.getElementsByClassName('card__delete');
+const itemDel = document.querySelector('.card__delete');
 const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
+
+import { currentTime } from './time.js';
+currentTime()
+
+import { getUsers } from './users.js';
+getUsers()
+
 
 //локал сторидж
 
@@ -111,6 +118,7 @@ function addNewItem() {
         });
         displayTask();
         updateLocalStorage();
+        getUsers();
         textArea.value = ''
         form.style.display = 'none';
         addTaskBtn.style.display = 'block';
@@ -143,11 +151,6 @@ cancelBtn.addEventListener('click', () => {
     addTaskBtn.style.display = 'block';
 });
 
-import { currentTime } from './time.js';
-currentTime()
-
-import { getUsers } from './users.js';
-getUsers()
 
 import { searchItems } from './search.js';
 searchItems()
@@ -159,3 +162,21 @@ switchBtn.addEventListener ("click", function() {
    document.body.classList.toggle("light")
 });
 
+//удаление задачи
+
+function deleteTask(element) {
+    if ( element.target.classList.contains("card__delete") ) {
+        let taskItem = element.target.parentElement.parentElement;
+        let taskId = +taskItem.getAttribute("id");
+        taskItem.remove();
+
+        tasks.forEach((item, index) => {
+            if (taskId === item.id) {
+                tasks.splice(index, 1);
+            }
+        });
+        updateLocalStorage();
+    }
+};
+
+list_el.addEventListener('click', deleteTask);
