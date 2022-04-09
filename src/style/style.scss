@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
 * {
    padding: 0;
    margin: 0;
    box-sizing: border-box;
    outline: none;
-   font-family: 'Montserrat', sans-serif;
+   font-family: 'Open Sans', sans-serif;
 }
 
 /*подключить цвета через импорт*/
@@ -430,7 +430,7 @@ body {
        font-size: 12px;
        font-weight: 400;
        background-color: $colorBlack;
-       color: $colorBlack;
+       color: $colorText;
        border-radius: 6px;
        border: none;
        @media (max-width: 1024px) {
@@ -457,6 +457,10 @@ body {
       color: #ffffff;
       border-radius: 6px;
       border: none;
+
+      @media (max-width: 767px) {
+         font-size: 17px;
+         }
 
        &:hover {
            cursor: pointer;
