@@ -4,6 +4,7 @@
    margin: 0;
    box-sizing: border-box;
    outline: none;
+   font-family: 'Open Sans';
 }
 
 /*подключить цвета через импорт*/
@@ -261,6 +262,7 @@ body {
          border-radius: 8px;
          color: $colorText;
          font-size: 18px;
+         cursor: pointer;
       }
    }
 }
@@ -316,19 +318,86 @@ body {
    }
 }
 
+//form
+
+.form {
+   width: 100%;
+   padding: 8px;
+   border-radius: 3px;
+   background-color: rgba(248, 248, 248, 0.418);
+   border: 1px solid $colorWhite;
+   margin-top: auto;
+   display: none;
+
+   &__textarea {
+      font-size: 14px;
+      resize: none;
+      height: 60px;
+      border-radius: 3px;
+      border: none;
+      background-color: rgba(248, 248, 248, 0.418);
+      width: 100%;
+      color: $colorText;
+      padding: 10px;
+      &::placeholder {
+         color: $colorText;
+         font-size: 14px;
+      }
+      &:focus {
+         outline: none;
+      }
+   }
+
+   &__btn {
+      display: flex;
+      padding-top: 5px;
+      justify-content: center;
+   }
+
+   &__add-btn {
+      max-width: 100px;
+      width: 100%;
+      padding: 6px 15px;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: #000000;
+      color: #ffffff;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+      margin-right: 20px;
+   }
+
+   &__cancel-btn {
+      max-width: 100px;
+      width: 100%;
+      padding: 6px 15px;
+      font-size: 15px;
+      font-weight: 400;
+      background-color: #b90000;
+      color: #ffffff;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+   }
+}
+
 //cards
 
 .card {
    width: 100%;
    padding: 8px;
    border-radius: 10px;
-   background-color: rgb(216, 244, 252);
-   border: 1px solid rgb(109, 189, 211);
+   background-color: #f8f8f86b;
+   border: 1px solid $colorWhite;
    margin-bottom: 10px;
 
    &.modal {
        width: 500px;
    }
+
 
    &__header {
        display: flex;
@@ -341,7 +410,7 @@ body {
        padding: 5px 15px;
        font-size: 12px;
        font-weight: 400;
-       background-color: rgb(185, 0, 0);
+       background-color: #b90000;
        color: $colorWhite;
        border-radius: 6px;
        @media (max-width: 1024px) {
@@ -381,8 +450,13 @@ body {
    }
 
    &__delete {
-       border: none;
-       background-color: transparent;
+      padding: 5px 15px;
+      font-size: 12px;
+      font-weight: 400;
+      background-color: #b90000;
+      color: #ffffff;
+      border-radius: 6px;
+      border: none;
 
        &:hover {
            cursor: pointer;
@@ -397,6 +471,7 @@ body {
        font-size: 16px;
        font-weight: 600;
        margin-bottom: 18px;
+       color: $colorText;
        @media (max-width: 767px) {
           font-size: 20px;
          }
@@ -411,10 +486,15 @@ body {
    &__user {
        width: 30px;
        height: 30px;
+       font-size: 20px;
        border-radius: 50%; 
-       background-color: $colorWhite;
+       background-color: transparent;
        text-align: center;
-       border: 1px solid #00000065;
+       border: 1px dashed #00000098;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       color: #00000098;
    }
 
    &__confirmation {
@@ -450,6 +530,8 @@ body {
        color: $colorWhite;
        border-radius: 6px;
        border: none;
+       margin-right: 10px;
+
        @media (max-width: 767px) {
          font-size: 17px;
          }
@@ -461,6 +543,8 @@ body {
 
    &__description {
        display: none;
+       color: $colorText;
+       margin-bottom: 30px;
 
        &.modal {
            display: block;
