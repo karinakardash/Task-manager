@@ -11,19 +11,34 @@
 
 <body>
    <aside class="sidebar">
-      <div class="sidebar__logo">Task Manager</div>
-      <nav class="sidebar__items">
-         <ul>
-            <li><a href="#">
-                  <div class="sidebar__feature">
-                     <!--here will be icon-->
-                  </div>My board
-               </a>
-            </li>
-
-         </ul>
-      </nav>
-      <button class="sidebar__add" id="AddNewBoardBtn">Add new board</button>
+      <div class="sidebar__wrapper">
+         <a href="#" class="sidebar__logo">
+            <svg width="1024px" height="1024px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+               <circle cx="512" cy="512" r="512" style="fill:rgb(204, 176, 52)" />
+               <path
+                  d="M680.9 290.4H343.1c-29.1 0-52.7 23.6-52.7 52.7v337.8c0 29.1 23.6 52.7 52.7 52.7h337.8c29.1 0 52.7-23.6 52.7-52.7V343.1c0-29.1-23.6-52.7-52.7-52.7zM481.3 609.6c0 9.7-7.8 17.5-17.5 17.5h-74c-9.7 0-17.5-7.8-17.5-17.5V389.7c0-9.7 7.8-17.5 17.5-17.5h74c9.7 0 17.5 7.8 17.5 17.5v219.9zm170.5-100.9c.2 9.7-7.5 17.7-17.2 17.9h-74.4c-9.7 0-17.5-7.8-17.5-17.5V389.7c0-9.7 7.8-17.5 17.5-17.5h74c9.7 0 17.5 7.8 17.5 17.5v119z"
+                  style="fill:#fff" />
+            </svg>
+            <span class="sidebar__title">Task Manager</span>
+         </a>
+         <nav class="sidebar__items">
+            <ul>
+               <li><a href="#">
+                     <div class="sidebar__feature">
+                        <!--here will be icon-->
+                     </div>My board
+                  </a>
+               </li>
+            </ul>
+         </nav>
+         <button class="sidebar__add" id="AddNewBoardBtn">Add new board</button>
+         <div class="sidebar__switch">
+            <label class="switch">
+               <input type="checkbox" class="switch__input" id="switchBtn">
+               <span class="switch__slider"></span>
+             </label>
+            </div>
+      </div>
    </aside>
    <div class="wrapper">
       <!--wrapper нужен только, чтобы прижать футтер к низу-->
@@ -35,12 +50,8 @@
                   <input type="text" placeholder="Search tasks..." class="header__input" id="searchInput">
                </div>
                <div class="header__time">
-                  <p class="header__time-clock" id="clock">20:15:43</p>
-                  <p class="header__time-date">
-                     <span class="month">September</span>
-                     <span class="day">13</span>,
-                     <span class="year">2022</span>
-                  </p>
+                     <p class="header__time-clock" id="currentClock"></p>
+                     <p class="header__time-date" id="currentDate"></p>
                </div>
             </div>
          </div>
@@ -167,7 +178,7 @@
       </footer>
    </div>
 
-   <script src="scripts/index.js"></script>
+   <script type="module" src="scripts/index.js"></script>
 </body>
 
 </html>
