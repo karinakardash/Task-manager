@@ -35,11 +35,12 @@
                   <input type="text" placeholder="Search tasks..." class="header__input" id="searchInput">
                </div>
                <div class="header__time">
-                     <p class="header__time-clock" id="clock">20:15:43</p>
-                     <p class="header__time-date">
-                         <span class="month">September</span>
-                         <span class="day">13</span>,
-                         <span class="year">2022</span></p>
+                  <p class="header__time-clock" id="clock">20:15:43</p>
+                  <p class="header__time-date">
+                     <span class="month">September</span>
+                     <span class="day">13</span>,
+                     <span class="year">2022</span>
+                  </p>
                </div>
             </div>
          </div>
@@ -49,25 +50,35 @@
             <div class="board">
                <article class="board__box">
                   <h2 class="board__box-title">backlog</h2>
-                  <article class="card">
-                     <div class="card__header">
-                         <p class="card__priority">High</p>
-                         <button class="card__edit">EDIT</button>
-                         <button class="card__delete"><svg style="width:29px;height:29px" viewBox="0 0 24 24">
-                             <path fill="red" d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
-                         </svg></button>
+                  <div id="tasks">
+                     <!--<article class="card">
+                        <div class="card__header">
+                           <p class="card__priority">High</p>
+                           <button class="card__edit">EDIT</button>
+                           <button class="card__delete"><svg style="width:29px;height:29px" viewBox="0 0 24 24">
+                                 <path fill="red"
+                                    d="M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2C6.47,2 2,6.47 2,12C2,17.53 6.47,22 12,22C17.53,22 22,17.53 22,12C22,6.47 17.53,2 12,2M14.59,8L12,10.59L9.41,8L8,9.41L10.59,12L8,14.59L9.41,16L12,13.41L14.59,16L16,14.59L13.41,12L16,9.41L14.59,8Z" />
+                              </svg></button>
+                        </div>
+                        <h3 class="card__title" contenteditable="true">Enter task title...</h3>
+                        <p class="card__description"></p>
+                        <div class="card__footer">
+                           <div class="card__user">+</div>
+                           <div class="card__confirmation">
+                              <button class="card__cancel">Cancel</button>
+                              <button class="card__confirm">Confirm</button>
+                           </div>
+                        </div>
+                     </article>-->
+                  </div>
+                  <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
+                  <div class="form">
+                     <textarea class="form__textarea" placeholder="Enter task name.."></textarea>
+                     <div class="form__btn">
+                        <button class="form__add-btn">Add</button>
+                        <button class="form__cancel-btn">Cancel</button>
                      </div>
-                     <h3 class="card__title" contenteditable="true">Enter task title...</h3>
-                     <p class="card__description"></p>
-                     <div class="card__footer">
-                         <div class="card__user">+</div>
-                         <div class="card__confirmation">
-                             <button class="card__cancel">Cancel</button>
-                             <button class="card__confirm">Confirm</button>
-                         </div>
-                     </div>
-                 </article>
-                     <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
+                  </div>
                </article>
                <article class="board__box">
                   <h2 class="board__box-title">in progress</h2>
