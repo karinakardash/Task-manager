@@ -142,6 +142,15 @@ body {
    &__search {
       width: 60%;
       position: relative;
+      @media (max-width: 1024px) {
+         width: 40%;
+      }
+      @media (max-width: 767px) {
+         width: 30%;
+      }
+      @media (max-width: 545px) {
+         width: 40%;
+      }
 
       @media (max-width: 1024px) {
          width: 50%;
@@ -175,6 +184,7 @@ body {
       font-size: 16px;
       text-align: center;
       color: $colorText;
+      display: block;
       @media (max-width: 767px) {
          margin-right: 0;
          padding: 10px;
@@ -186,7 +196,6 @@ body {
 
       &-clock{
          font-size: 20px;
-
          @media (max-width: 378px) {
             font-size: 12px;
          }
@@ -239,8 +248,7 @@ body {
          @media (max-width: 767px) {
             font-size: 25px;
             line-height: 28px;
-         }
-      
+         } 
 
          &::before {
             content: "";
@@ -563,6 +571,11 @@ body {
        }
    }
 }
+
+.hide{
+   display: none;
+}
+
 //switcher
 
 .sidebar__switch {
