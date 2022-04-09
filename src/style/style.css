@@ -711,6 +711,10 @@ body {
   padding: 8px;
 }
 
+.hide {
+  display: none;
+}
+
 .sidebar__switch {
   position: fixed;
   left: 0;

@@ -2,7 +2,7 @@ const addTaskBtn = document.querySelector('#AddTaskBtn');
 const list_el = document.querySelector('#tasks');
 const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
-const textArea = document.querySelector('.form__textarea');
+const textArea = document.getElementsByClassName('form__textarea');
 const form = document.querySelector('.form');
 const itemDel = document.getElementsByClassName('card__delete');
 const editBtn = document.querySelector('.card__edit');
@@ -17,7 +17,7 @@ let tasks;
 if (localStorage.tasks === tasks) {
     tasks = [];
 } else {
-    tasks = JSON.parse(localStorage.getItem('todos'));
+    tasks = JSON.parse(localStorage.getItem('tasks'));
     displayTask();
 };
 
@@ -25,30 +25,6 @@ function updateLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
-
-//Модальное окно ввода названия задачи
-
-addTaskBtn.addEventListener('click', () => {
-    form.style.display = 'block';
-    addTaskBtn.style.display = 'none';
-    addBtn.style.display = 'none';
-
-    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
-    textArea.addEventListener('input', () => {
-        if (textArea.value.trim()) {
-            addBtn.style.display = 'block';
-        } else {
-            addBtn.style.display = 'none';
-        }
-    })
-});
-
-cancelBtn.addEventListener('click', () => {
-    textArea.value = '';
-    value = '';
-    form.style.display = 'none';
-    addTaskBtn.style.display = 'block';
-});
 
 // создание задачи
 
@@ -115,7 +91,6 @@ function createTask(item) {
     form.style.display = 'none';
     addTaskBtn.style.display = 'block';
     textArea.value = '';
-    value = '';
 
     return card_el;
 };
@@ -146,6 +121,28 @@ addBtn.addEventListener('click', function() {
     addNewItem();
 });
 
+//Модальное окно ввода названия задачи
+
+addTaskBtn.addEventListener('click', () => {
+    form.style.display = 'block';
+    addTaskBtn.style.display = 'none';
+    addBtn.style.display = 'none';
+
+    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
+    textArea.addEventListener('input', () => {
+        if (textArea.value.trim()) {
+            addBtn.style.display = 'block';
+        } else {
+            addBtn.style.display = 'none';
+        }
+    })
+});
+
+cancelBtn.addEventListener('click', () => {
+    textArea.value = '';
+    form.style.display = 'none';
+    addTaskBtn.style.display = 'block';
+});
 
 import { currentTime } from './time.js';
 currentTime()
@@ -153,6 +150,8 @@ currentTime()
 import { getUsers } from './users.js';
 getUsers()
 
+import { searchItems } from './search.js';
+searchItems()
 
 //свитчер
 
