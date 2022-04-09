@@ -8,7 +8,7 @@ const itemDel = document.getElementsByClassName('card__delete');
 const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
-
+const searchInput = document.querySelector('#searchInput');
 
 //локал сторидж
 
