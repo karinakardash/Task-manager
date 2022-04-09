@@ -6,12 +6,12 @@ export function searchItems() {
       if (value != '') {
          task.forEach(elem => {
             if (elem.innerText.search(value) == -1) {
-               elem.classList.add('hide');
+               elem.parentElement.classList.add('hide');
             }
          });
       } else {
          task.forEach(elem => {
-            elem.classList.remove('hide');
+            elem.parentElement.classList.remove('hide');
          });
       }
    }

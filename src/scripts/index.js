@@ -149,6 +149,9 @@ currentTime()
 import { getUsers } from './users.js';
 getUsers()
 
+import { searchItems } from './search.js';
+searchItems()
+
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
