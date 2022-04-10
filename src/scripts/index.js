@@ -9,6 +9,7 @@ const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
+const tasksList = document.querySelector('.board__tasks-list')
 
 //локал сторидж
 
@@ -95,25 +96,25 @@ function displayTask() {
     list_el.innerHTML = '';
 
     tasks.forEach((item) => {
-        list_el.appendChild( createTask(item) );
+        list_el.appendChild(createTask(item));
     });
 };
 
 function addNewItem() {
-        tasks.push( {
-            id: Date.now(),
-            board: boardName.innerHTML,
-            title: textArea.value,
-            comment: "",
-            priority: 'low',
-            status: "backlog",
-            user: "",
-        });
-        displayTask();
-        updateLocalStorage();
-        textArea.value = ''
-        form.style.display = 'none';
-        addTaskBtn.style.display = 'block';
+    tasks.push({
+        id: Date.now(),
+        board: boardName.innerHTML,
+        title: textArea.value,
+        comment: "",
+        priority: 'low',
+        status: "backlog",
+        user: "",
+    });
+    displayTask();
+    updateLocalStorage();
+    textArea.value = ''
+    form.style.display = 'none';
+    addTaskBtn.style.display = 'block';
 };
 
 addBtn.addEventListener('click', function() {
@@ -155,7 +156,47 @@ searchItems()
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
-switchBtn.addEventListener ("click", function() {
-   document.body.classList.toggle("light")
+switchBtn.addEventListener("click", function() {
+    document.body.classList.toggle("light")
 });
 
+
+tasksList.addEventListener('dragstart', (e) => {
+    e.target.classList.add('selected');
+});
+
+tasksList.addEventListener('dragend', (e) => {
+    e.target.classList.remove('selected');
+    window.setTimeout(() => {
+        e.target.classList.add('isMoved');
+        window.setTimeout(() => {
+            e.target.classList.remove('isMoved');
+        }, 600);
+    }, 100);
+});
+
+const getNextElement = (cursorPosition, currentElement) => {
+    const currElemCoord = currentElement.getBoundingClientRect();
+    const currElemCoordCenter = currElemCoord.y + currElemCoord.height / 2;
+    const nextElement = (cursorPosition < currElemCoordCenter) ? currentElement : currentElement.nextElementSibling;
+    return nextElement;
+}
+
+tasksList.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    const activeElement = tasksList.querySelector('.selected');
+    const currentElement = e.target;
+    const isMoveable = activeElement !== currentElement &&
+        currentElement.classList.contains('card');
+    if (!isMoveable) return;
+    const nextElement = getNextElement(e.clientY, currentElement);
+
+    if (
+        nextElement &&
+        activeElement === nextElement.previousElementSibling ||
+        activeElement === nextElement
+    ) {
+        return;
+    }
+    tasksList.insertBefore(activeElement, nextElement);
+});
