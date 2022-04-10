@@ -9,7 +9,8 @@ const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
-const tasksList = document.querySelector('.board__tasks-list')
+const tasksList = document.querySelector('.board');
+
 
 //локал сторидж
 
@@ -147,8 +148,8 @@ cancelBtn.addEventListener('click', () => {
 import { currentTime } from './time.js';
 currentTime()
 
-import { getUsers } from './users.js';
-getUsers()
+/*import { getUsers } from './users.js';
+getUsers()*/
 
 import { searchItems } from './search.js';
 searchItems()
@@ -161,42 +162,127 @@ switchBtn.addEventListener("click", function() {
 });
 
 
-tasksList.addEventListener('dragstart', (e) => {
+// drag'n'drop
+
+let draggedElement;
+document.addEventListener('dragstart', (e) => {
     e.target.classList.add('selected');
+    draggedElement = e.target;
 });
 
-tasksList.addEventListener('dragend', (e) => {
-    e.target.classList.remove('selected');
+document.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+document.addEventListener('drop', (e) => {
+    e.preventDefault();
+
+    const activeElement = document.querySelector('.selected');
+    const currentElement = e.target;
+    const currentCard = currentElement.closest('.card');
+    const activeTaskList = activeElement.closest('.board__tasks-list');
+    const currentTaskList = currentElement.closest('.board__tasks-list');
+
+    if (currentTaskList === null) return;
+
+    const isHoverAnotherCard = activeElement !== currentCard &&
+        currentElement.classList.contains('card');
+
+    if (isHoverAnotherCard) {
+
+        // if (
+        //     current &&
+        //     activeElement === nextElement.previousElementSibling ||
+        //     activeElement === nextElement
+        // ) {
+        //     return;
+        // }
+        if (isCardHigher(e.clientY, currentElement)) {
+            currentTaskList.insertBefore(activeElement, currentElement);
+        } else {
+            currentTaskList.insertBefore(currentElement, activeElement);
+        }
+
+    } else {
+        activeTaskList.removeChild(activeElement);
+        currentTaskList.appendChild(activeElement);
+    }
+
+    draggedElement.classList.remove('selected');
     window.setTimeout(() => {
-        e.target.classList.add('isMoved');
+        draggedElement.classList.add('isMoved');
         window.setTimeout(() => {
-            e.target.classList.remove('isMoved');
+            draggedElement.classList.remove('isMoved');
         }, 600);
     }, 100);
+
+    /*const title = e.target.closest('.board__box').querySelector('.board__box-title');
+    console.log(title.textContent);*/
+    //TODO: update status in local storage 
 });
 
-const getNextElement = (cursorPosition, currentElement) => {
-    const currElemCoord = currentElement.getBoundingClientRect();
-    const currElemCoordCenter = currElemCoord.y + currElemCoord.height / 2;
-    const nextElement = (cursorPosition < currElemCoordCenter) ? currentElement : currentElement.nextElementSibling;
-    return nextElement;
+const isCardHigher = (cursorPosition, currentElement) => {
+    const { height, y } = currentElement.getBoundingClientRect();
+    const currentElementCenter = y + height / 2;
+    //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
+    return (cursorPosition < currentElementCenter);
 }
 
-tasksList.addEventListener('dragover', (e) => {
-    e.preventDefault();
-    const activeElement = tasksList.querySelector('.selected');
-    const currentElement = e.target;
-    const isMoveable = activeElement !== currentElement &&
-        currentElement.classList.contains('card');
-    if (!isMoveable) return;
-    const nextElement = getNextElement(e.clientY, currentElement);
 
-    if (
-        nextElement &&
-        activeElement === nextElement.previousElementSibling ||
-        activeElement === nextElement
-    ) {
-        return;
-    }
-    tasksList.insertBefore(activeElement, nextElement);
-});
+
+//     tasksList.addEventListener('dragover', (e) => {
+//     e.preventDefault();
+
+//     const activeElement = tasksList.querySelector('.selected');
+//     const currentElement = e.target;
+
+//     const activeTaskList = activeElement.closest('.board__tasks-list');
+//     const currentTaskList = currentElement.closest('.board__tasks-list');
+
+//     if (currentTaskList === null) return;
+
+//     const isHoverAnotherCard = activeElement !== currentElement &&
+//         currentElement.classList.contains('card');
+
+//     if (isHoverAnotherCard) {
+
+//         // if (
+//         //     current &&
+//         //     activeElement === nextElement.previousElementSibling ||
+//         //     activeElement === nextElement
+//         // ) {
+//         //     return;
+//         // }
+//         if (isCardHigher(e.clientY, currentElement)) {
+//             currentTaskList.insertBefore(activeElement, currentElement);
+//         } else {
+//             currentTaskList.insertBefore(currentElement, activeElement);
+//         }
+
+//     } else {
+//         activeTaskList.removeChild(activeElement);
+//         currentTaskList.appendChild(activeElement);
+//     }
+
+
+
+//     /*const isMoveable = activeElement !== currentElement &&
+//         currentElement.classList.contains('card');
+//     //const isParent = activeElement.hasParent(currentElement);
+//     const closestTaskList = activeElement.closest('.board__tasks-list');
+//     const closestCurrElem = currentElement.closest('.board__tasks-list');
+//     console.log(closestTaskList);
+
+//     if (!isMoveable) return;
+//     const nextElement = getNextElement(e.clientY, currentElement);
+
+//     if (
+//         nextElement &&
+//         activeElement === nextElement.previousElementSibling ||
+//         activeElement === nextElement
+//     ) {
+//         return;
+//     }
+
+//     tasksList.insertBefore(activeElement, nextElement);*/
+// });

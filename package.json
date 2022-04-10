@@ -1,5 +1,5 @@
 {
-    "name": "task-meneger",
+    "name": "task-manager",
     "version": "1.0.0",
     "description": "The application that helps manage tasks",
     "scripts": {
@@ -17,11 +17,20 @@
     },
     "homepage": "https://github.com/karinakardash/Task-meneger#readme",
     "devDependencies": {
-        "@parcel/source-map": "^2.0.2",
+        "@babel/preset-env": "^7.16.11",
         "@parcel/transformer-sass": "^2.4.1",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^8.2.4",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-polyfill": "^6.26.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-stage-0": "^6.24.1",
         "cssnano": "^4.1.11",
         "parcel": "^2.4.1",
-        "parcel-bundler": "^1.12.5",
+        "parcel-bundler": "^1.3.1",
         "sass": "^1.49.10"
+    },
+    "dependencies": {
+        "@babel/runtime": "^7.17.9"
     }
 }
