@@ -228,3 +228,23 @@ function drawPriority(element) {
 };
 
 list_el.addEventListener('change', drawPriority);
+
+//modal windows 1
+
+window.addEventListener('load', function () {
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
+});
+
+//modal windows 2
+
+document.addEventListener('DOMContentLoaded', function () {
+
+   const btn = document.querySelector('#DeleteAllTasks');
+   const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
+   btn.addEventListener('click', function () {
+      modal.show();
+   });
+
+});
