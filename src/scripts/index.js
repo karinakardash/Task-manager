@@ -106,6 +106,18 @@ function createTask(obj) {
     revokeBtn.innerHTML = "Cancel";
     cardConfirm.appendChild(revokeBtn);
 
+    if (obj.priority === "Low") {
+        card_priority.value = "Low";
+        card_priority.style.background = "b90000"
+    } else if (obj.priority === "Medium"){
+        card_priority.value = "Medium";
+        card_priority.style.background = "#ccb034";
+        card_priority.style.color = "#000000"
+    } else if (obj.priority === "High"){
+        card_priority.value = "High";
+        card_priority.style.background = "#026b02";
+    }
+
     return card_el;
 };
 
@@ -191,3 +203,28 @@ function deleteTask(element) {
 };
 
 list_el.addEventListener('click', deleteTask);
+
+//select priority
+
+function drawPriority(element) {
+    if ( element.target.classList.contains("card__priority") ) {
+        let taskItem = element.target.parentElement.parentElement;
+        let taskId = +taskItem.getAttribute("id");
+        if (element.target.value === "Medium") {
+            element.target.style.background = "#ccb034" 
+        } else if (element.target.value === "High") {
+            element.target.style.background = "#026b02"
+        } else {
+            element.target.style.background = "#b90000" 
+        }
+
+        tasks.forEach((item) => {
+            if (taskId === item.id) {
+                item.priority = element.target.value;
+            }
+        });
+        updateLocalStorage();
+    }
+};
+
+list_el.addEventListener('change', drawPriority);

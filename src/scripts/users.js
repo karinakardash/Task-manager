@@ -11,9 +11,9 @@ export async function getUsers() {
         option.textContent = users[i].name;
         select.appendChild(option);
     }
-    let listOfUsers = document.querySelectorAll('.card__user');
+    let listOfUsers = document.getElementsByClassName('card__user');
 
-    listOfUsers.forEach(function (el, index) {
-        el.appendChild(select);
-      });
+    for (let j = 0 ; j < listOfUsers.length; j++) {
+        listOfUsers[j].appendChild(select)
+    }
 }
