@@ -16,6 +16,7 @@ currentTime()
 import { getUsers } from './users.js';
 getUsers()
 
+import * as bootstrap from 'bootstrap';
 
 //локал сторидж
 
@@ -231,13 +232,22 @@ list_el.addEventListener('change', drawPriority);
 
 //modal windows 1
 
-window.addEventListener('load', function () {
+function getModal() {
    const elemModal = document.querySelector('#modal');
    const modal = new bootstrap.Modal(elemModal);
    modal.show();
+}
+
+let status = "backlog"
+
+tasks.forEach((item) => {
+   if (item.status === status) {
+      getModal()
+   }
 });
 
-//modal windows 2
+
+//btn delete all tasks + modal windows 2
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -246,5 +256,16 @@ document.addEventListener('DOMContentLoaded', function () {
    btn.addEventListener('click', function () {
       modal.show();
    });
-
 });
+
+const btnDeleteAllTasks = document.querySelector('.btn-primary');
+
+const deleteAll = () => {
+   tasks = [];
+   list_el.innerHTML = '';
+   updateLocalStorage();
+};
+
+btnDeleteAllTasks.addEventListener('click', deleteAll);
+
+
