@@ -17,10 +17,10 @@ const done = document.getElementsByClassName('done__tasks');
 import { currentTime } from './time.js';
 currentTime()
 
-import { getUsers } from './users.js';
-getUsers()
+/*import { getUsers } from './users.js';
+getUsers()*/
 
-//import * as bootstrap from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 
 //локал сторидж
 
@@ -145,8 +145,9 @@ function addNewItem() {
    });
    displayTask();
    updateLocalStorage();
-   getUsers();
-   updateCounter()
+   //getUsers();
+   updateCounter();
+   displayModal();
    textArea.value = ''
    form.style.display = 'none';
    addTaskBtn.style.display = 'block';
@@ -204,6 +205,7 @@ function deleteTask(element) {
          }
       });
       updateLocalStorage();
+      updateCounter();
    }
 };
 
@@ -234,7 +236,7 @@ function drawPriority(element) {
 
 list_el.addEventListener('change', drawPriority);
 
-/*modal windows 1
+//modal windows 1
 
 function getModal() {
    const elemModal = document.querySelector('#modal');
@@ -242,14 +244,24 @@ function getModal() {
    modal.show();
 }
 
-let status = "backlog"
+/*let status = "backlog"
 
 tasks.forEach((item) => {
    if (item.status === status) {
       getModal()
    }
-});
+});*/
+function displayModal() {
+let numberOfCards = tasks.filter(function(e){
+    if (e.status === "backlog"){
+        return e
+    }
+})
 
+if (numberOfCards.length > 3){
+    getModal();
+}
+}
 
 //btn delete all tasks + modal windows 2
 
@@ -268,9 +280,13 @@ const deleteAll = () => {
    tasks = [];
    list_el.innerHTML = '';
    updateLocalStorage();
+   updateCounter()
 };
 
-btnDeleteAllTasks.addEventListener('click', deleteAll);*/
+btnDeleteAllTasks.addEventListener('click', deleteAll);
+
+//counter
+
 const backlogCount = document.querySelector('.backlog-count');
 const inprogressCount = document.querySelector('.inprogress-count');
 const reviewCount = document.querySelector('.review-count');

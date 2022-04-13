@@ -126,7 +126,6 @@ body {
    &__title{
       font-size: 27px;
       line-height: 30px;
-      margin-left: 20px;
       color: $colorText;
       @media (max-width: 1024px) {
          font-size: 22px;
@@ -135,7 +134,6 @@ body {
       @media (max-width: 767px) {
          font-size: 20px;
          line-height: 23px;
-         margin-left: 0;
          text-align: center;
          padding: 0 10px;
       }
@@ -181,7 +179,6 @@ body {
 
    &__time {
       padding: 15px;
-      margin-right: 20px;
       font-size: 16px;
       text-align: center;
       color: $colorText;
@@ -331,7 +328,7 @@ body {
       &:last-child{
          margin-right: 0;
       }
-      
+
       @media (max-width: 767px) {
          padding: 0 5px;
       }

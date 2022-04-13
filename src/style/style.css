@@ -137,7 +137,6 @@ body {
 .header__title {
   font-size: 27px;
   line-height: 30px;
-  margin-left: 20px;
   color: white;
 }
 
@@ -152,7 +151,6 @@ body {
   .header__title {
     font-size: 20px;
     line-height: 23px;
-    margin-left: 0;
     text-align: center;
     padding: 0 10px;
   }
@@ -211,7 +209,6 @@ body {
 
 .header__time {
   padding: 15px;
-  margin-right: 20px;
   font-size: 16px;
   text-align: center;
   color: white;
