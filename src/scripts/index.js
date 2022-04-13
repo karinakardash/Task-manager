@@ -112,7 +112,6 @@ function createTask(obj) {
     } else if (obj.priority === "Medium"){
         card_priority.value = "Medium";
         card_priority.style.background = "#ccb034";
-        card_priority.style.color = "#000000"
     } else if (obj.priority === "High"){
         card_priority.value = "High";
         card_priority.style.background = "#026b02";
