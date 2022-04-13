@@ -9,6 +9,10 @@ const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
+const backlog = document.getElementsByClassName('backlog__tasks');
+const inprogress = document.getElementsByClassName('progress__tasks');
+const review = document.getElementsByClassName('review__tasks');
+const doneCount = document.querySelector('done__tasks');
 
 import { currentTime } from './time.js';
 currentTime()
@@ -16,7 +20,7 @@ currentTime()
 import { getUsers } from './users.js';
 getUsers()
 
-import * as bootstrap from 'bootstrap';
+//import * as bootstrap from 'bootstrap';
 
 //локал сторидж
 
@@ -142,6 +146,7 @@ function addNewItem() {
    displayTask();
    updateLocalStorage();
    getUsers();
+   updateCounter()
    textArea.value = ''
    form.style.display = 'none';
    addTaskBtn.style.display = 'block';
@@ -229,7 +234,7 @@ function drawPriority(element) {
 
 list_el.addEventListener('change', drawPriority);
 
-//modal windows 1
+/*modal windows 1
 
 function getModal() {
    const elemModal = document.querySelector('#modal');
@@ -265,6 +270,16 @@ const deleteAll = () => {
    updateLocalStorage();
 };
 
-btnDeleteAllTasks.addEventListener('click', deleteAll);
+btnDeleteAllTasks.addEventListener('click', deleteAll);*/
 
-
+function updateCounter() {
+    const backlogCount = document.querySelector('.backlog-count');
+    const inprogressCount = document.querySelector('.inprogress-count');
+    const reviewCount = document.querySelector('.review-count');
+    const doneCount = document.querySelector('.done-count');
+    
+    backlogCount.innerHTML = tasks.length;
+    inprogressCount.innerHTML = progress.length;
+    reviewCount.innerHTML = review.length;
+    doneCount.innerHTML = done.length;
+}

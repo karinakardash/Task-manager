@@ -58,8 +58,11 @@
          <div class="container">
             <div class="board">
                <article class="board__box">
-                  <h2 class="board__box-title">backlog</h2>
-                  <div id="tasks">
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">backlog</h2>
+                     <p class="board__box-counter backlog-count" id="counter__backlog">0</p>
+                  </div>
+                  <div id="tasks" class="backlog__tasks">
                      <!--<article class="card">
                         <div class="card__header">
                            <p class="card__priority">High</p>
@@ -90,7 +93,11 @@
                   </div>
                </article>
                <article class="board__box">
-                  <h2 class="board__box-title">in progress</h2>
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">in progress</h2>
+                     <p class="board__box-counter inprogress-count" id="counter__inprogress">0</p>
+                  </div>
+                  <div class="progress__tasks"></div>
                   <!--модальное окно 1-->
                   <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
                      aria-hidden="true">
@@ -114,10 +121,18 @@
                   </div>
                </article>
                <article class="board__box">
-                  <h2 class="board__box-title">review</h2>
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">review</h2>
+                     <p class="board__box-counter review-count" id="counter__review">0</p>
+                  </div>
+                  <div class="review__tasks"></div>
                </article>
                <article class="board__box">
-                  <h2 class="board__box-title">done</h2>
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">done</h2>
+                     <p class="board__box-counter done-count" id="counter__done">0</p>
+                  </div>
+                  <div class="done__tasks"></div>
                   <!--модальное окно 2-->
                   <div class="container py-3 text-center">
                      <button type="button" class="board__box-btn" id="DeleteAllTasks">
