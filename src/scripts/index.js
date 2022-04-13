@@ -1,3 +1,7 @@
+import { currentTime } from './time.js';
+import { searchItems } from './search.js';
+import { getUsers } from './users.js';
+
 const addTaskBtn = document.querySelector('#AddTaskBtn');
 const list_el = document.querySelector('#tasks');
 const addBtn = document.querySelector('.form__add-btn');
@@ -14,19 +18,27 @@ const tasksList = document.querySelector('.board');
 
 //локал сторидж
 
-let tasks;
+const BACKLOG_COL = "backlog_list"
+const IN_PROGRESS_COL = "in_progress_list"
+const REVIEW_COL = "review_list"
+const DONE_COL = "done_list"
+const COLUMN_IDS = [
+    BACKLOG_COL, IN_PROGRESS_COL, REVIEW_COL, DONE_COL
+]
 
-if (localStorage.tasks === tasks) {
-    tasks = [];
-} else {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-    displayTask();
-};
+const tasks = localStorage.getItem('tasks') ?
+    JSON.parse(localStorage.getItem('tasks')) : {
+        [BACKLOG_COL]: [],
+        [IN_PROGRESS_COL]: [],
+        [REVIEW_COL]: [],
+        [DONE_COL]: []
+    };
 
 function updateLocalStorage() {
     localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
+displayTasks();
 
 // создание задачи
 
@@ -91,19 +103,22 @@ function createTask(obj) {
     cardConfirm.appendChild(revokeBtn);
 
     return card_el;
-};
+}
 
-function displayTask() {
-    list_el.innerHTML = '';
-
-    tasks.forEach((item) => {
-        list_el.appendChild(createTask(item));
-    });
-};
+function displayTasks() {
+    COLUMN_IDS.forEach(id => {
+        const columnEl = document.getElementById(id)
+        columnEl.innerHTML = ''
+        const columnTasks = tasks[id]
+        columnTasks.forEach((item) => {
+            columnEl.appendChild(createTask(item));
+        });
+    })
+}
 
 function addNewItem() {
-    tasks.push({
-        id: Date.now(),
+    tasks[BACKLOG_COL].push({
+        id: Date.now().toString(),
         board: boardName.innerHTML,
         title: textArea.value,
         comment: "",
@@ -111,12 +126,12 @@ function addNewItem() {
         status: "backlog",
         user: "",
     });
-    displayTask();
+    displayTasks();
     updateLocalStorage();
     textArea.value = ''
     form.style.display = 'none';
     addTaskBtn.style.display = 'block';
-};
+}
 
 addBtn.addEventListener('click', function() {
     addNewItem();
@@ -145,14 +160,10 @@ cancelBtn.addEventListener('click', () => {
     addTaskBtn.style.display = 'block';
 });
 
-import { currentTime } from './time.js';
-currentTime()
 
-/*import { getUsers } from './users.js';
-getUsers()*/
-
-import { searchItems } from './search.js';
-searchItems()
+currentTime();
+getUsers();
+searchItems();
 
 //свитчер
 
@@ -174,6 +185,19 @@ document.addEventListener('dragover', (e) => {
     e.preventDefault();
 });
 
+// функция для помещения тасок в новом положении в local storage
+function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
+    const movedTask = tasks[sourceColumnId].find(obj => obj.id === movedTaskId)
+    tasks[sourceColumnId] = tasks[sourceColumnId].filter(obj => obj.id !== movedTask.id)
+    movedTask.status = targetColumnId
+    const columnCardElements = document.getElementById(targetColumnId).querySelectorAll('.card');
+    const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
+    tasks[targetColumnId].splice(taskIdx, 0, movedTask)
+    updateLocalStorage()
+}
+
+// само перетаскивание либо между задачами, либо между колонками
+
 document.addEventListener('drop', (e) => {
     e.preventDefault();
 
@@ -189,20 +213,11 @@ document.addEventListener('drop', (e) => {
         currentElement.classList.contains('card');
 
     if (isHoverAnotherCard) {
-
-        // if (
-        //     current &&
-        //     activeElement === nextElement.previousElementSibling ||
-        //     activeElement === nextElement
-        // ) {
-        //     return;
-        // }
-        if (isCardHigher(e.clientY, currentElement)) {
-            currentTaskList.insertBefore(activeElement, currentElement);
+        if (isCardHigher(e.clientY, currentCard)) {
+            currentTaskList.insertBefore(activeElement, currentCard);
         } else {
-            currentTaskList.insertBefore(currentElement, activeElement);
+            currentTaskList.insertBefore(currentCard, activeElement);
         }
-
     } else {
         activeTaskList.removeChild(activeElement);
         currentTaskList.appendChild(activeElement);
@@ -211,78 +226,20 @@ document.addEventListener('drop', (e) => {
     draggedElement.classList.remove('selected');
     window.setTimeout(() => {
         draggedElement.classList.add('isMoved');
-        window.setTimeout(() => {
-            draggedElement.classList.remove('isMoved');
-        }, 600);
     }, 100);
+    window.setTimeout(() => {
+        draggedElement.classList.remove('isMoved');
+    }, 500);
 
-    /*const title = e.target.closest('.board__box').querySelector('.board__box-title');
-    console.log(title.textContent);*/
-    //TODO: update status in local storage 
+    // добавление изменения положения элементов в local storage
+
+    moveTaskToNewColumn(activeTaskList.id, currentTaskList.id, activeElement.id);
+
 });
 
-const isCardHigher = (cursorPosition, currentElement) => {
-    const { height, y } = currentElement.getBoundingClientRect();
+const isCardHigher = (cursorPosition, currentCard) => {
+    const { height, y } = currentCard.getBoundingClientRect();
     const currentElementCenter = y + height / 2;
     //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
     return (cursorPosition < currentElementCenter);
 }
-
-
-
-//     tasksList.addEventListener('dragover', (e) => {
-//     e.preventDefault();
-
-//     const activeElement = tasksList.querySelector('.selected');
-//     const currentElement = e.target;
-
-//     const activeTaskList = activeElement.closest('.board__tasks-list');
-//     const currentTaskList = currentElement.closest('.board__tasks-list');
-
-//     if (currentTaskList === null) return;
-
-//     const isHoverAnotherCard = activeElement !== currentElement &&
-//         currentElement.classList.contains('card');
-
-//     if (isHoverAnotherCard) {
-
-//         // if (
-//         //     current &&
-//         //     activeElement === nextElement.previousElementSibling ||
-//         //     activeElement === nextElement
-//         // ) {
-//         //     return;
-//         // }
-//         if (isCardHigher(e.clientY, currentElement)) {
-//             currentTaskList.insertBefore(activeElement, currentElement);
-//         } else {
-//             currentTaskList.insertBefore(currentElement, activeElement);
-//         }
-
-//     } else {
-//         activeTaskList.removeChild(activeElement);
-//         currentTaskList.appendChild(activeElement);
-//     }
-
-
-
-//     /*const isMoveable = activeElement !== currentElement &&
-//         currentElement.classList.contains('card');
-//     //const isParent = activeElement.hasParent(currentElement);
-//     const closestTaskList = activeElement.closest('.board__tasks-list');
-//     const closestCurrElem = currentElement.closest('.board__tasks-list');
-//     console.log(closestTaskList);
-
-//     if (!isMoveable) return;
-//     const nextElement = getNextElement(e.clientY, currentElement);
-
-//     if (
-//         nextElement &&
-//         activeElement === nextElement.previousElementSibling ||
-//         activeElement === nextElement
-//     ) {
-//         return;
-//     }
-
-//     tasksList.insertBefore(activeElement, nextElement);*/
-// });
