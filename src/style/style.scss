@@ -229,14 +229,33 @@ body {
       border-radius: 10px;
       padding: 13px;
 
-      &-title {
+      &-item {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         position: relative;
+
+         &::before {
+            content: "";
+            display: block;
+            width: 100%;
+            height: 2px;
+            position: absolute;
+            top: 30px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            background-color: $colorWhite
+         }
+      }
+      
+      &-counter {
          text-transform: capitalize;
          font-size: 22px;
          line-height: 26px;
          text-align: center;
          color: $colorText;
          margin-bottom: 20px;
-         position: relative;
+         
          @media (max-width: 1024px) {
             font-size: 20px;
             line-height: 22px;
@@ -248,19 +267,29 @@ body {
          @media (max-width: 767px) {
             font-size: 25px;
             line-height: 28px;
-         } 
+         }         
+      }
 
-         &::before {
-            content: "";
-            display: block;
-            width: 80%;
-            height: 2px;
-            position: absolute;
-            top: 30px;
-            left: 50%;
-            transform: translate(-50%, 0);
-            background-color: $colorWhite
+      &-title {
+         text-transform: capitalize;
+         font-size: 22px;
+         line-height: 26px;
+         text-align: center;
+         color: $colorText;
+         margin-bottom: 20px;
+
+         @media (max-width: 1024px) {
+            font-size: 20px;
+            line-height: 22px;
          }
+         @media (max-width: 845px) {
+            font-size: 16px;
+            line-height: 19px;
+         }
+         @media (max-width: 767px) {
+            font-size: 25px;
+            line-height: 28px;
+         }         
       }
       &-btn {
          width: 100%;
@@ -677,7 +706,6 @@ body.light {
    .board {
       &__box {
          background-color: $colorBackgroundBoardsLightTheme;
-
          &-title {
             color: $colorTextLightTheme;
             &::before {
