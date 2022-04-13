@@ -191,3 +191,6 @@ function deleteTask(element) {
 };
 
 list_el.addEventListener('click', deleteTask);
+
+import { updateCounter } from './counter.js';
+updateCounter()
