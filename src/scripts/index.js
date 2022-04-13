@@ -16,20 +16,21 @@ currentTime()
 import { getUsers } from './users.js';
 getUsers()
 
+import * as bootstrap from 'bootstrap';
 
 //локал сторидж
 
 let tasks;
 
 if (localStorage.tasks === tasks) {
-    tasks = [];
+   tasks = [];
 } else {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-    displayTask();
+   tasks = JSON.parse(localStorage.getItem('tasks'));
+   displayTask();
 };
 
 function updateLocalStorage() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
 
@@ -121,56 +122,56 @@ function createTask(obj) {
 };
 
 function displayTask() {
-    list_el.innerHTML = '';
+   list_el.innerHTML = '';
 
-    tasks.forEach((item) => {
-        list_el.appendChild( createTask(item) );
-    });
+   tasks.forEach((item) => {
+      list_el.appendChild(createTask(item));
+   });
 };
 
 function addNewItem() {
-        tasks.push( {
-            id: Date.now(),
-            board: boardName.innerHTML,
-            title: textArea.value,
-            comment: "",
-            priority: 'low',
-            status: "backlog",
-            user: "",
-        });
-        displayTask();
-        updateLocalStorage();
-        getUsers();
-        textArea.value = ''
-        form.style.display = 'none';
-        addTaskBtn.style.display = 'block';
+   tasks.push({
+      id: Date.now(),
+      board: boardName.innerHTML,
+      title: textArea.value,
+      comment: "",
+      priority: 'low',
+      status: "backlog",
+      user: "",
+   });
+   displayTask();
+   updateLocalStorage();
+   getUsers();
+   textArea.value = ''
+   form.style.display = 'none';
+   addTaskBtn.style.display = 'block';
 };
 
-addBtn.addEventListener('click', function() {
-    addNewItem();
+addBtn.addEventListener('click', function () {
+   addNewItem();
 });
 
 //Модальное окно ввода названия задачи
 
 addTaskBtn.addEventListener('click', () => {
-    form.style.display = 'block';
-    addTaskBtn.style.display = 'none';
-    addBtn.style.display = 'none';
+   form.style.display = 'block';
+   addTaskBtn.style.display = 'none';
+   addBtn.style.display = 'none';
 
-    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
-    textArea.addEventListener('input', () => {
-        if (textArea.value.trim()) {
-            addBtn.style.display = 'block';
-        } else {
-            addBtn.style.display = 'none';
-        }
-    })
+   //Проверяем, если инпут пустой, тогда кнопку добавления прячем
+   textArea.addEventListener('input', () => {
+      if (textArea.value.trim()) {
+         addBtn.style.display = 'block';
+      } else {
+         addBtn.style.display = 'none';
+      }
+   })
 });
 
 cancelBtn.addEventListener('click', () => {
-    textArea.value = '';
-    form.style.display = 'none';
-    addTaskBtn.style.display = 'block';
+   textArea.value = '';
+   form.style.display = 'none';
+   addTaskBtn.style.display = 'block';
 });
 
 
@@ -180,25 +181,25 @@ searchItems()
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
-switchBtn.addEventListener ("click", function() {
+switchBtn.addEventListener("click", function () {
    document.body.classList.toggle("light")
 });
 
 //удаление задачи
 
 function deleteTask(element) {
-    if ( element.target.classList.contains("card__delete") ) {
-        let taskItem = element.target.parentElement.parentElement;
-        let taskId = +taskItem.getAttribute("id");
-        taskItem.remove();
+   if (element.target.classList.contains("card__delete")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = +taskItem.getAttribute("id");
+      taskItem.remove();
 
-        tasks.forEach((item, index) => {
-            if (taskId === item.id) {
-                tasks.splice(index, 1);
-            }
-        });
-        updateLocalStorage();
-    }
+      tasks.forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks.splice(index, 1);
+         }
+      });
+      updateLocalStorage();
+   }
 };
 
 list_el.addEventListener('click', deleteTask);
@@ -206,24 +207,64 @@ list_el.addEventListener('click', deleteTask);
 //select priority
 
 function drawPriority(element) {
-    if ( element.target.classList.contains("card__priority") ) {
-        let taskItem = element.target.parentElement.parentElement;
-        let taskId = +taskItem.getAttribute("id");
-        if (element.target.value === "Medium") {
-            element.target.style.background = "#ccb034" 
-        } else if (element.target.value === "High") {
-            element.target.style.background = "#026b02"
-        } else {
-            element.target.style.background = "#b90000" 
-        }
+   if (element.target.classList.contains("card__priority")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = +taskItem.getAttribute("id");
+      if (element.target.value === "Medium") {
+         element.target.style.background = "#ccb034"
+      } else if (element.target.value === "High") {
+         element.target.style.background = "#026b02"
+      } else {
+         element.target.style.background = "#b90000"
+      }
 
-        tasks.forEach((item) => {
-            if (taskId === item.id) {
-                item.priority = element.target.value;
-            }
-        });
-        updateLocalStorage();
-    }
+      tasks.forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      updateLocalStorage();
+   }
 };
 
 list_el.addEventListener('change', drawPriority);
+
+//modal windows 1
+
+function getModal() {
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
+}
+
+let status = "backlog"
+
+tasks.forEach((item) => {
+   if (item.status === status) {
+      getModal()
+   }
+});
+
+
+//btn delete all tasks + modal windows 2
+
+document.addEventListener('DOMContentLoaded', function () {
+
+   const btn = document.querySelector('#DeleteAllTasks');
+   const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
+   btn.addEventListener('click', function () {
+      modal.show();
+   });
+});
+
+const btnDeleteAllTasks = document.querySelector('.btn-primary');
+
+const deleteAll = () => {
+   tasks = [];
+   list_el.innerHTML = '';
+   updateLocalStorage();
+};
+
+btnDeleteAllTasks.addEventListener('click', deleteAll);
+
+
