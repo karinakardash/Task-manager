@@ -37,89 +37,88 @@ updateLocalStorage();
 // создание задачи
 
 function createTask(obj) {
-   const card_el = document.createElement("article");
-   card_el.classList.add("card");
-   card_el.setAttribute('id', obj.id);
-   card_el.draggable = true;
+    const card_el = document.createElement("article");
+    card_el.classList.add("card");
+    card_el.setAttribute('id', obj.id);
+    card_el.draggable = true;
 
-   const task_content_el = document.createElement("div");
-   task_content_el.classList.add("card__header");
-   card_el.appendChild(task_content_el);
+    const task_content_el = document.createElement("div");
+    task_content_el.classList.add("card__header");
+    card_el.appendChild(task_content_el);
 
-   const card_priority = document.createElement("select");
-   card_priority.classList.add("card__priority");
-   const optionLow = document.createElement("option");
-   optionLow.innerText = 'Low';
-   optionLow.classList.add("card__option-low");
-   card_priority.appendChild(optionLow);
-   const optionMedium = document.createElement("option");
-   optionMedium.classList.add("card__option-medium");
-   optionMedium.innerText = 'Medium';
-   card_priority.appendChild(optionMedium);
-   const optionHigh = document.createElement("option");
-   optionHigh.innerText = 'High';
-   optionHigh.classList.add("card__option-high");
-   card_priority.appendChild(optionHigh);
-   task_content_el.appendChild(card_priority);
+    const card_priority = document.createElement("select");
+    card_priority.classList.add("card__priority");
+    const optionLow = document.createElement("option");
+    optionLow.innerText = 'Low';
+    optionLow.classList.add("card__option-low");
+    card_priority.appendChild(optionLow);
+    const optionMedium = document.createElement("option");
+    optionMedium.classList.add("card__option-medium");
+    optionMedium.innerText = 'Medium';
+    card_priority.appendChild(optionMedium);
+    const optionHigh = document.createElement("option");
+    optionHigh.innerText = 'High';
+    optionHigh.classList.add("card__option-high");
+    card_priority.appendChild(optionHigh);
+    task_content_el.appendChild(card_priority);
 
-   const editBtn = document.createElement("button");
-   editBtn.classList.add("card__edit");
-   editBtn.innerHTML = "Edit";
-   task_content_el.appendChild(editBtn);
+    const editBtn = document.createElement("button");
+    editBtn.classList.add("card__edit");
+    editBtn.innerHTML = "Edit";
+    task_content_el.appendChild(editBtn);
 
-   const deleteBtn = document.createElement("button");
-   deleteBtn.classList.add("card__delete");
-   deleteBtn.innerHTML = "Delete";
-   task_content_el.appendChild(deleteBtn);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.classList.add("card__delete");
+    deleteBtn.innerHTML = "Delete";
+    task_content_el.appendChild(deleteBtn);
 
-   const cardTitle = document.createElement("h3");
-   cardTitle.classList.add("card__title");
-   cardTitle.textContent = obj.title;
-   //cardTitle.contentEditable = true;
-   card_el.appendChild(cardTitle);
+    const cardTitle = document.createElement("h3");
+    cardTitle.classList.add("card__title");
+    cardTitle.textContent = obj.title;
+    //cardTitle.contentEditable = true;
+    card_el.appendChild(cardTitle);
 
-   const cardDesc = document.createElement("p");
-   cardDesc.classList.add("card__description");
-   cardDesc.innerText = "Enter a description of the task.."
-   cardDesc.contentEditable = true;
-   card_el.appendChild(cardDesc);
+    const cardDesc = document.createElement("p");
+    cardDesc.classList.add("card__description");
+    cardDesc.innerText = "Enter a description of the task.."
+    cardDesc.contentEditable = true;
+    card_el.appendChild(cardDesc);
 
-   const footer = document.createElement("div");
-   footer.classList.add("card__footer");
-   card_el.appendChild(footer);
+    const footer = document.createElement("div");
+    footer.classList.add("card__footer");
+    card_el.appendChild(footer);
 
-   const cardUser = document.createElement("div");
-   cardUser.classList.add("card__user");
-   cardUser.textContent = '+';
-   footer.appendChild(cardUser);
+    const cardUser = document.createElement("div");
+    cardUser.classList.add("card__user");
+    cardUser.textContent = '+';
+    footer.appendChild(cardUser);
 
-   const cardConfirm = document.createElement("div");
-   cardConfirm.classList.add("card__confirmation");
-   footer.appendChild(cardConfirm);
+    const cardConfirm = document.createElement("div");
+    cardConfirm.classList.add("card__confirmation");
+    footer.appendChild(cardConfirm);
 
-   const confirmBtn = document.createElement("button");
-   confirmBtn.classList.add("card__confirm");
-   confirmBtn.innerHTML = "Confirm";
-   cardConfirm.appendChild(confirmBtn);
+    const confirmBtn = document.createElement("button");
+    confirmBtn.classList.add("card__confirm");
+    confirmBtn.innerHTML = "Confirm";
+    cardConfirm.appendChild(confirmBtn);
 
-   const revokeBtn = document.createElement("button");
-   revokeBtn.classList.add("card__confirm");
-   revokeBtn.innerHTML = "Cancel";
-   cardConfirm.appendChild(revokeBtn);
+    const revokeBtn = document.createElement("button");
+    revokeBtn.classList.add("card__confirm");
+    revokeBtn.innerHTML = "Cancel";
+    cardConfirm.appendChild(revokeBtn);
 
-   if (obj.priority === "Low") {
-      card_priority.value = "Low";
-      card_priority.style.background = "b90000"
-   } else if (obj.priority === "Medium") {
-      card_priority.value = "Medium";
-      card_priority.style.background = "#ccb034";
-      card_priority.style.color = "#000000"
-   } else if (obj.priority === "High") {
-      card_priority.value = "High";
-      card_priority.style.background = "#026b02";
-   }
+    if (obj.priority === "Low") {
+        card_priority.value = "Low";
+        card_priority.style.background = "b90000"
+    } else if (obj.priority === "Medium"){
+        card_priority.value = "Medium";
+        card_priority.style.background = "#ccb034";
+    } else if (obj.priority === "High"){
+        card_priority.value = "High";
+        card_priority.style.background = "#026b02";
+    }
 
-   return card_el;
+    return card_el;
 };
 
 function displayTask() {
