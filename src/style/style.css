@@ -545,6 +545,10 @@ body {
   background-color: #f8f8f86b;
   border: 1px solid white;
   margin-bottom: 10px;
+  cursor: -webkit-grab;
+  cursor: grab;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
 }
 
 .card.modal {
@@ -753,6 +757,18 @@ body {
   border-radius: 6px;
   background-color: #fffffff1;
   padding: 8px;
+}
+
+.selected {
+  opacity: 0.3;
+}
+
+.isMoved {
+  background-color: antiquewhite;
+}
+
+.board__tasks-list {
+  height: 100%;
 }
 
 .hide {

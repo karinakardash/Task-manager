@@ -1,4 +1,13 @@
+
 import '@babel/polyfill';
+import { currentTime } from './time.js';
+import { searchItems } from './search.js';
+import { getUsers } from './users.js';
+import * as bootstrap from 'bootstrap';
+
+currentTime();
+getUsers();
+searchItems();
 
 const addTaskBtn = document.querySelector('#AddTaskBtn');
 const list_el = document.querySelector('#tasks');
@@ -11,34 +20,35 @@ const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
+const tasksList = document.querySelector('.board');
 const backlog = document.getElementsByClassName('backlog__tasks');
 const progress = document.getElementsByClassName('progress__tasks');
 const review = document.getElementsByClassName('review__tasks');
 const done = document.getElementsByClassName('done__tasks');
 
-import { currentTime } from './time.js';
-currentTime()
-
-import { getUsers } from './users.js';
-getUsers()
-
-import * as bootstrap from 'bootstrap';
-
 //локал сторидж
 
-let tasks;
+const BACKLOG_COL = "backlog_list"
+const IN_PROGRESS_COL = "in_progress_list"
+const REVIEW_COL = "review_list"
+const DONE_COL = "done_list"
+const COLUMN_IDS = [
+    BACKLOG_COL, IN_PROGRESS_COL, REVIEW_COL, DONE_COL
+]
 
-if (localStorage.tasks === tasks) {
-   tasks = [];
-} else {
-   tasks = JSON.parse(localStorage.getItem('tasks'));
-   displayTask();
-};
+const tasks = localStorage.getItem('tasks') ?
+    JSON.parse(localStorage.getItem('tasks')) : {
+        [BACKLOG_COL]: [],
+        [IN_PROGRESS_COL]: [],
+        [REVIEW_COL]: [],
+        [DONE_COL]: []
+    };
 
 function updateLocalStorage() {
    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
+displayTasks();
 
 // создание задачи
 
@@ -125,35 +135,38 @@ function createTask(obj) {
     }
 
     return card_el;
-};
+}
 
-function displayTask() {
-   list_el.innerHTML = '';
-
-   tasks.forEach((item) => {
-      list_el.appendChild(createTask(item));
-   });
-};
+function displayTasks() {
+    COLUMN_IDS.forEach(id => {
+        const columnEl = document.getElementById(id)
+        columnEl.innerHTML = ''
+        const columnTasks = tasks[id]
+        columnTasks.forEach((item) => {
+            columnEl.appendChild(createTask(item));
+        });
+    })
+}
 
 function addNewItem() {
-   tasks.push({
-      id: Date.now(),
-      board: boardName.innerHTML,
-      title: textArea.value,
-      comment: "",
-      priority: 'low',
-      status: "backlog",
-      user: "",
-   });
-   displayTask();
-   updateLocalStorage();
-   getUsers();
-   updateCounter();
-   displayModal();
-   textArea.value = ''
-   form.style.display = 'none';
-   addTaskBtn.style.display = 'block';
-};
+    tasks[BACKLOG_COL].push({
+        id: Date.now().toString(),
+        board: boardName.innerHTML,
+        title: textArea.value,
+        comment: "",
+        priority: 'low',
+        status: "backlog",
+        user: "",
+    });
+    displayTasks();
+    updateLocalStorage();
+    getUsers();
+    updateCounter();
+    displayModal();
+    textArea.value = ''
+    form.style.display = 'none';
+    addTaskBtn.style.display = 'block';
+}
 
 addBtn.addEventListener('click', function () {
    addNewItem();
@@ -183,15 +196,85 @@ cancelBtn.addEventListener('click', () => {
 });
 
 
-import { searchItems } from './search.js';
-searchItems()
-
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
-switchBtn.addEventListener("click", function () {
-   document.body.classList.toggle("light")
+switchBtn.addEventListener("click", function() {
+    document.body.classList.toggle("light")
 });
+
+
+// drag'n'drop
+
+let draggedElement;
+document.addEventListener('dragstart', (e) => {
+    e.target.classList.add('selected');
+    draggedElement = e.target;
+});
+
+document.addEventListener('dragover', (e) => {
+    e.preventDefault();
+});
+
+// функция для помещения тасок в новом положении в local storage
+function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
+    const movedTask = tasks[sourceColumnId].find(obj => obj.id === movedTaskId)
+    tasks[sourceColumnId] = tasks[sourceColumnId].filter(obj => obj.id !== movedTask.id)
+    movedTask.status = targetColumnId
+    const columnCardElements = document.getElementById(targetColumnId).querySelectorAll('.card');
+    const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
+    tasks[targetColumnId].splice(taskIdx, 0, movedTask)
+    updateLocalStorage()
+}
+
+// само перетаскивание либо между задачами, либо между колонками
+
+document.addEventListener('drop', (e) => {
+    e.preventDefault();
+
+    const activeElement = document.querySelector('.selected');
+    const currentElement = e.target;
+    const currentCard = currentElement.closest('.card');
+    const activeTaskList = activeElement.closest('.board__tasks-list');
+    const currentTaskList = currentElement.closest('.board__tasks-list');
+
+    if (currentTaskList === null) return;
+
+    const isHoverAnotherCard = activeElement !== currentCard &&
+        currentElement.classList.contains('card');
+
+    if (isHoverAnotherCard) {
+        if (isCardHigher(e.clientY, currentCard)) {
+            currentTaskList.insertBefore(activeElement, currentCard);
+        } else {
+            currentTaskList.insertBefore(currentCard, activeElement);
+        }
+    } else {
+        activeTaskList.removeChild(activeElement);
+        currentTaskList.appendChild(activeElement);
+    }
+
+    draggedElement.classList.remove('selected');
+    window.setTimeout(() => {
+        draggedElement.classList.add('isMoved');
+    }, 100);
+    window.setTimeout(() => {
+        draggedElement.classList.remove('isMoved');
+    }, 500);
+
+    // добавление изменения положения элементов в local storage
+
+    moveTaskToNewColumn(activeTaskList.id, currentTaskList.id, activeElement.id);
+
+});
+
+const isCardHigher = (cursorPosition, currentCard) => {
+    const { height, y } = currentCard.getBoundingClientRect();
+    const currentElementCenter = y + height / 2;
+    //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
+    return (cursorPosition < currentElementCenter);
+}
+
 
 //удаление задачи
 
