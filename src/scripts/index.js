@@ -1,3 +1,5 @@
+import '@babel/polyfill';
+
 const addTaskBtn = document.querySelector('#AddTaskBtn');
 const list_el = document.querySelector('#tasks');
 const addBtn = document.querySelector('.form__add-btn');
@@ -145,7 +147,7 @@ function addNewItem() {
    });
    displayTask();
    updateLocalStorage();
-   //getUsers();
+   getUsers();
    updateCounter();
    displayModal();
    textArea.value = ''
