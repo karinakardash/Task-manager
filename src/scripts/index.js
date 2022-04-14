@@ -10,7 +10,10 @@ getUsers();
 searchItems();
 
 const addTaskBtn = document.querySelector('#AddTaskBtn');
-const list_el = document.querySelector('#tasks');
+const list_backlog = document.querySelector('#backlog_list');
+const list_progress = document.querySelector('#in_progress_list');
+const list_review = document.querySelector('#review_list');
+const list_done = document.querySelector('#done_list');
 const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
 const textArea = document.querySelector('.form__textarea');
@@ -21,10 +24,10 @@ const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
 const tasksList = document.querySelector('.board');
-const backlog = document.getElementsByClassName('backlog__tasks');
-const progress = document.getElementsByClassName('progress__tasks');
-const review = document.getElementsByClassName('review__tasks');
-const done = document.getElementsByClassName('done__tasks');
+const backlog = document.getElementsByClassName('backlog_list');
+const progress = document.getElementsByClassName('in_progress_list');
+const review = document.getElementsByClassName('review_list');
+const done = document.getElementsByClassName('done_list');
 
 //локал сторидж
 
@@ -32,9 +35,7 @@ const BACKLOG_COL = "backlog_list"
 const IN_PROGRESS_COL = "in_progress_list"
 const REVIEW_COL = "review_list"
 const DONE_COL = "done_list"
-const COLUMN_IDS = [
-    BACKLOG_COL, IN_PROGRESS_COL, REVIEW_COL, DONE_COL
-]
+const COLUMN_IDS = [BACKLOG_COL, IN_PROGRESS_COL, REVIEW_COL, DONE_COL]
 
 const tasks = localStorage.getItem('tasks') ?
     JSON.parse(localStorage.getItem('tasks')) : {
@@ -49,6 +50,7 @@ function updateLocalStorage() {
 }
 updateLocalStorage();
 displayTasks();
+
 
 // создание задачи
 
@@ -162,7 +164,6 @@ function addNewItem() {
     updateLocalStorage();
     getUsers();
     updateCounter();
-    displayModal();
     textArea.value = ''
     form.style.display = 'none';
     addTaskBtn.style.display = 'block';
@@ -224,7 +225,9 @@ function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
     const columnCardElements = document.getElementById(targetColumnId).querySelectorAll('.card');
     const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
     tasks[targetColumnId].splice(taskIdx, 0, movedTask)
-    updateLocalStorage()
+    updateLocalStorage();
+    displayModal();
+    updateCounter();
 }
 
 // само перетаскивание либо между задачами, либо между колонками
@@ -281,27 +284,42 @@ const isCardHigher = (cursorPosition, currentCard) => {
 function deleteTask(element) {
    if (element.target.classList.contains("card__delete")) {
       let taskItem = element.target.parentElement.parentElement;
-      let taskId = +taskItem.getAttribute("id");
+      let taskId = taskItem.getAttribute("id");
       taskItem.remove();
 
-      tasks.forEach((item, index) => {
+      tasks[BACKLOG_COL].forEach((item, index) => {
          if (taskId === item.id) {
-            tasks.splice(index, 1);
+            tasks[BACKLOG_COL].splice(index, 1);
          }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item, index) => {
+        if (taskId === item.id) {
+           tasks[IN_PROGRESS_COL].splice(index, 1);
+        }
+      });
+      tasks[REVIEW_COL].forEach((item, index) => {
+        if (taskId === item.id) {
+           tasks[REVIEW_COL].splice(index, 1);
+        }
+      });
+      tasks[DONE_COL].forEach((item, index) => {
+        if (taskId === item.id) {
+           tasks[DONE_COL].splice(index, 1);
+        }
       });
       updateLocalStorage();
       updateCounter();
    }
 };
 
-list_el.addEventListener('click', deleteTask);
+tasksList.addEventListener('click', deleteTask);
 
 //select priority
 
 function drawPriority(element) {
    if (element.target.classList.contains("card__priority")) {
       let taskItem = element.target.parentElement.parentElement;
-      let taskId = +taskItem.getAttribute("id");
+      let taskId = taskItem.getAttribute("id");
       if (element.target.value === "Medium") {
          element.target.style.background = "#ccb034"
       } else if (element.target.value === "High") {
@@ -310,16 +328,31 @@ function drawPriority(element) {
          element.target.style.background = "#b90000"
       }
 
-      tasks.forEach((item) => {
+      tasks[BACKLOG_COL].forEach((item) => {
          if (taskId === item.id) {
             item.priority = element.target.value;
          }
       });
+      tasks[IN_PROGRESS_COL].forEach((item) => {
+        if (taskId === item.id) {
+           item.priority = element.target.value;
+        }
+     });
+     tasks[REVIEW_COL].forEach((item) => {
+        if (taskId === item.id) {
+           item.priority = element.target.value;
+        }
+     });
+     tasks[DONE_COL].forEach((item) => {
+        if (taskId === item.id) {
+           item.priority = element.target.value;
+        }
+     });
       updateLocalStorage();
    }
 };
 
-list_el.addEventListener('change', drawPriority);
+tasksList.addEventListener('change', drawPriority);
 
 //modal windows 1
 
@@ -329,22 +362,9 @@ function getModal() {
    modal.show();
 }
 
-/*let status = "backlog"
-
-tasks.forEach((item) => {
-   if (item.status === status) {
-      getModal()
-   }
-});*/
 function displayModal() {
-let numberOfCards = tasks.filter(function(e){
-    if (e.status === "backlog"){
-        return e
-    }
-})
-
-if (numberOfCards.length > 3){
-    getModal();
+    if (tasks[IN_PROGRESS_COL].length > 5){
+        getModal();
 }
 }
 
@@ -362,10 +382,17 @@ document.addEventListener('DOMContentLoaded', function () {
 const btnDeleteAllTasks = document.querySelector('.btn-primary');
 
 const deleteAll = () => {
-   tasks = [];
-   list_el.innerHTML = '';
+    tasks[BACKLOG_COL] = [];
+    tasks[IN_PROGRESS_COL] = [];
+    tasks[REVIEW_COL] = [];
+    tasks[DONE_COL] = [];
+    list_backlog.innerHTML = '';
+    list_progress.innerHTML = '';
+    list_review.innerHTML = '';
+    list_done.innerHTML = '';
+   
    updateLocalStorage();
-   updateCounter()
+   updateCounter();
 };
 
 btnDeleteAllTasks.addEventListener('click', deleteAll);
@@ -378,34 +405,9 @@ const reviewCount = document.querySelector('.review-count');
 const doneCount = document.querySelector('.done-count');
 
 function updateCounter() {
-   let newBacklog = tasks.filter(function(e){
-       if (e.status === "backlog"){
-           return e
-       }
-   })
-
-   let newProgress = tasks.filter(function(e){
-        if (e.status === "in progress"){
-            return e
-        }
-    })
-
-    let newReview = tasks.filter(function(e){
-        if (e.status === "review"){
-            return e
-        }
-    })
-
-    let newDone = tasks.filter(function(e){
-        if (e.status === "done"){
-            return e
-        }
-    })
-
-
-    backlogCount.innerHTML = newBacklog.length;
-    inprogressCount.innerHTML = newProgress.length;
-    reviewCount.innerHTML = newReview.length;
-    doneCount.innerHTML = newDone.length;
+    backlogCount.innerHTML = tasks[BACKLOG_COL].length;
+    inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
+    reviewCount.innerHTML = tasks[REVIEW_COL].length;
+    doneCount.innerHTML = tasks[DONE_COL].length;
 }
-updateCounter()
+updateCounter();
