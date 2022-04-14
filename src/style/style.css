@@ -383,7 +383,6 @@ body {
   background-color: #8e06cd;
 }
 
-/*footer*/
 .footer {
   background-color: rgba(0, 0, 0, 0.6);
   padding: 10px 0;
@@ -569,7 +568,7 @@ body {
 }
 
 .card__priority {
-  padding: 3px 5px;
+  padding: 5px 15px;
   font-size: 12px;
   font-weight: 400;
   background-color: #b90000;
@@ -768,7 +767,7 @@ body {
 }
 
 .board__tasks-list {
-  height: 100%;
+  height: 55vh;
 }
 
 .hide {
