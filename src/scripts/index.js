@@ -162,7 +162,7 @@ cancelBtn.addEventListener('click', () => {
 
 
 currentTime();
-getUsers();
+//getUsers();
 searchItems();
 
 //свитчер
@@ -207,16 +207,22 @@ document.addEventListener('drop', (e) => {
     const activeTaskList = activeElement.closest('.board__tasks-list');
     const currentTaskList = currentElement.closest('.board__tasks-list');
 
-    if (currentTaskList === null) return;
+    if (currentTaskList === null) {
+        draggedElement.classList.remove('selected');
+        return;
+    }
 
-    const isHoverAnotherCard = activeElement !== currentCard &&
-        currentElement.classList.contains('card');
+    const isHoverAnotherCard = currentCard !== null &&
+        activeElement !== currentCard;
 
     if (isHoverAnotherCard) {
         if (isCardHigher(e.clientY, currentCard)) {
             currentTaskList.insertBefore(activeElement, currentCard);
-        } else {
+        } else if (!isCardHigher) {
             currentTaskList.insertBefore(currentCard, activeElement);
+        } else {
+            draggedElement.classList.remove('selected');
+            return;
         }
     } else {
         activeTaskList.removeChild(activeElement);
