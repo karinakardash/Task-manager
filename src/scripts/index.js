@@ -1,6 +1,13 @@
+
+import '@babel/polyfill';
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
+import * as bootstrap from 'bootstrap';
+
+currentTime();
+getUsers();
+searchItems();
 
 const addTaskBtn = document.querySelector('#AddTaskBtn');
 const list_el = document.querySelector('#tasks');
@@ -8,13 +15,16 @@ const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
 const textArea = document.querySelector('.form__textarea');
 const form = document.querySelector('.form');
-const itemDel = document.getElementsByClassName('card__delete');
+const itemDel = document.querySelector('.card__delete');
 const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
 const tasksList = document.querySelector('.board');
-
+const backlog = document.getElementsByClassName('backlog__tasks');
+const progress = document.getElementsByClassName('progress__tasks');
+const review = document.getElementsByClassName('review__tasks');
+const done = document.getElementsByClassName('done__tasks');
 
 //локал сторидж
 
@@ -35,7 +45,7 @@ const tasks = localStorage.getItem('tasks') ?
     };
 
 function updateLocalStorage() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
 displayTasks();
@@ -52,9 +62,20 @@ function createTask(obj) {
     task_content_el.classList.add("card__header");
     card_el.appendChild(task_content_el);
 
-    const card_priority = document.createElement("p");
+    const card_priority = document.createElement("select");
     card_priority.classList.add("card__priority");
-    card_priority.innerText = 'Low';
+    const optionLow = document.createElement("option");
+    optionLow.innerText = 'Low';
+    optionLow.classList.add("card__option-low");
+    card_priority.appendChild(optionLow);
+    const optionMedium = document.createElement("option");
+    optionMedium.classList.add("card__option-medium");
+    optionMedium.innerText = 'Medium';
+    card_priority.appendChild(optionMedium);
+    const optionHigh = document.createElement("option");
+    optionHigh.innerText = 'High';
+    optionHigh.classList.add("card__option-high");
+    card_priority.appendChild(optionHigh);
     task_content_el.appendChild(card_priority);
 
     const editBtn = document.createElement("button");
@@ -102,6 +123,17 @@ function createTask(obj) {
     revokeBtn.innerHTML = "Cancel";
     cardConfirm.appendChild(revokeBtn);
 
+    if (obj.priority === "Low") {
+        card_priority.value = "Low";
+        card_priority.style.background = "b90000"
+    } else if (obj.priority === "Medium"){
+        card_priority.value = "Medium";
+        card_priority.style.background = "#ccb034";
+    } else if (obj.priority === "High"){
+        card_priority.value = "High";
+        card_priority.style.background = "#026b02";
+    }
+
     return card_el;
 }
 
@@ -128,42 +160,41 @@ function addNewItem() {
     });
     displayTasks();
     updateLocalStorage();
+    getUsers();
+    updateCounter();
+    displayModal();
     textArea.value = ''
     form.style.display = 'none';
     addTaskBtn.style.display = 'block';
 }
 
-addBtn.addEventListener('click', function() {
-    addNewItem();
+addBtn.addEventListener('click', function () {
+   addNewItem();
 });
 
 //Модальное окно ввода названия задачи
 
 addTaskBtn.addEventListener('click', () => {
-    form.style.display = 'block';
-    addTaskBtn.style.display = 'none';
-    addBtn.style.display = 'none';
+   form.style.display = 'block';
+   addTaskBtn.style.display = 'none';
+   addBtn.style.display = 'none';
 
-    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
-    textArea.addEventListener('input', () => {
-        if (textArea.value.trim()) {
-            addBtn.style.display = 'block';
-        } else {
-            addBtn.style.display = 'none';
-        }
-    })
+   //Проверяем, если инпут пустой, тогда кнопку добавления прячем
+   textArea.addEventListener('input', () => {
+      if (textArea.value.trim()) {
+         addBtn.style.display = 'block';
+      } else {
+         addBtn.style.display = 'none';
+      }
+   })
 });
 
 cancelBtn.addEventListener('click', () => {
-    textArea.value = '';
-    form.style.display = 'none';
-    addTaskBtn.style.display = 'block';
+   textArea.value = '';
+   form.style.display = 'none';
+   addTaskBtn.style.display = 'block';
 });
 
-
-currentTime();
-getUsers();
-searchItems();
 
 //свитчер
 
@@ -243,3 +274,138 @@ const isCardHigher = (cursorPosition, currentCard) => {
     //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
     return (cursorPosition < currentElementCenter);
 }
+
+
+//удаление задачи
+
+function deleteTask(element) {
+   if (element.target.classList.contains("card__delete")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = +taskItem.getAttribute("id");
+      taskItem.remove();
+
+      tasks.forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks.splice(index, 1);
+         }
+      });
+      updateLocalStorage();
+      updateCounter();
+   }
+};
+
+list_el.addEventListener('click', deleteTask);
+
+//select priority
+
+function drawPriority(element) {
+   if (element.target.classList.contains("card__priority")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = +taskItem.getAttribute("id");
+      if (element.target.value === "Medium") {
+         element.target.style.background = "#ccb034"
+      } else if (element.target.value === "High") {
+         element.target.style.background = "#026b02"
+      } else {
+         element.target.style.background = "#b90000"
+      }
+
+      tasks.forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      updateLocalStorage();
+   }
+};
+
+list_el.addEventListener('change', drawPriority);
+
+//modal windows 1
+
+function getModal() {
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
+}
+
+/*let status = "backlog"
+
+tasks.forEach((item) => {
+   if (item.status === status) {
+      getModal()
+   }
+});*/
+function displayModal() {
+let numberOfCards = tasks.filter(function(e){
+    if (e.status === "backlog"){
+        return e
+    }
+})
+
+if (numberOfCards.length > 3){
+    getModal();
+}
+}
+
+//btn delete all tasks + modal windows 2
+
+document.addEventListener('DOMContentLoaded', function () {
+
+   const btn = document.querySelector('#DeleteAllTasks');
+   const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
+   btn.addEventListener('click', function () {
+      modal.show();
+   });
+});
+
+const btnDeleteAllTasks = document.querySelector('.btn-primary');
+
+const deleteAll = () => {
+   tasks = [];
+   list_el.innerHTML = '';
+   updateLocalStorage();
+   updateCounter()
+};
+
+btnDeleteAllTasks.addEventListener('click', deleteAll);
+
+//counter
+
+const backlogCount = document.querySelector('.backlog-count');
+const inprogressCount = document.querySelector('.inprogress-count');
+const reviewCount = document.querySelector('.review-count');
+const doneCount = document.querySelector('.done-count');
+
+function updateCounter() {
+   let newBacklog = tasks.filter(function(e){
+       if (e.status === "backlog"){
+           return e
+       }
+   })
+
+   let newProgress = tasks.filter(function(e){
+        if (e.status === "in progress"){
+            return e
+        }
+    })
+
+    let newReview = tasks.filter(function(e){
+        if (e.status === "review"){
+            return e
+        }
+    })
+
+    let newDone = tasks.filter(function(e){
+        if (e.status === "done"){
+            return e
+        }
+    })
+
+
+    backlogCount.innerHTML = newBacklog.length;
+    inprogressCount.innerHTML = newProgress.length;
+    reviewCount.innerHTML = newReview.length;
+    doneCount.innerHTML = newDone.length;
+}
+updateCounter()
