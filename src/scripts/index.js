@@ -17,8 +17,8 @@ const done = document.getElementsByClassName('done__tasks');
 import { currentTime } from './time.js';
 currentTime()
 
-/*import { getUsers } from './users.js';
-getUsers()*/
+import { getUsers } from './users.js';
+getUsers()
 
 import * as bootstrap from 'bootstrap';
 
