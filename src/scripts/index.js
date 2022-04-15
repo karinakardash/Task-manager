@@ -130,6 +130,17 @@ function displayTask() {
    });
 };
 
+function displayModal() {
+   let numbersOfCards = task.filter(function (e) {
+      if (e.status === "backlog") {
+         return e
+      }
+   })
+   if (numbersOfCards.lenght > 3) {
+      getModal();
+   }
+}
+
 function addNewItem() {
    tasks.push({
       id: Date.now(),
@@ -143,6 +154,7 @@ function addNewItem() {
    displayTask();
    updateLocalStorage();
    getUsers();
+   displayModal();
    textArea.value = ''
    form.style.display = 'none';
    addTaskBtn.style.display = 'block';
