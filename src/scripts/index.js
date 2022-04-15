@@ -1,4 +1,3 @@
-
 import '@babel/polyfill';
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
@@ -46,7 +45,7 @@ const tasks = localStorage.getItem('tasks') ?
     };
 
 function updateLocalStorage() {
-   localStorage.setItem('tasks', JSON.stringify(tasks));
+    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
 displayTasks();
@@ -128,10 +127,10 @@ function createTask(obj) {
     if (obj.priority === "Low") {
         card_priority.value = "Low";
         card_priority.style.background = "b90000"
-    } else if (obj.priority === "Medium"){
+    } else if (obj.priority === "Medium") {
         card_priority.value = "Medium";
         card_priority.style.background = "#ccb034";
-    } else if (obj.priority === "High"){
+    } else if (obj.priority === "High") {
         card_priority.value = "High";
         card_priority.style.background = "#026b02";
     }
@@ -169,32 +168,33 @@ function addNewItem() {
     addTaskBtn.style.display = 'block';
 }
 
-addBtn.addEventListener('click', function () {
-   addNewItem();
+addBtn.addEventListener('click', function() {
+    addNewItem();
 });
 
 //Модальное окно ввода названия задачи
 
 addTaskBtn.addEventListener('click', () => {
-   form.style.display = 'block';
-   addTaskBtn.style.display = 'none';
-   addBtn.style.display = 'none';
+    form.style.display = 'block';
+    addTaskBtn.style.display = 'none';
+    addBtn.style.display = 'none';
 
-   //Проверяем, если инпут пустой, тогда кнопку добавления прячем
-   textArea.addEventListener('input', () => {
-      if (textArea.value.trim()) {
-         addBtn.style.display = 'block';
-      } else {
-         addBtn.style.display = 'none';
-      }
-   })
+    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
+    textArea.addEventListener('input', () => {
+        if (textArea.value.trim()) {
+            addBtn.style.display = 'block';
+        } else {
+            addBtn.style.display = 'none';
+        }
+    })
 });
 
 cancelBtn.addEventListener('click', () => {
-   textArea.value = '';
-   form.style.display = 'none';
-   addTaskBtn.style.display = 'block';
+    textArea.value = '';
+    form.style.display = 'none';
+    addTaskBtn.style.display = 'block';
 });
+
 
 
 //свитчер
@@ -241,10 +241,13 @@ document.addEventListener('drop', (e) => {
     const activeTaskList = activeElement.closest('.board__tasks-list');
     const currentTaskList = currentElement.closest('.board__tasks-list');
 
-    if (currentTaskList === null) return;
+    if (currentTaskList === null) {
+        draggedElement.classList.remove('selected');
+        return;
+    }
 
-    const isHoverAnotherCard = activeElement !== currentCard &&
-        currentElement.classList.contains('card');
+    const isHoverAnotherCard = currentCard !== null &&
+        activeElement !== currentCard;
 
     if (isHoverAnotherCard) {
         if (isCardHigher(e.clientY, currentCard)) {
@@ -282,34 +285,34 @@ const isCardHigher = (cursorPosition, currentCard) => {
 //удаление задачи
 
 function deleteTask(element) {
-   if (element.target.classList.contains("card__delete")) {
-      let taskItem = element.target.parentElement.parentElement;
-      let taskId = taskItem.getAttribute("id");
-      taskItem.remove();
+    if (element.target.classList.contains("card__delete")) {
+        let taskItem = element.target.parentElement.parentElement;
+        let taskId = taskItem.getAttribute("id");
+        taskItem.remove();
 
-      tasks[BACKLOG_COL].forEach((item, index) => {
-         if (taskId === item.id) {
-            tasks[BACKLOG_COL].splice(index, 1);
-         }
-      });
-      tasks[IN_PROGRESS_COL].forEach((item, index) => {
-        if (taskId === item.id) {
-           tasks[IN_PROGRESS_COL].splice(index, 1);
-        }
-      });
-      tasks[REVIEW_COL].forEach((item, index) => {
-        if (taskId === item.id) {
-           tasks[REVIEW_COL].splice(index, 1);
-        }
-      });
-      tasks[DONE_COL].forEach((item, index) => {
-        if (taskId === item.id) {
-           tasks[DONE_COL].splice(index, 1);
-        }
-      });
-      updateLocalStorage();
-      updateCounter();
-   }
+        tasks[BACKLOG_COL].forEach((item, index) => {
+            if (taskId === item.id) {
+                tasks[BACKLOG_COL].splice(index, 1);
+            }
+        });
+        tasks[IN_PROGRESS_COL].forEach((item, index) => {
+            if (taskId === item.id) {
+                tasks[IN_PROGRESS_COL].splice(index, 1);
+            }
+        });
+        tasks[REVIEW_COL].forEach((item, index) => {
+            if (taskId === item.id) {
+                tasks[REVIEW_COL].splice(index, 1);
+            }
+        });
+        tasks[DONE_COL].forEach((item, index) => {
+            if (taskId === item.id) {
+                tasks[DONE_COL].splice(index, 1);
+            }
+        });
+        updateLocalStorage();
+        updateCounter();
+    }
 };
 
 tasksList.addEventListener('click', deleteTask);
@@ -317,39 +320,39 @@ tasksList.addEventListener('click', deleteTask);
 //select priority
 
 function drawPriority(element) {
-   if (element.target.classList.contains("card__priority")) {
-      let taskItem = element.target.parentElement.parentElement;
-      let taskId = taskItem.getAttribute("id");
-      if (element.target.value === "Medium") {
-         element.target.style.background = "#ccb034"
-      } else if (element.target.value === "High") {
-         element.target.style.background = "#026b02"
-      } else {
-         element.target.style.background = "#b90000"
-      }
+    if (element.target.classList.contains("card__priority")) {
+        let taskItem = element.target.parentElement.parentElement;
+        let taskId = taskItem.getAttribute("id");
+        if (element.target.value === "Medium") {
+            element.target.style.background = "#ccb034"
+        } else if (element.target.value === "High") {
+            element.target.style.background = "#026b02"
+        } else {
+            element.target.style.background = "#b90000"
+        }
 
-      tasks[BACKLOG_COL].forEach((item) => {
-         if (taskId === item.id) {
-            item.priority = element.target.value;
-         }
-      });
-      tasks[IN_PROGRESS_COL].forEach((item) => {
-        if (taskId === item.id) {
-           item.priority = element.target.value;
-        }
-     });
-     tasks[REVIEW_COL].forEach((item) => {
-        if (taskId === item.id) {
-           item.priority = element.target.value;
-        }
-     });
-     tasks[DONE_COL].forEach((item) => {
-        if (taskId === item.id) {
-           item.priority = element.target.value;
-        }
-     });
-      updateLocalStorage();
-   }
+        tasks[BACKLOG_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.priority = element.target.value;
+            }
+        });
+        tasks[IN_PROGRESS_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.priority = element.target.value;
+            }
+        });
+        tasks[REVIEW_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.priority = element.target.value;
+            }
+        });
+        tasks[DONE_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.priority = element.target.value;
+            }
+        });
+        updateLocalStorage();
+    }
 };
 
 tasksList.addEventListener('change', drawPriority);
@@ -357,26 +360,26 @@ tasksList.addEventListener('change', drawPriority);
 //modal windows 1
 
 function getModal() {
-   const elemModal = document.querySelector('#modal');
-   const modal = new bootstrap.Modal(elemModal);
-   modal.show();
+    const elemModal = document.querySelector('#modal');
+    const modal = new bootstrap.Modal(elemModal);
+    modal.show();
 }
 
 function displayModal() {
-    if (tasks[IN_PROGRESS_COL].length > 5){
+    if (tasks[IN_PROGRESS_COL].length > 5) {
         getModal();
-}
+    }
 }
 
 //btn delete all tasks + modal windows 2
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
 
-   const btn = document.querySelector('#DeleteAllTasks');
-   const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
-   btn.addEventListener('click', function () {
-      modal.show();
-   });
+    const btn = document.querySelector('#DeleteAllTasks');
+    const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
+    btn.addEventListener('click', function() {
+        modal.show();
+    });
 });
 
 const btnDeleteAllTasks = document.querySelector('.btn-primary');
@@ -390,9 +393,8 @@ const deleteAll = () => {
     list_progress.innerHTML = '';
     list_review.innerHTML = '';
     list_done.innerHTML = '';
-   
-   updateLocalStorage();
-   updateCounter();
+    updateLocalStorage();
+    updateCounter();
 };
 
 btnDeleteAllTasks.addEventListener('click', deleteAll);

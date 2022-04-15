@@ -766,9 +766,10 @@ body {
   background-color: antiquewhite;
 }
 
-/*.board__tasks-list {
-    height: 100%;
-}*/
+.board__tasks-list {
+  height: 55vh;
+}
+
 .hide {
   display: none;
 }
