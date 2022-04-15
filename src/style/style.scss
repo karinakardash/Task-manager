@@ -7,37 +7,16 @@
     font-family: 'Open Sans', sans-serif;
 }
 
-$colorBackgroundBody: rgb(142,
-6,
-205);
-$colorBackgroundFotter: rgba(0,
-0,
-0,
-0.6);
-$colorBackgroundBoards: rgba(7,
-7,
-7,
-0.5);
-$colorWhite: rgb(255,
-255,
-255);
-$colorBlack: rgb(0,
-0,
-0);
-$colorText: rgb(255,
-255,
-255);
-$colorTextLightTheme: rgb(0,
-0,
-0);
-$colorBackgroundFotterLightTheme:rgba(170,
-170,
-170,
-0.4);
-$colorBackgroundBoardsLightTheme: rgba(255,
-255,
-255,
-0.6);
+$colorBackgroundBody: rgb(142,6,205);
+$colorBackgroundFotter: rgba(0,0,0,0.6);
+$colorBackgroundBoards: rgba(7,7,7,0.5);
+$colorWhite: rgb(255,255,255);
+$colorBlack: rgb(0,0,0);
+$colorText: rgb(255,255,255);
+$colorTextLightTheme: rgb(0,0,0);
+$colorBackgroundFotterLightTheme:rgba(170,170,170,0.4);
+$colorBackgroundBoardsLightTheme: rgba(255,255,255,0.6);
+
 html,
 body {
     height: 100%;
@@ -203,7 +182,6 @@ body {
             display: none;
         }
     }
-}
 }
 
 
@@ -573,7 +551,7 @@ body {
 }
 
 .board__tasks-list {
-    height: 55vh;
+    height: 100vh;
 }
 
 .hide {

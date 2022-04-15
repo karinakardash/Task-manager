@@ -226,7 +226,6 @@ function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
     const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
     tasks[targetColumnId].splice(taskIdx, 0, movedTask)
     updateLocalStorage();
-    displayModal();
     updateCounter();
 }
 
@@ -267,6 +266,8 @@ document.addEventListener('drop', (e) => {
     window.setTimeout(() => {
         draggedElement.classList.remove('isMoved');
     }, 500);
+
+    //displayModal();
 
     // добавление изменения положения элементов в local storage
 
@@ -357,7 +358,7 @@ function drawPriority(element) {
 
 tasksList.addEventListener('change', drawPriority);
 
-//modal windows 1
+/*modal windows 1
 
 function getModal() {
     const elemModal = document.querySelector('#modal');
@@ -370,6 +371,7 @@ function displayModal() {
         getModal();
     }
 }
+displayModal();*/
 
 //btn delete all tasks + modal windows 2
 

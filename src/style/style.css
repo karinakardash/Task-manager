@@ -229,22 +229,6 @@ body {
   }
 }
 
-.header__time-clock {
-  font-size: 20px;
-}
-
-@media (max-width: 378px) {
-  .header__time-clock {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 545px) {
-  .header__time-clock {
-    display: none;
-  }
-}
-
 /*main*/
 .main__wrapper {
   -webkit-box-flex: 1;
@@ -767,7 +751,7 @@ body {
 }
 
 .board__tasks-list {
-  height: 55vh;
+  height: 100vh;
 }
 
 .hide {
