@@ -2,6 +2,7 @@ import '@babel/polyfill';
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
+import { displayUsers } from "./displayUsers";
 import * as bootstrap from 'bootstrap';
 
 currentTime();
