@@ -393,7 +393,6 @@ const deleteAll = () => {
     list_progress.innerHTML = '';
     list_review.innerHTML = '';
     list_done.innerHTML = '';
-
     updateLocalStorage();
     updateCounter();
 };
