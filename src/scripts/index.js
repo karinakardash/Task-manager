@@ -359,6 +359,40 @@ function drawPriority(element) {
 
 tasksList.addEventListener('change', drawPriority);
 
+//select users
+
+function drawUsers(element) {
+    if (element.target.classList.contains("card__user-choice")) {
+        let taskItem = element.target.parentElement.parentElement.parentElement;
+        let taskId = taskItem.getAttribute("id");
+
+        tasks[BACKLOG_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.user = element.target.value;
+            }
+        });
+        tasks[IN_PROGRESS_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.user = element.target.value;
+            }
+        });
+        tasks[REVIEW_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.user = element.target.value;
+            }
+        });
+        tasks[DONE_COL].forEach((item) => {
+            if (taskId === item.id) {
+                item.user = element.target.value;
+            }
+        });
+        updateLocalStorage();
+    }
+};
+
+tasksList.addEventListener('change', drawUsers);
+
+
 /*modal windows 1
 
 function getModal() {
