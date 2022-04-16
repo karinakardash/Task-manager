@@ -107,7 +107,8 @@ function createTask(obj) {
 
     const cardUser = document.createElement("select");
     cardUser.classList.add("card__user-choice");
-    cardUser.value = obj.user;
+
+    getUsers().then(users => initializeUserSelectOptions(cardUser, users, obj.user));
     footer.appendChild(cardUser);
 
     const cardConfirm = document.createElement("div");
@@ -149,6 +150,19 @@ function displayTasks() {
     })
 }
 
+function initializeUserSelectOptions (selectElement, users, selectedUser) {
+    for (let i = 0; i < users.length; i++) {
+        const option = document.createElement('option');
+        option.classList.add("card__user-option")
+        option.value = users[i].name;
+        option.textContent = users[i].name;
+        if (selectedUser && users[i].name === selectedUser) {
+            option.selected = true;
+        }
+        selectElement.appendChild(option);
+    }
+}
+
 function addNewItem() {
     tasks[BACKLOG_COL].push({
         id: Date.now().toString(),
@@ -161,7 +175,8 @@ function addNewItem() {
     });
     displayTasks();
     updateLocalStorage();
-    getUsers();
+    // const userSelect = document.querySelector(".card__user-choice");
+    // getUsers().then(users => initializeUserSelectOptions(userSelect, users));
     updateCounter();
     textArea.value = ''
     form.style.display = 'none';
