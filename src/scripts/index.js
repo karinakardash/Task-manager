@@ -5,7 +5,6 @@ import { getUsers } from './users.js';
 import * as bootstrap from 'bootstrap';
 
 currentTime();
-getUsers();
 searchItems();
 
 const addTaskBtn = document.querySelector('#AddTaskBtn');
@@ -53,7 +52,7 @@ displayTasks();
 
 // создание задачи
 
-function createTask(obj) {
+function createTask(obj, users) {
     const card_el = document.createElement("article");
     card_el.classList.add("card");
     card_el.setAttribute('id', obj.id);
@@ -107,8 +106,7 @@ function createTask(obj) {
 
     const cardUser = document.createElement("select");
     cardUser.classList.add("card__user-choice");
-
-    getUsers().then(users => initializeUserSelectOptions(cardUser, users, obj.user));
+    initializeUserSelectOptions(cardUser, users, obj.user);
     footer.appendChild(cardUser);
 
     const cardConfirm = document.createElement("div");
@@ -140,14 +138,16 @@ function createTask(obj) {
 }
 
 function displayTasks() {
-    COLUMN_IDS.forEach(id => {
-        const columnEl = document.getElementById(id)
-        columnEl.innerHTML = ''
-        const columnTasks = tasks[id]
-        columnTasks.forEach((item) => {
-            columnEl.appendChild(createTask(item));
-        });
-    })
+    getUsers().then(users => {
+        COLUMN_IDS.forEach(id => {
+            const columnEl = document.getElementById(id)
+            columnEl.innerHTML = ''
+            const columnTasks = tasks[id]
+            columnTasks.forEach((item) => {
+                columnEl.appendChild(createTask(item, users));
+            });
+        })
+    });
 }
 
 function initializeUserSelectOptions (selectElement, users, selectedUser) {
