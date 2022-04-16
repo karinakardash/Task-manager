@@ -28,6 +28,7 @@ const backlog = document.getElementsByClassName('backlog_list');
 const progress = document.getElementsByClassName('in_progress_list');
 const review = document.getElementsByClassName('review_list');
 const done = document.getElementsByClassName('done_list');
+const userChoice = document.querySelector(".card__user-choice");
 
 //локал сторидж
 
@@ -106,9 +107,9 @@ function createTask(obj) {
     footer.classList.add("card__footer");
     card_el.appendChild(footer);
 
-    const cardUser = document.createElement("div");
-    cardUser.classList.add("card__user");
-    cardUser.textContent = '+';
+    const cardUser = document.createElement("select");
+    cardUser.classList.add("card__user-choice");
+    cardUser.value = obj.user;
     footer.appendChild(cardUser);
 
     const cardConfirm = document.createElement("div");
@@ -158,7 +159,7 @@ function addNewItem() {
         comment: "",
         priority: 'low',
         status: "backlog",
-        user: "",
+        user: "Leanne Graham",
     });
     displayTasks();
     updateLocalStorage();
@@ -363,7 +364,7 @@ tasksList.addEventListener('change', drawPriority);
 
 function drawUsers(element) {
     if (element.target.classList.contains("card__user-choice")) {
-        let taskItem = element.target.parentElement.parentElement.parentElement;
+        let taskItem = element.target.parentElement.parentElement;
         let taskId = taskItem.getAttribute("id");
 
         tasks[BACKLOG_COL].forEach((item) => {
@@ -450,3 +451,17 @@ function updateCounter() {
     doneCount.innerHTML = tasks[DONE_COL].length;
 }
 updateCounter();
+
+
+//userfilter
+
+/*const filterSelect = document.querySelector(".sidebar__filter-users");
+
+function filterUser(){
+    const allCardsUser = document.querySelectorAll(".card__user-choice");
+    for (let i = 0; i < allCardsUser.length; i++){
+        if(!(allCardsUser[i].value === filterSelect.value)){
+            allCardsUser[i]
+        }
+    }
+}*/

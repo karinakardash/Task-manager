@@ -63,7 +63,8 @@ body {
         text-align: center;
     }
     li {
-        margin-bottom: 40px;
+        margin-bottom: 0;
+        cursor: pointer;
         list-style-type: none;
     }
     &__title {
