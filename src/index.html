@@ -71,6 +71,14 @@
                             <h2 class="board__box-title">backlog</h2>
                             <p class="board__box-counter backlog-count" id="counter__backlog">0</p>
                         </div>
+                        <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
+                        <div class="form">
+                           <textarea class="form__textarea" placeholder="Enter task name.."></textarea>
+                           <div class="form__btn">
+                              <button class="form__add-btn">Add</button>
+                              <button class="form__cancel-btn">Cancel</button>
+                           </div>
+                        </div>
                         <div class="board__tasks-list backlog_list" id="backlog_list">
                             <!--<article class="card">
                         <div class="card__header">
@@ -91,14 +99,6 @@
                            </div>
                         </div>
                      </article>-->
-                  </div>
-                  <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
-                  <div class="form">
-                     <textarea class="form__textarea" placeholder="Enter task name.."></textarea>
-                     <div class="form__btn">
-                        <button class="form__add-btn">Add</button>
-                        <button class="form__cancel-btn">Cancel</button>
-                     </div>
                   </div>
                </article>
                <article class="board__box">
@@ -144,7 +144,7 @@
                   <div class="board__tasks-list done_list" id="done_list"></div>
                   <!--модальное окно 2-->
                   <div class="container py-3 text-center">
-                     <button type="button" class="board__box-btn" id="DeleteAllTasks">
+                     <button type="button" class="board__box-btn delete" id="DeleteAllTasks">
                         Delete All
                      </button>
                         </div>
