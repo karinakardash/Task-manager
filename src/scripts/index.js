@@ -150,7 +150,7 @@ function displayTasks() {
     })
 }
 
-function initializeUserSelectOptions (selectElement, users, selectedUser) {
+function initializeUserSelectOptions(selectElement, users, selectedUser) {
     for (let i = 0; i < users.length; i++) {
         const option = document.createElement('option');
         option.classList.add("card__user-option")
@@ -260,10 +260,12 @@ document.addEventListener('drop', (e) => {
         return;
     }
 
-    const isHoverAnotherCard = currentCard !== null &&
-        activeElement !== currentCard;
+    const isHoverAnotherCard = currentCard !== null;
 
-    if (isHoverAnotherCard) {
+    if (activeElement === currentCard) {
+        draggedElement.classList.remove('selected');
+        return;
+    } else if (isHoverAnotherCard && activeTaskList === currentTaskList) {
         if (isCardHigher(e.clientY, currentCard)) {
             currentTaskList.insertBefore(activeElement, currentCard);
         } else {
@@ -470,18 +472,18 @@ updateCounter();
 
 const filterSelect = document.querySelector(".sidebar__filter-users");
 
-function filterUser(){
+function filterUser() {
     const allCardsUser = document.querySelectorAll(".card__user-choice");
-    for (let i = 0; i < allCardsUser.length; i++){
-        if (filterSelect.value !== "Show all"){
-            if(allCardsUser[i].value !== filterSelect.value){
+    for (let i = 0; i < allCardsUser.length; i++) {
+        if (filterSelect.value !== "Show all") {
+            if (allCardsUser[i].value !== filterSelect.value) {
                 allCardsUser[i].parentElement.parentElement.style.display = "none"
-            } else if (allCardsUser[i].value === filterSelect.value){
+            } else if (allCardsUser[i].value === filterSelect.value) {
                 allCardsUser[i].parentElement.parentElement.style.display = "block"
             }
-    } else {
-        allCardsUser[i].parentElement.parentElement.style.display = "block"
-    }
+        } else {
+            allCardsUser[i].parentElement.parentElement.style.display = "block"
+        }
     }
 }
 filterSelect.addEventListener("change", filterUser);
@@ -490,18 +492,18 @@ filterSelect.addEventListener("change", filterUser);
 
 const filterPr = document.querySelector(".sidebar__filter-priority");
 
-function filterPriority(){
+function filterPriority() {
     const allCardsPr = document.querySelectorAll(".card__priority");
-    for (let i = 0; i < allCardsPr.length; i++){
-        if (filterPr.value !== "Show all"){
-            if(allCardsPr[i].value !== filterPr.value){
+    for (let i = 0; i < allCardsPr.length; i++) {
+        if (filterPr.value !== "Show all") {
+            if (allCardsPr[i].value !== filterPr.value) {
                 allCardsPr[i].parentElement.parentElement.style.display = "none"
-            } else if (allCardsPr[i].value === filterPr.value){
+            } else if (allCardsPr[i].value === filterPr.value) {
                 allCardsPr[i].parentElement.parentElement.style.display = "block"
             }
-    } else {
-        allCardsPr[i].parentElement.parentElement.style.display = "block"
-    }
+        } else {
+            allCardsPr[i].parentElement.parentElement.style.display = "block"
+        }
     }
 }
 filterPr.addEventListener("change", filterPriority);
