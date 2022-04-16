@@ -24,18 +24,21 @@
             </svg>
                 <span class="sidebar__title">Task Manager</span>
             </a>
-            <nav class="sidebar__items">
-                <ul>
-                    <li><a href="#">My board
-                  </a>
-                    </li>
-                </ul>
-            </nav>
-            <button class="sidebar__add" id="AddNewBoardBtn">Add new board</button>
+            <div class="sidebar__filter">
             <p class="sidebar__filter-title">Filter by user</p>
             <select class="sidebar__filter-users">
                <option>Show all</option>
             </select>
+         </div>
+         <div class="sidebar__filter">
+            <p class="sidebar__filter-title">Filter by priority</p>
+            <select class="sidebar__filter-priority">
+               <option>Show all</option>
+               <option>Low</option>
+               <option>Medium</option>
+               <option>High</option>
+            </select>
+         </div>
             <div class="sidebar__switch">
                 <label class="switch">
                <input type="checkbox" class="switch__input" id="switchBtn">

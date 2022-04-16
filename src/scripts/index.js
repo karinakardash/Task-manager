@@ -2,7 +2,6 @@ import '@babel/polyfill';
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
-import { displayUsers } from "./displayUsers";
 import * as bootstrap from 'bootstrap';
 
 currentTime();
@@ -22,7 +21,6 @@ const itemDel = document.querySelector('.card__delete');
 const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
-const searchInput = document.querySelector('#searchInput');
 const tasksList = document.querySelector('.board');
 const backlog = document.getElementsByClassName('backlog_list');
 const progress = document.getElementsByClassName('in_progress_list');
@@ -455,13 +453,40 @@ updateCounter();
 
 //userfilter
 
-/*const filterSelect = document.querySelector(".sidebar__filter-users");
+const filterSelect = document.querySelector(".sidebar__filter-users");
 
 function filterUser(){
     const allCardsUser = document.querySelectorAll(".card__user-choice");
     for (let i = 0; i < allCardsUser.length; i++){
-        if(!(allCardsUser[i].value === filterSelect.value)){
-            allCardsUser[i]
-        }
+        if (filterSelect.value !== "Show all"){
+            if(allCardsUser[i].value !== filterSelect.value){
+                allCardsUser[i].parentElement.parentElement.style.display = "none"
+            } else if (allCardsUser[i].value === filterSelect.value){
+                allCardsUser[i].parentElement.parentElement.style.display = "block"
+            }
+    } else {
+        allCardsUser[i].parentElement.parentElement.style.display = "block"
     }
-}*/
+    }
+}
+filterSelect.addEventListener("change", filterUser);
+
+//priorityfilter
+
+const filterPr = document.querySelector(".sidebar__filter-priority");
+
+function filterPriority(){
+    const allCardsPr = document.querySelectorAll(".card__priority");
+    for (let i = 0; i < allCardsPr.length; i++){
+        if (filterPr.value !== "Show all"){
+            if(allCardsPr[i].value !== filterPr.value){
+                allCardsPr[i].parentElement.parentElement.style.display = "none"
+            } else if (allCardsPr[i].value === filterPr.value){
+                allCardsPr[i].parentElement.parentElement.style.display = "block"
+            }
+    } else {
+        allCardsPr[i].parentElement.parentElement.style.display = "block"
+    }
+    }
+}
+filterPr.addEventListener("change", filterPriority);

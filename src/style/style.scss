@@ -62,28 +62,12 @@ body {
         color: $colorText;
         text-align: center;
     }
-    li {
-        margin-bottom: 0;
-        cursor: pointer;
-        list-style-type: none;
-    }
     &__title {
         display: block;
         color: $colorText;
         text-align: center;
         font-size: 22px;
-        margin-bottom: 30px;
-    }
-    &__title1 {
-        display: block;
-        color: red;
-        text-align: center;
-        font-size: 22px;
-        margin-bottom: 30px;
-        @media (max-width: 767px) {
-            font-size: 26px;
-            padding: 0 10px;
-        }
+        margin-bottom: 50px;
     }
     &__logo svg {
         width: 65px;
@@ -91,17 +75,29 @@ body {
         margin: 0 auto 30px;
         display: block;
     }
-    &__add {
-        display: block;
-        padding: 8px 10px;
-        margin: 0 auto;
-        background-color: $colorWhite;
-        color: $colorBlack;
-        border-radius: 8px;
-        font-size: 16px;
-        &:hover {
-            cursor: pointer;
-        }
+
+    &__filter {
+       padding: 10px;
+       border-radius: 8px;
+       border: 1px solid $colorWhite;
+       margin-bottom: 30px;
+
+       &-title{
+          color: $colorText;
+          text-align: center;
+       }
+
+       &-users{
+          width: 100%;
+          border-radius: 5px;
+
+       }
+
+       &-priority{
+         width: 100%;
+         border-radius: 5px;
+      }
+
     }
 }
 
