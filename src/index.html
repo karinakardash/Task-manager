@@ -57,8 +57,11 @@
          <div class="container">
             <div class="board">
                <article class="board__box">
-                  <h2 class="board__box-title">backlog</h2>
-                  <div id="tasks">
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">backlog</h2>
+                     <p class="board__box-counter backlog-count" id="counter__backlog">0</p>
+                  </div>
+                  <div class="board__tasks-list backlog_list" id="backlog_list">
                      <!--<article class="card">
                         <div class="card__header">
                            <p class="card__priority">High</p>
@@ -89,34 +92,46 @@
                   </div>
                </article>
                <article class="board__box">
-                  <h2 class="board__box-title">in progress</h2>
-                  <!--модальное окно 1-->
-                  <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                     aria-hidden="true">
-                     <div class="modal-dialog">
-                        <div class="modal-content">
-                           <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Ooops!</h5>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                 aria-label="Close"></button>
-                           </div>
-                           <div class="modal-body">
-                              <img class="img-fluid" alt="">
-                              <p>I see you are a busy person, try to finish the previous tasks if you
-                                 want to continue</p>
-                           </div>
-                           <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">in progress</h2>
+                     <p class="board__box-counter inprogress-count" id="counter__inprogress">0</p>
+                  </div>
+                  <div class="board__tasks-list in_progress_list" id="in_progress_list">
+                     <!--модальное окно 1-->
+                     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                           <div class="modal-content">
+                              <div class="modal-header">
+                                 <h5 class="modal-title" id="exampleModalLabel">Ooops!</h5>
+                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                              </div>
+                              <div class="modal-body">
+                                 <img class="img-fluid" alt="">
+                                 <p>I see you are a busy person, try to finish the previous tasks if you
+                                    want to continue</p>
+                              </div>
+                              <div class="modal-footer">
+                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                              </div>
                            </div>
                         </div>
                      </div>
+               </article>
+               <article class="board__box">
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">review</h2>
+                     <p class="board__box-counter review-count" id="counter__review">0</p>
                   </div>
+                  <div class="board__tasks-list review_list" id="review_list"></div>
                </article>
                <article class="board__box">
-                  <h2 class="board__box-title">review</h2>
-               </article>
-               <article class="board__box">
-                  <h2 class="board__box-title">done</h2>
+                  <div class="board__box-item">
+                     <h2 class="board__box-title">done</h2>
+                     <p class="board__box-counter done-count" id="counter__done">0</p>
+                  </div>
+                  <div class="board__tasks-list done_list" id="done_list"></div>
                   <!--модальное окно 2-->
                   <div class="container py-3 text-center">
                      <button type="button" class="board__box-btn" id="DeleteAllTasks">
@@ -138,14 +153,13 @@
                            </div>
                            <div class="modal-footer">
                               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                              <button type="button" class="btn btn-primary">Ok</button>
+                              <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
                            </div>
                         </div>
                      </div>
                   </div>
                </article>
             </div>
-         </div>
       </main>
       <footer class="footer">
          <div class="container">
@@ -217,8 +231,10 @@
                </article>
             </div>
          </div>
-      </footer>
    </div>
+   </footer>
+   </div>
+
    <script type="module" src="scripts/index.js"></script>
 </body>
 

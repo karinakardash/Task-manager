@@ -1,5 +1,19 @@
+/*import '@babel/polyfill';*/
+import { currentTime } from './time.js';
+import { searchItems } from './search.js';
+import { getUsers } from './users.js';
+import { displayUsers } from "./displayUsers";
+import * as bootstrap from 'bootstrap';
+
+currentTime();
+getUsers();
+searchItems();
+
 const addTaskBtn = document.querySelector('#AddTaskBtn');
-const list_el = document.querySelector('#tasks');
+const list_backlog = document.querySelector('#backlog_list');
+const list_progress = document.querySelector('#in_progress_list');
+const list_review = document.querySelector('#review_list');
+const list_done = document.querySelector('#done_list');
 const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
 const textArea = document.querySelector('.form__textarea');
@@ -9,30 +23,34 @@ const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const searchInput = document.querySelector('#searchInput');
-
-import { currentTime } from './time.js';
-currentTime()
-
-import { getUsers } from './users.js';
-getUsers()
-
-import * as bootstrap from 'bootstrap';
+const tasksList = document.querySelector('.board');
+const backlog = document.getElementsByClassName('backlog_list');
+const progress = document.getElementsByClassName('in_progress_list');
+const review = document.getElementsByClassName('review_list');
+const done = document.getElementsByClassName('done_list');
 
 //локал сторидж
 
-let tasks;
+const BACKLOG_COL = "backlog_list"
+const IN_PROGRESS_COL = "in_progress_list"
+const REVIEW_COL = "review_list"
+const DONE_COL = "done_list"
+const COLUMN_IDS = [BACKLOG_COL, IN_PROGRESS_COL, REVIEW_COL, DONE_COL]
 
-if (localStorage.tasks === tasks) {
-   tasks = [];
-} else {
-   tasks = JSON.parse(localStorage.getItem('tasks'));
-   displayTask();
-};
+const tasks = localStorage.getItem('tasks') ?
+   JSON.parse(localStorage.getItem('tasks')) : {
+      [BACKLOG_COL]: [],
+      [IN_PROGRESS_COL]: [],
+      [REVIEW_COL]: [],
+      [DONE_COL]: []
+   };
 
 function updateLocalStorage() {
    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
+displayTasks();
+
 
 // создание задачи
 
@@ -113,25 +131,27 @@ function createTask(obj) {
    } else if (obj.priority === "Medium") {
       card_priority.value = "Medium";
       card_priority.style.background = "#ccb034";
-      card_priority.style.color = "#000000"
    } else if (obj.priority === "High") {
       card_priority.value = "High";
       card_priority.style.background = "#026b02";
    }
 
    return card_el;
-};
+}
 
-function displayTask() {
-   list_el.innerHTML = '';
-
-   tasks.forEach((item) => {
-      list_el.appendChild(createTask(item));
-   });
-};
+function displayTasks() {
+   COLUMN_IDS.forEach(id => {
+      const columnEl = document.getElementById(id)
+      columnEl.innerHTML = ''
+      const columnTasks = tasks[id]
+      columnTasks.forEach((item) => {
+         columnEl.appendChild(createTask(item));
+      });
+   })
+}
 
 function displayModal() {
-   let numbersOfCards = task.filter(function (e) {
+   let numbersOfCards = tasks.filter(function (e) {
       if (e.status === "backlog") {
          return e
       }
@@ -142,8 +162,8 @@ function displayModal() {
 }
 
 function addNewItem() {
-   tasks.push({
-      id: Date.now(),
+   tasks[BACKLOG_COL].push({
+      id: Date.now().toString(),
       board: boardName.innerHTML,
       title: textArea.value,
       comment: "",
@@ -151,14 +171,15 @@ function addNewItem() {
       status: "backlog",
       user: "",
    });
-   displayTask();
+   displayTasks();
    updateLocalStorage();
    getUsers();
+   updateCounter();
    displayModal();
    textArea.value = ''
    form.style.display = 'none';
    addTaskBtn.style.display = 'block';
-};
+}
 
 addBtn.addEventListener('click', function () {
    addNewItem();
@@ -188,8 +209,6 @@ cancelBtn.addEventListener('click', () => {
 });
 
 
-import { searchItems } from './search.js';
-searchItems()
 
 //свитчер
 
@@ -198,31 +217,126 @@ switchBtn.addEventListener("click", function () {
    document.body.classList.toggle("light")
 });
 
+
+// drag'n'drop
+
+let draggedElement;
+document.addEventListener('dragstart', (e) => {
+   e.target.classList.add('selected');
+   draggedElement = e.target;
+});
+
+document.addEventListener('dragover', (e) => {
+   e.preventDefault();
+});
+
+// функция для помещения тасок в новом положении в local storage
+function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
+   const movedTask = tasks[sourceColumnId].find(obj => obj.id === movedTaskId)
+   tasks[sourceColumnId] = tasks[sourceColumnId].filter(obj => obj.id !== movedTask.id)
+   movedTask.status = targetColumnId
+   const columnCardElements = document.getElementById(targetColumnId).querySelectorAll('.card');
+   const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
+   tasks[targetColumnId].splice(taskIdx, 0, movedTask)
+   updateLocalStorage();
+   updateCounter();
+}
+
+// само перетаскивание либо между задачами, либо между колонками
+
+document.addEventListener('drop', (e) => {
+   e.preventDefault();
+
+   const activeElement = document.querySelector('.selected');
+   const currentElement = e.target;
+   const currentCard = currentElement.closest('.card');
+   const activeTaskList = activeElement.closest('.board__tasks-list');
+   const currentTaskList = currentElement.closest('.board__tasks-list');
+
+   if (currentTaskList === null) {
+      draggedElement.classList.remove('selected');
+      return;
+   }
+
+   const isHoverAnotherCard = currentCard !== null &&
+      activeElement !== currentCard;
+
+   if (isHoverAnotherCard) {
+      if (isCardHigher(e.clientY, currentCard)) {
+         currentTaskList.insertBefore(activeElement, currentCard);
+      } else {
+         currentTaskList.insertBefore(currentCard, activeElement);
+      }
+   } else {
+      activeTaskList.removeChild(activeElement);
+      currentTaskList.appendChild(activeElement);
+   }
+
+   draggedElement.classList.remove('selected');
+   window.setTimeout(() => {
+      draggedElement.classList.add('isMoved');
+   }, 100);
+   window.setTimeout(() => {
+      draggedElement.classList.remove('isMoved');
+   }, 500);
+
+   //displayModal();
+
+   // добавление изменения положения элементов в local storage
+
+   moveTaskToNewColumn(activeTaskList.id, currentTaskList.id, activeElement.id);
+
+});
+
+const isCardHigher = (cursorPosition, currentCard) => {
+   const { height, y } = currentCard.getBoundingClientRect();
+   const currentElementCenter = y + height / 2;
+   //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
+   return (cursorPosition < currentElementCenter);
+}
+
+
 //удаление задачи
 
 function deleteTask(element) {
    if (element.target.classList.contains("card__delete")) {
       let taskItem = element.target.parentElement.parentElement;
-      let taskId = +taskItem.getAttribute("id");
+      let taskId = taskItem.getAttribute("id");
       taskItem.remove();
 
-      tasks.forEach((item, index) => {
+      tasks[BACKLOG_COL].forEach((item, index) => {
          if (taskId === item.id) {
-            tasks.splice(index, 1);
+            tasks[BACKLOG_COL].splice(index, 1);
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[IN_PROGRESS_COL].splice(index, 1);
+         }
+      });
+      tasks[REVIEW_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[REVIEW_COL].splice(index, 1);
+         }
+      });
+      tasks[DONE_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[DONE_COL].splice(index, 1);
          }
       });
       updateLocalStorage();
+      updateCounter();
    }
 };
 
-list_el.addEventListener('click', deleteTask);
+tasksList.addEventListener('click', deleteTask);
 
 //select priority
 
 function drawPriority(element) {
    if (element.target.classList.contains("card__priority")) {
       let taskItem = element.target.parentElement.parentElement;
-      let taskId = +taskItem.getAttribute("id");
+      let taskId = taskItem.getAttribute("id");
       if (element.target.value === "Medium") {
          element.target.style.background = "#ccb034"
       } else if (element.target.value === "High") {
@@ -231,7 +345,22 @@ function drawPriority(element) {
          element.target.style.background = "#b90000"
       }
 
-      tasks.forEach((item) => {
+      tasks[BACKLOG_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      tasks[REVIEW_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      tasks[DONE_COL].forEach((item) => {
          if (taskId === item.id) {
             item.priority = element.target.value;
          }
@@ -240,24 +369,22 @@ function drawPriority(element) {
    }
 };
 
-list_el.addEventListener('change', drawPriority);
+tasksList.addEventListener('change', drawPriority);
 
-//modal windows 1
+/*modal windows 1*/
 
 function getModal() {
    const elemModal = document.querySelector('#modal');
    const modal = new bootstrap.Modal(elemModal);
    modal.show();
 }
-
-let status = "backlog"
-
-tasks.forEach((item) => {
-   if (item.status === status) {
-      getModal()
-   }
-});
-
+/*
+function displayModal() {
+    if (tasks[IN_PROGRESS_COL].length > 5) {
+        getModal();
+    }
+}
+displayModal();*/
 
 //btn delete all tasks + modal windows 2
 
@@ -273,11 +400,25 @@ document.addEventListener('DOMContentLoaded', function () {
 const btnDeleteAllTasks = document.querySelector('.btn-primary');
 
 const deleteAll = () => {
-   tasks = [];
-   list_el.innerHTML = '';
+   tasks[DONE_COL] = [];
+   list_done.innerHTML = '';
    updateLocalStorage();
+   updateCounter();
 };
 
 btnDeleteAllTasks.addEventListener('click', deleteAll);
 
+//counter
 
+const backlogCount = document.querySelector('.backlog-count');
+const inprogressCount = document.querySelector('.inprogress-count');
+const reviewCount = document.querySelector('.review-count');
+const doneCount = document.querySelector('.done-count');
+
+function updateCounter() {
+   backlogCount.innerHTML = tasks[BACKLOG_COL].length;
+   inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
+   reviewCount.innerHTML = tasks[REVIEW_COL].length;
+   doneCount.innerHTML = tasks[DONE_COL].length;
+}
+updateCounter();
