@@ -1,4 +1,5 @@
 export function searchItems() {
+   const searchInput = document.querySelector('#searchInput');
    searchInput.oninput = function () {
       let value = this.value.trim();
       let task = document.querySelectorAll('.card__title');

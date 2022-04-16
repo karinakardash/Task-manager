@@ -1166,32 +1166,12 @@ body {
   text-align: center;
 }
 
-.sidebar li {
-  margin-bottom: 40px;
-  list-style-type: none;
-}
-
 .sidebar__title {
   display: block;
   color: white;
   text-align: center;
   font-size: 22px;
-  margin-bottom: 30px;
-}
-
-.sidebar__title1 {
-  display: block;
-  color: red;
-  text-align: center;
-  font-size: 22px;
-  margin-bottom: 30px;
-}
-
-@media (max-width: 767px) {
-  .sidebar__title1 {
-    font-size: 26px;
-    padding: 0 10px;
-  }
+  margin-bottom: 50px;
 }
 
 .sidebar__logo svg {
@@ -1201,18 +1181,26 @@ body {
   display: block;
 }
 
-.sidebar__add {
-  display: block;
-  padding: 8px 10px;
-  margin: 0 auto;
-  background-color: white;
-  color: black;
+.sidebar__filter {
+  padding: 10px;
   border-radius: 8px;
-  font-size: 16px;
+  border: 1px solid white;
+  margin-bottom: 30px;
 }
 
-.sidebar__add:hover {
-  cursor: pointer;
+.sidebar__filter-title {
+  color: white;
+  text-align: center;
+}
+
+.sidebar__filter-users {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.sidebar__filter-priority {
+  width: 100%;
+  border-radius: 5px;
 }
 
 /*header*/
@@ -1628,6 +1616,8 @@ body {
   border-radius: 10px;
   background-color: #f8f8f86b;
   border: 1px solid white;
+  -webkit-box-shadow: 6px 6px 14px 0px red;
+          box-shadow: 6px 6px 14px 0px red;
   margin-bottom: 10px;
   cursor: -webkit-grab;
   cursor: grab;
@@ -1982,6 +1972,10 @@ body.light .footer {
 }
 
 body.light .footer__team-title {
+  color: black;
+}
+
+body.light .footer__text {
   color: black;
 }
 

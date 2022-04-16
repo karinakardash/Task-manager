@@ -2,7 +2,6 @@
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
-import { displayUsers } from "./displayUsers";
 import * as bootstrap from 'bootstrap';
 
 currentTime();
@@ -22,12 +21,12 @@ const itemDel = document.querySelector('.card__delete');
 const editBtn = document.querySelector('.card__edit');
 const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
-const searchInput = document.querySelector('#searchInput');
 const tasksList = document.querySelector('.board');
 const backlog = document.getElementsByClassName('backlog_list');
 const progress = document.getElementsByClassName('in_progress_list');
 const review = document.getElementsByClassName('review_list');
 const done = document.getElementsByClassName('done_list');
+const userChoice = document.querySelector(".card__user-choice");
 
 //локал сторидж
 
@@ -150,7 +149,7 @@ function displayTasks() {
    })
 }
 
-function displayModal() {
+/*function displayModal() {
    let numbersOfCards = tasks.filter(function (e) {
       if (e.status === "backlog") {
          return e
@@ -159,7 +158,7 @@ function displayModal() {
    if (numbersOfCards.lenght > 3) {
       getModal();
    }
-}
+}*/
 
 function addNewItem() {
    tasks[BACKLOG_COL].push({
@@ -371,22 +370,43 @@ function drawPriority(element) {
 
 tasksList.addEventListener('change', drawPriority);
 
-/*modal windows 1*/
 
-function getModal() {
-   const elemModal = document.querySelector('#modal');
-   const modal = new bootstrap.Modal(elemModal);
-   modal.show();
-}
-/*
-function displayModal() {
-    if (tasks[IN_PROGRESS_COL].length > 5) {
-        getModal();
-    }
-}
-displayModal();*/
+//select users
 
-//btn delete all tasks + modal windows 2
+function drawUsers(element) {
+   if (element.target.classList.contains("card__user-choice")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = taskItem.getAttribute("id");
+
+      tasks[BACKLOG_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      tasks[REVIEW_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      tasks[DONE_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      updateLocalStorage();
+   }
+};
+
+tasksList.addEventListener('change', drawUsers);
+
+
+
+//modal windows 2
 
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -422,3 +442,59 @@ function updateCounter() {
    doneCount.innerHTML = tasks[DONE_COL].length;
 }
 updateCounter();
+
+//modal windows 1
+
+function getModal() {
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
+}
+getModal();
+
+function displayModal() {
+   if (tasks[IN_PROGRESS_COL].length > 2) {
+      getModal();
+   }
+}
+displayModal();
+
+//userfilter
+
+const filterSelect = document.querySelector(".sidebar__filter-users");
+
+function filterUser() {
+   const allCardsUser = document.querySelectorAll(".card__user-choice");
+   for (let i = 0; i < allCardsUser.length; i++) {
+      if (filterSelect.value !== "Show all") {
+         if (allCardsUser[i].value !== filterSelect.value) {
+            allCardsUser[i].parentElement.parentElement.style.display = "none"
+         } else if (allCardsUser[i].value === filterSelect.value) {
+            allCardsUser[i].parentElement.parentElement.style.display = "block"
+         }
+      } else {
+         allCardsUser[i].parentElement.parentElement.style.display = "block"
+      }
+   }
+}
+filterSelect.addEventListener("change", filterUser);
+
+//priorityfilter
+
+const filterPr = document.querySelector(".sidebar__filter-priority");
+
+function filterPriority() {
+   const allCardsPr = document.querySelectorAll(".card__priority");
+   for (let i = 0; i < allCardsPr.length; i++) {
+      if (filterPr.value !== "Show all") {
+         if (allCardsPr[i].value !== filterPr.value) {
+            allCardsPr[i].parentElement.parentElement.style.display = "none"
+         } else if (allCardsPr[i].value === filterPr.value) {
+            allCardsPr[i].parentElement.parentElement.style.display = "block"
+         }
+      } else {
+         allCardsPr[i].parentElement.parentElement.style.display = "block"
+      }
+   }
+}
+filterPr.addEventListener("change", filterPriority);
