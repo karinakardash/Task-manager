@@ -222,7 +222,7 @@ body {
 }
 
 .header__time-clock {
-  margin-bottom: 0;
+  margin-bottom: 5px;
 }
 
 .header__time-date {
