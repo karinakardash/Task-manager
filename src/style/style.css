@@ -1384,6 +1384,26 @@ body {
   background-color: white;
 }
 
+.board__box .board__tasks-list {
+  height: 300px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.board__box .board__tasks-list::-webkit-scrollbar {
+  width: 5px;
+}
+
+.board__box .board__tasks-list::-webkit-scrollbar-track {
+  background-color: #4d4646;
+}
+
+.board__box .board__tasks-list::-webkit-scrollbar-thumb {
+  background-color: #cccccc;
+  border-radius: 10px;
+  border: 1px solid #4d4646;
+}
+
 .board__box-counter {
   text-transform: capitalize;
   font-size: 22px;
@@ -1915,7 +1935,7 @@ body {
 }
 
 body.light {
-  background-image: url("../media/lightbg.jpeg");
+  background-image: url("../media/lightbg_2.jpeg");
 }
 
 body.light .sidebar {
@@ -1969,20 +1989,25 @@ body.light .board__box-btn {
   color: black;
 }
 
+body.light .board__box-counter {
+  font-weight: 600;
+}
+
 body.light .footer {
   background-color: rgba(170, 170, 170, 0.4);
 }
 
 body.light .footer__team-title {
   color: black;
-}
-
-body.light .footer__text {
-  color: black;
+  font-weight: 600;
 }
 
 body.light .board__box-counter {
   color: black;
+}
+
+body.light .board__box-btn:hover {
+  background-color: #8e06cd;
 }
 
 body.light .card__title {
@@ -2020,5 +2045,9 @@ body.light .form__textarea::placeholder {
 
 .btn-close {
   cursor: pointer;
+}
+
+.board__box-btn.delete {
+  bottom: 0px;
 }
 /*# sourceMappingURL=style.css.map */

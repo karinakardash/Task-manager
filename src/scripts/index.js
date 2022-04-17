@@ -409,21 +409,6 @@ function drawUsers(element) {
 tasksList.addEventListener('change', drawUsers);
 
 
-/*modal windows 1
-
-function getModal() {
-    const elemModal = document.querySelector('#modal');
-    const modal = new bootstrap.Modal(elemModal);
-    modal.show();
-}
-
-function displayModal() {
-    if (tasks[IN_PROGRESS_COL].length > 5) {
-        getModal();
-    }
-}
-displayModal();*/
-
 //btn delete all tasks + modal windows 2
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -458,8 +443,30 @@ function updateCounter() {
    inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
    reviewCount.innerHTML = tasks[REVIEW_COL].length;
    doneCount.innerHTML = tasks[DONE_COL].length;
+
+   if (tasks[IN_PROGRESS_COL].length > 3) {
+      const elemModal = document.querySelector('#modal');
+      const modal = new bootstrap.Modal(elemModal);
+      modal.show();
+   }
+
 }
 updateCounter();
+
+//modal windows 1
+
+/*function getModal() {
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
+}
+
+function displayModal() {
+   if (tasks[IN_PROGRESS_COL].length > 3) {
+      getModal();
+   }
+}
+displayModal();*/
 
 
 //userfilter
