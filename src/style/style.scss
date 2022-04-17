@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+@import "../style/bootstrap/functions";
+@import "../style/bootstrap/variables";
+@import "../style/bootstrap/mixins";
+@import "../style/bootstrap/root";
+@import "../style/bootstrap/modal";
+@import "../style/bootstrap/buttons";
+@import "../style/bootstrap/close";
+
 * {
     padding: 0;
     margin: 0;
@@ -695,4 +703,8 @@ body.light {
     .form__textarea::placeholder {
       color: $colorTextLightTheme;
    }
+}
+
+.btn-close {
+   cursor: pointer;
 }
