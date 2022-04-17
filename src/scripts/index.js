@@ -5,7 +5,6 @@ import { getUsers } from './users.js';
 import * as bootstrap from 'bootstrap';
 
 currentTime();
-getUsers();
 searchItems();
 
 const addTaskBtn = document.querySelector('#AddTaskBtn');

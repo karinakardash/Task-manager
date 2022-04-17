@@ -39,7 +39,7 @@ body {
 
 .wrapper {
     min-height: 100%;
-    margin-left: 150px;
+    margin-left: 170px;
     display: flex;
     flex-direction: column;
     @media (max-width: 767px) {
@@ -58,7 +58,8 @@ body {
 
 .sidebar {
     position: fixed;
-    width: 150px;
+    width: 170px;
+    padding:10px;
     height: 100vh;
     padding-top: 20px;
     background-color: $colorBackgroundFotter;
@@ -99,12 +100,14 @@ body {
        &-users{
           width: 100%;
           border-radius: 5px;
+          cursor: pointer;
 
        }
 
        &-priority{
          width: 100%;
          border-radius: 5px;
+         cursor: pointer;
       }
 
     }
@@ -279,8 +282,15 @@ body {
             color: $colorText;
             font-size: 18px;
             cursor: pointer;
+            margin-bottom: 20px;
             &:hover {
                 background-color: $colorBackgroundBody;
+            }
+
+            &.delete{
+               position: relative;
+               left: 0;
+               bottom: 105px;
             }
         }
     }
@@ -338,6 +348,7 @@ body {
     background-color: rgba(248, 248, 248, 0.418);
     border: 1px solid $colorWhite;
     margin-top: auto;
+    margin-bottom: 10px;
     display: none;
     &__textarea {
         font-size: 14px;
@@ -481,18 +492,9 @@ body {
         justify-content: space-between;
         align-items: center;
     }
-    &__user {
-        width: 30px;
-        height: 30px;
-        font-size: 20px;
-        border-radius: 50%;
-        background-color: transparent;
-        text-align: center;
-        border: 1px dashed #00000098;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #00000098;
+    &__user-choice {
+        cursor: pointer;
+        border-radius: 6px;
     }
     &__confirmation {
         display: none;
@@ -558,7 +560,7 @@ body {
 }
 
 .board__tasks-list {
-    height: 100vh;
+    height: 100%;
 }
 
 .hide {
@@ -644,6 +646,12 @@ body.light {
             background-color: $colorBlack;
             color: $colorWhite;
         }
+        &__filter{
+           border: 1px solid $colorTextLightTheme;
+        }
+        &__filter-title {
+           color: $colorTextLightTheme;
+        }
     }
     .header {
         &__title {
@@ -658,10 +666,10 @@ body.light {
             background-color: $colorBackgroundBoardsLightTheme;
             &-title {
                 color: $colorTextLightTheme;
-                &::before {
+            }
+                &-item::before {
                     background-color: $colorBlack;
                 }
-            }
             &-btn {
                 background-color: rgba(0, 0, 0, 0.2);
                 border: 1px solid white;
@@ -676,6 +684,7 @@ body.light {
         }
         &__text {
             color: $colorTextLightTheme;
+<<<<<<< HEAD
       }
       &__text{
          color: $colorTextLightTheme;
@@ -685,4 +694,27 @@ body.light {
 
 .btn-close {
    cursor: pointer;
+=======
+        }
+    }
+    .board__box-counter {
+       color: $colorTextLightTheme;
+    }
+    .card__title{
+       color: $colorTextLightTheme;
+    }
+    .card {
+      border: 1px solid rgba(0, 0, 0, 0.5);
+    }
+    .form {
+      border: 1px solid rgba(0, 0, 0, 0.5);
+      background-color: $colorBackgroundFotterLightTheme;
+    }
+    .form__textarea {
+       color: $colorTextLightTheme;
+    }
+    .form__textarea::placeholder {
+      color: $colorTextLightTheme;
+   }
+>>>>>>> 38ae739bfc90582938a1e146dea40d3ce45c3466
 }
