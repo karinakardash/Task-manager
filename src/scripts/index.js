@@ -95,6 +95,12 @@ function createTask(obj) {
     //cardTitle.contentEditable = true;
     card_el.appendChild(cardTitle);
 
+    const statusSelect = document.createElement('select');
+    statusSelect.classList.add('card__select-status-mobile');
+
+    initializeStatusSelectOptions(statusSelect, tasks, cardTitle);
+    card_el.appendChild(statusSelect);
+
     const cardDesc = document.createElement("p");
     cardDesc.classList.add("card__description");
     cardDesc.innerText = "Enter a description of the task.."
@@ -138,6 +144,40 @@ function createTask(obj) {
 
     return card_el;
 }
+
+function initializeStatusSelectOptions(selectedElement, tasks, cardTitle) {
+    for (let key in tasks) {
+        const option = document.createElement('option');
+        option.textContent = key;
+        option.value = key;
+        tasks[key].forEach(item => {
+            if (item.title === cardTitle.textContent) {
+                option.selected = true;
+            }
+        });
+        selectedElement.appendChild(option);
+    }
+}
+
+function addCardToAnotherColumn(e) {
+    if (e.target.classList.contains('card__select-status-mobile')) {
+        for (let key in tasks) {
+            console.log(key);
+            if (e.target.value === key) {
+                const sourceColumn = e.target.closest('.board__tasks-list');
+                const card = e.target.closest('.card');
+                sourceColumn.removeChild(card);
+
+                const targetColumn = document.getElementById(key);
+                console.log(key);
+                targetColumn.appendChild(card);
+
+                moveTaskToNewColumn(sourceColumn.id, targetColumn.id, card.id);
+            }
+        }
+    }
+}
+tasksList.addEventListener('change', addCardToAnotherColumn);
 
 function displayTasks() {
     COLUMN_IDS.forEach(id => {
