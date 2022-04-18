@@ -43,12 +43,14 @@ const tasks = localStorage.getItem('tasks') ?
       [DONE_COL]: []
    };
 
+
 function updateLocalStorage() {
    localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
-displayTasks();
 displayModal();
+displayTasks();
+
 
 
 // создание задачи
@@ -457,7 +459,7 @@ function getModal() {
 }
 
 function displayModal() {
-   if (tasks[IN_PROGRESS_COL].length > 5) {
+   if (tasks[IN_PROGRESS_COL].length > 2) {
       getModal();
    }
 }
