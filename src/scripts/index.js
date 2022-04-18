@@ -1,4 +1,4 @@
-import '@babel/polyfill';
+/*import '@babel/polyfill';*/
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
@@ -36,15 +36,15 @@ const DONE_COL = "done_list"
 const COLUMN_IDS = [BACKLOG_COL, IN_PROGRESS_COL, REVIEW_COL, DONE_COL]
 
 const tasks = localStorage.getItem('tasks') ?
-    JSON.parse(localStorage.getItem('tasks')) : {
-        [BACKLOG_COL]: [],
-        [IN_PROGRESS_COL]: [],
-        [REVIEW_COL]: [],
-        [DONE_COL]: []
-    };
+   JSON.parse(localStorage.getItem('tasks')) : {
+      [BACKLOG_COL]: [],
+      [IN_PROGRESS_COL]: [],
+      [REVIEW_COL]: [],
+      [DONE_COL]: []
+   };
 
 function updateLocalStorage() {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
+   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 updateLocalStorage();
 displayTasks();
@@ -177,29 +177,29 @@ function addCardToAnotherColumn(e) {
 tasksList.addEventListener('change', addCardToAnotherColumn);
 
 function displayTasks() {
-    getUsers().then(users => {
-        COLUMN_IDS.forEach(id => {
-            const columnEl = document.getElementById(id)
-            columnEl.innerHTML = ''
-            const columnTasks = tasks[id]
-            columnTasks.forEach((item) => {
-                columnEl.appendChild(createTask(item, users));
-            });
-        })
-    });
+   getUsers().then(users => {
+      COLUMN_IDS.forEach(id => {
+         const columnEl = document.getElementById(id)
+         columnEl.innerHTML = ''
+         const columnTasks = tasks[id]
+         columnTasks.forEach((item) => {
+            columnEl.appendChild(createTask(item, users));
+         });
+      })
+   });
 }
 
 function initializeUserSelectOptions(selectElement, users, selectedUser) {
-    for (let i = 0; i < users.length; i++) {
-        const option = document.createElement('option');
-        option.classList.add("card__user-option")
-        option.value = users[i].name;
-        option.textContent = users[i].name;
-        if (selectedUser && users[i].name === selectedUser) {
-            option.selected = true;
-        }
-        selectElement.appendChild(option);
-    }
+   for (let i = 0; i < users.length; i++) {
+      const option = document.createElement('option');
+      option.classList.add("card__user-option")
+      option.value = users[i].name;
+      option.textContent = users[i].name;
+      if (selectedUser && users[i].name === selectedUser) {
+         option.selected = true;
+      }
+      selectElement.appendChild(option);
+   }
 }
 
 function addNewItem() {
@@ -223,31 +223,31 @@ function addNewItem() {
     addTaskBtn.style.display = 'block';
 }
 
-addBtn.addEventListener('click', function() {
-    addNewItem();
+addBtn.addEventListener('click', function () {
+   addNewItem();
 });
 
 //Модальное окно ввода названия задачи
 
 addTaskBtn.addEventListener('click', () => {
-    form.style.display = 'block';
-    addTaskBtn.style.display = 'none';
-    addBtn.style.display = 'none';
+   form.style.display = 'block';
+   addTaskBtn.style.display = 'none';
+   addBtn.style.display = 'none';
 
-    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
-    textArea.addEventListener('input', () => {
-        if (textArea.value.trim()) {
-            addBtn.style.display = 'block';
-        } else {
-            addBtn.style.display = 'none';
-        }
-    })
+   //Проверяем, если инпут пустой, тогда кнопку добавления прячем
+   textArea.addEventListener('input', () => {
+      if (textArea.value.trim()) {
+         addBtn.style.display = 'block';
+      } else {
+         addBtn.style.display = 'none';
+      }
+   })
 });
 
 cancelBtn.addEventListener('click', () => {
-    textArea.value = '';
-    form.style.display = 'none';
-    addTaskBtn.style.display = 'block';
+   textArea.value = '';
+   form.style.display = 'none';
+   addTaskBtn.style.display = 'block';
 });
 
 
@@ -255,8 +255,8 @@ cancelBtn.addEventListener('click', () => {
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
-switchBtn.addEventListener("click", function() {
-    document.body.classList.toggle("light")
+switchBtn.addEventListener("click", function () {
+   document.body.classList.toggle("light")
 });
 
 
@@ -264,113 +264,113 @@ switchBtn.addEventListener("click", function() {
 
 let draggedElement;
 document.addEventListener('dragstart', (e) => {
-    e.target.classList.add('selected');
-    draggedElement = e.target;
+   e.target.classList.add('selected');
+   draggedElement = e.target;
 });
 
 document.addEventListener('dragover', (e) => {
-    e.preventDefault();
+   e.preventDefault();
 });
 
 // функция для помещения тасок в новом положении в local storage
 function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
-    const movedTask = tasks[sourceColumnId].find(obj => obj.id === movedTaskId)
-    tasks[sourceColumnId] = tasks[sourceColumnId].filter(obj => obj.id !== movedTask.id)
-    movedTask.status = targetColumnId
-    const columnCardElements = document.getElementById(targetColumnId).querySelectorAll('.card');
-    const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
-    tasks[targetColumnId].splice(taskIdx, 0, movedTask)
-    updateLocalStorage();
-    updateCounter();
+   const movedTask = tasks[sourceColumnId].find(obj => obj.id === movedTaskId)
+   tasks[sourceColumnId] = tasks[sourceColumnId].filter(obj => obj.id !== movedTask.id)
+   movedTask.status = targetColumnId
+   const columnCardElements = document.getElementById(targetColumnId).querySelectorAll('.card');
+   const taskIdx = Array.from(columnCardElements).findIndex(card => card.id === movedTaskId)
+   tasks[targetColumnId].splice(taskIdx, 0, movedTask)
+   updateLocalStorage();
+   updateCounter();
 }
 
 // само перетаскивание либо между задачами, либо между колонками
 
 document.addEventListener('drop', (e) => {
-    e.preventDefault();
+   e.preventDefault();
 
-    const activeElement = document.querySelector('.selected');
-    const currentElement = e.target;
-    const currentCard = currentElement.closest('.card');
-    const activeTaskList = activeElement.closest('.board__tasks-list');
-    const currentTaskList = currentElement.closest('.board__tasks-list');
+   const activeElement = document.querySelector('.selected');
+   const currentElement = e.target;
+   const currentCard = currentElement.closest('.card');
+   const activeTaskList = activeElement.closest('.board__tasks-list');
+   const currentTaskList = currentElement.closest('.board__tasks-list');
 
-    if (currentTaskList === null) {
-        draggedElement.classList.remove('selected');
-        return;
-    }
+   if (currentTaskList === null) {
+      draggedElement.classList.remove('selected');
+      return;
+   }
 
-    const isHoverAnotherCard = currentCard !== null;
+   const isHoverAnotherCard = currentCard !== null;
 
-    if (activeElement === currentCard) {
-        draggedElement.classList.remove('selected');
-        return;
-    } else if (isHoverAnotherCard && activeTaskList === currentTaskList) {
-        if (isCardHigher(e.clientY, currentCard)) {
-            currentTaskList.insertBefore(activeElement, currentCard);
-        } else {
-            currentTaskList.insertBefore(currentCard, activeElement);
-        }
-    } else {
-        activeTaskList.removeChild(activeElement);
-        currentTaskList.appendChild(activeElement);
-    }
+   if (activeElement === currentCard) {
+      draggedElement.classList.remove('selected');
+      return;
+   } else if (isHoverAnotherCard && activeTaskList === currentTaskList) {
+      if (isCardHigher(e.clientY, currentCard)) {
+         currentTaskList.insertBefore(activeElement, currentCard);
+      } else {
+         currentTaskList.insertBefore(currentCard, activeElement);
+      }
+   } else {
+      activeTaskList.removeChild(activeElement);
+      currentTaskList.appendChild(activeElement);
+   }
 
-    draggedElement.classList.remove('selected');
-    window.setTimeout(() => {
-        draggedElement.classList.add('isMoved');
-    }, 100);
-    window.setTimeout(() => {
-        draggedElement.classList.remove('isMoved');
-    }, 500);
+   draggedElement.classList.remove('selected');
+   window.setTimeout(() => {
+      draggedElement.classList.add('isMoved');
+   }, 100);
+   window.setTimeout(() => {
+      draggedElement.classList.remove('isMoved');
+   }, 500);
 
-    //displayModal();
+   //displayModal();
 
-    // добавление изменения положения элементов в local storage
+   // добавление изменения положения элементов в local storage
 
-    moveTaskToNewColumn(activeTaskList.id, currentTaskList.id, activeElement.id);
+   moveTaskToNewColumn(activeTaskList.id, currentTaskList.id, activeElement.id);
 
 });
 
 const isCardHigher = (cursorPosition, currentCard) => {
-    const { height, y } = currentCard.getBoundingClientRect();
-    const currentElementCenter = y + height / 2;
-    //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
-    return (cursorPosition < currentElementCenter);
+   const { height, y } = currentCard.getBoundingClientRect();
+   const currentElementCenter = y + height / 2;
+   //const nextElement = (cursorPosition < currentElementCenter) ? currentElement : currentElement.nextElementSibling;
+   return (cursorPosition < currentElementCenter);
 }
 
 
 //удаление задачи
 
 function deleteTask(element) {
-    if (element.target.classList.contains("card__delete")) {
-        let taskItem = element.target.parentElement.parentElement;
-        let taskId = taskItem.getAttribute("id");
-        taskItem.remove();
+   if (element.target.classList.contains("card__delete")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = taskItem.getAttribute("id");
+      taskItem.remove();
 
-        tasks[BACKLOG_COL].forEach((item, index) => {
-            if (taskId === item.id) {
-                tasks[BACKLOG_COL].splice(index, 1);
-            }
-        });
-        tasks[IN_PROGRESS_COL].forEach((item, index) => {
-            if (taskId === item.id) {
-                tasks[IN_PROGRESS_COL].splice(index, 1);
-            }
-        });
-        tasks[REVIEW_COL].forEach((item, index) => {
-            if (taskId === item.id) {
-                tasks[REVIEW_COL].splice(index, 1);
-            }
-        });
-        tasks[DONE_COL].forEach((item, index) => {
-            if (taskId === item.id) {
-                tasks[DONE_COL].splice(index, 1);
-            }
-        });
-        updateLocalStorage();
-        updateCounter();
-    }
+      tasks[BACKLOG_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[BACKLOG_COL].splice(index, 1);
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[IN_PROGRESS_COL].splice(index, 1);
+         }
+      });
+      tasks[REVIEW_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[REVIEW_COL].splice(index, 1);
+         }
+      });
+      tasks[DONE_COL].forEach((item, index) => {
+         if (taskId === item.id) {
+            tasks[DONE_COL].splice(index, 1);
+         }
+      });
+      updateLocalStorage();
+      updateCounter();
+   }
 };
 
 tasksList.addEventListener('click', deleteTask);
@@ -378,39 +378,39 @@ tasksList.addEventListener('click', deleteTask);
 //select priority
 
 function drawPriority(element) {
-    if (element.target.classList.contains("card__priority")) {
-        let taskItem = element.target.parentElement.parentElement;
-        let taskId = taskItem.getAttribute("id");
-        if (element.target.value === "Medium") {
-            element.target.style.background = "#ccb034"
-        } else if (element.target.value === "High") {
-            element.target.style.background = "#026b02"
-        } else {
-            element.target.style.background = "#b90000"
-        }
+   if (element.target.classList.contains("card__priority")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = taskItem.getAttribute("id");
+      if (element.target.value === "Medium") {
+         element.target.style.background = "#ccb034"
+      } else if (element.target.value === "High") {
+         element.target.style.background = "#026b02"
+      } else {
+         element.target.style.background = "#b90000"
+      }
 
-        tasks[BACKLOG_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.priority = element.target.value;
-            }
-        });
-        tasks[IN_PROGRESS_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.priority = element.target.value;
-            }
-        });
-        tasks[REVIEW_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.priority = element.target.value;
-            }
-        });
-        tasks[DONE_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.priority = element.target.value;
-            }
-        });
-        updateLocalStorage();
-    }
+      tasks[BACKLOG_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      tasks[REVIEW_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      tasks[DONE_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.priority = element.target.value;
+         }
+      });
+      updateLocalStorage();
+   }
 };
 
 tasksList.addEventListener('change', drawPriority);
@@ -418,76 +418,55 @@ tasksList.addEventListener('change', drawPriority);
 //select users
 
 function drawUsers(element) {
-    if (element.target.classList.contains("card__user-choice")) {
-        let taskItem = element.target.parentElement.parentElement;
-        let taskId = taskItem.getAttribute("id");
+   if (element.target.classList.contains("card__user-choice")) {
+      let taskItem = element.target.parentElement.parentElement;
+      let taskId = taskItem.getAttribute("id");
 
-        tasks[BACKLOG_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.user = element.target.value;
-            }
-        });
-        tasks[IN_PROGRESS_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.user = element.target.value;
-            }
-        });
-        tasks[REVIEW_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.user = element.target.value;
-            }
-        });
-        tasks[DONE_COL].forEach((item) => {
-            if (taskId === item.id) {
-                item.user = element.target.value;
-            }
-        });
-        updateLocalStorage();
-    }
+      tasks[BACKLOG_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      tasks[REVIEW_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      tasks[DONE_COL].forEach((item) => {
+         if (taskId === item.id) {
+            item.user = element.target.value;
+         }
+      });
+      updateLocalStorage();
+   }
 };
 
 tasksList.addEventListener('change', drawUsers);
 
 
-/*modal windows 1
-
-function getModal() {
-    const elemModal = document.querySelector('#modal');
-    const modal = new bootstrap.Modal(elemModal);
-    modal.show();
-}
-
-function displayModal() {
-    if (tasks[IN_PROGRESS_COL].length > 5) {
-        getModal();
-    }
-}
-displayModal();*/
-
 //btn delete all tasks + modal windows 2
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
-    const btn = document.querySelector('#DeleteAllTasks');
-    const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
-    btn.addEventListener('click', function() {
-        modal.show();
-    });
+   const btn = document.querySelector('#DeleteAllTasks');
+   const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
+   btn.addEventListener('click', function () {
+      modal.show();
+   });
 });
 
 const btnDeleteAllTasks = document.querySelector('.btn-primary');
 
 const deleteAll = () => {
-    tasks[BACKLOG_COL] = [];
-    tasks[IN_PROGRESS_COL] = [];
-    tasks[REVIEW_COL] = [];
-    tasks[DONE_COL] = [];
-    list_backlog.innerHTML = '';
-    list_progress.innerHTML = '';
-    list_review.innerHTML = '';
-    list_done.innerHTML = '';
-    updateLocalStorage();
-    updateCounter();
+   tasks[DONE_COL] = [];
+   list_done.innerHTML = '';
+   updateLocalStorage();
+   updateCounter();
 };
 
 btnDeleteAllTasks.addEventListener('click', deleteAll);
@@ -500,12 +479,34 @@ const reviewCount = document.querySelector('.review-count');
 const doneCount = document.querySelector('.done-count');
 
 function updateCounter() {
-    backlogCount.innerHTML = tasks[BACKLOG_COL].length;
-    inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
-    reviewCount.innerHTML = tasks[REVIEW_COL].length;
-    doneCount.innerHTML = tasks[DONE_COL].length;
+   backlogCount.innerHTML = tasks[BACKLOG_COL].length;
+   inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
+   reviewCount.innerHTML = tasks[REVIEW_COL].length;
+   doneCount.innerHTML = tasks[DONE_COL].length;
+
+   if (tasks[IN_PROGRESS_COL].length > 3) {
+      const elemModal = document.querySelector('#modal');
+      const modal = new bootstrap.Modal(elemModal);
+      modal.show();
+   }
+
 }
 updateCounter();
+
+//modal windows 1
+
+/*function getModal() {
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
+}
+
+function displayModal() {
+   if (tasks[IN_PROGRESS_COL].length > 3) {
+      getModal();
+   }
+}
+displayModal();*/
 
 
 //userfilter
@@ -513,18 +514,18 @@ updateCounter();
 const filterSelect = document.querySelector(".sidebar__filter-users");
 
 function filterUser() {
-    const allCardsUser = document.querySelectorAll(".card__user-choice");
-    for (let i = 0; i < allCardsUser.length; i++) {
-        if (filterSelect.value !== "Show all") {
-            if (allCardsUser[i].value !== filterSelect.value) {
-                allCardsUser[i].parentElement.parentElement.style.display = "none"
-            } else if (allCardsUser[i].value === filterSelect.value) {
-                allCardsUser[i].parentElement.parentElement.style.display = "block"
-            }
-        } else {
+   const allCardsUser = document.querySelectorAll(".card__user-choice");
+   for (let i = 0; i < allCardsUser.length; i++) {
+      if (filterSelect.value !== "Show all") {
+         if (allCardsUser[i].value !== filterSelect.value) {
+            allCardsUser[i].parentElement.parentElement.style.display = "none"
+         } else if (allCardsUser[i].value === filterSelect.value) {
             allCardsUser[i].parentElement.parentElement.style.display = "block"
-        }
-    }
+         }
+      } else {
+         allCardsUser[i].parentElement.parentElement.style.display = "block"
+      }
+   }
 }
 filterSelect.addEventListener("change", filterUser);
 
@@ -533,18 +534,18 @@ filterSelect.addEventListener("change", filterUser);
 const filterPr = document.querySelector(".sidebar__filter-priority");
 
 function filterPriority() {
-    const allCardsPr = document.querySelectorAll(".card__priority");
-    for (let i = 0; i < allCardsPr.length; i++) {
-        if (filterPr.value !== "Show all") {
-            if (allCardsPr[i].value !== filterPr.value) {
-                allCardsPr[i].parentElement.parentElement.style.display = "none"
-            } else if (allCardsPr[i].value === filterPr.value) {
-                allCardsPr[i].parentElement.parentElement.style.display = "block"
-            }
-        } else {
+   const allCardsPr = document.querySelectorAll(".card__priority");
+   for (let i = 0; i < allCardsPr.length; i++) {
+      if (filterPr.value !== "Show all") {
+         if (allCardsPr[i].value !== filterPr.value) {
+            allCardsPr[i].parentElement.parentElement.style.display = "none"
+         } else if (allCardsPr[i].value === filterPr.value) {
             allCardsPr[i].parentElement.parentElement.style.display = "block"
-        }
-    }
+         }
+      } else {
+         allCardsPr[i].parentElement.parentElement.style.display = "block"
+      }
+   }
 }
 filterPr.addEventListener("change", filterPriority);
 

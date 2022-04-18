@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap');
+
 * {
     padding: 0;
     margin: 0;
@@ -228,7 +229,8 @@ body {
         background-color: $colorBackgroundBoards;
         border-radius: 10px;
         padding: 13px;
-        &-item {
+        
+      &-item {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -244,6 +246,22 @@ body {
                 transform: translate(-50%, 0);
                 background-color: $colorWhite
             }
+        }
+        .board__tasks-list {
+         height: 300px;
+         overflow-y: scroll;
+         scroll-behavior: smooth;
+         &::-webkit-scrollbar {
+            width:5px;
+         }
+         &::-webkit-scrollbar-track {
+            background-color: rgb(77, 70, 70);
+         }
+         &::-webkit-scrollbar-thumb {
+            background-color:rgb(204, 204, 204);
+            border-radius: 10px;
+            border:1px solid rgb(77, 70, 70);
+         }
         }
         &-counter {
             text-transform: capitalize;
@@ -634,7 +652,7 @@ body {
 
 //light theme
 body.light {
-    background-image: url('../media/lightbg.jpeg');
+    background-image: url('../media/lightbg_2.jpeg');
     .sidebar {
         background-color: $colorBackgroundFotterLightTheme;
         a {
@@ -676,19 +694,25 @@ body.light {
                 border: 1px solid white;
                 color: $colorTextLightTheme;
             }
+            &-counter {
+               font-weight: 600;
+            }
         }
     }
     .footer {
         background-color: $colorBackgroundFotterLightTheme;
         &__team-title {
             color: $colorTextLightTheme;
-        }
-        &__text {
-            color: $colorTextLightTheme;
+            font-weight: 600;
         }
     }
     .board__box-counter {
        color: $colorTextLightTheme;
+    }
+    .board__box-btn {
+       &:hover {
+          background-color: $colorBackgroundBody;
+       }
     }
     .card__title{
        color: $colorTextLightTheme;
@@ -708,6 +732,13 @@ body.light {
    }
 }
 
+.btn-close {
+   cursor: pointer;
+}
+
+.board__box-btn.delete {
+   bottom: 0px;
+}
 //modal window edit
 
 .modalWrapper-edit {
