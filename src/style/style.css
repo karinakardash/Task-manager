@@ -595,6 +595,16 @@ body {
   cursor: pointer;
 }
 
+.card__select-status-mobile {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .card__select-status-mobile {
+    display: block;
+  }
+}
+
 .card__edit {
   padding: 5px 15px;
   font-size: 12px;
