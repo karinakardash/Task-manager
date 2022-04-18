@@ -404,7 +404,7 @@ body {
 //cards
 .card {
     width: 100%;
-    padding: 8px;
+    padding: 5px;
     border-radius: 10px;
     background-color: #f8f8f86b;
     border: 1px solid $colorWhite;
@@ -416,10 +416,10 @@ body {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
     &__priority {
-        padding: 5px 15px;
+        padding: 5px 10px;
         font-size: 12px;
         font-weight: 400;
         background-color: #b90000;
@@ -452,9 +452,6 @@ body {
         &:hover {
             cursor: pointer;
         }
-        &.edit {
-            display: block;
-        }
     }
     &__delete {
         padding: 5px 15px;
@@ -470,14 +467,11 @@ body {
         &:hover {
             cursor: pointer;
         }
-        &.edit {
-            display: none;
-        }
     }
     &__title {
         font-size: 16px;
         font-weight: 600;
-        margin-bottom: 18px;
+        margin-bottom: 15px;
         color: $colorText;
         @media (max-width: 767px) {
             font-size: 20px;
@@ -492,10 +486,10 @@ body {
         cursor: pointer;
         border-radius: 6px;
     }
-    &__confirmation {
-        display: none;
-    }
-    &__cancel {
+    //&__confirmation {
+      //  display: none;
+   // }
+    /*&__cancel {
         padding: 5px 15px;
         font-size: 12px;
         font-weight: 400;
@@ -509,7 +503,7 @@ body {
         &:hover {
             cursor: pointer;
         }
-    }
+    }*/
     &__confirm {
         padding: 5px 15px;
         font-size: 12px;
@@ -532,20 +526,10 @@ body {
         }
     }
     &__description {
-        display: none;
+        display: block;
         color: $colorText;
-        margin-bottom: 30px;
-        &.edit {
-            display: block;
-            font-size: 16px;
-            margin-bottom: 20px;
-            min-height: 100px;
-            width: 100%;
-            border: 1px solid rgb(109, 189, 211);
-            border-radius: 6px;
-            background-color: #fffffff1;
-            padding: 8px;
-        }
+        font-size: 13px;
+        margin-bottom: 20px;
     }
 }
 
@@ -725,9 +709,9 @@ body.light {
    left: 50%;
    transform: translateX(-50%);
    width: 500px;
-   padding: 8px;
+   padding: 20px;
    border-radius: 10px;
-   background-color: #f8f8f86b;
+   background-color: rgba(247, 247, 247, 0.671);
    border: 1px solid $colorWhite;
    margin-bottom: 10px;
    transition: all 0.5s;
@@ -749,5 +733,19 @@ body.light {
       font-size: 16px;
       border-radius: 6px;
       padding: 8px;
+   }
+   &__title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 18px;
+      color: $colorBlack;
+   }
+
+   &__text {
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 8px;
+      color: $colorBlack;
+      font-style: italic;
    }
 }

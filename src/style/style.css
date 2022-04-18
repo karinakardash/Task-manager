@@ -531,7 +531,7 @@ body {
 
 .card {
   width: 100%;
-  padding: 8px;
+  padding: 5px;
   border-radius: 10px;
   background-color: #f8f8f86b;
   border: 1px solid white;
@@ -540,6 +540,21 @@ body {
   cursor: grab;
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
+  /*&__cancel {
+        padding: 5px 15px;
+        font-size: 12px;
+        font-weight: 400;
+        background-color: $colorBlack;
+        color: $colorWhite;
+        border-radius: 6px;
+        border: none;
+        @media (max-width: 767px) {
+            font-size: 17px;
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }*/
 }
 
 .card__header {
@@ -552,11 +567,11 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
 }
 
 .card__priority {
-  padding: 5px 15px;
+  padding: 5px 10px;
   font-size: 12px;
   font-weight: 400;
   background-color: #b90000;
@@ -606,10 +621,6 @@ body {
   cursor: pointer;
 }
 
-.card__edit.edit {
-  display: block;
-}
-
 .card__delete {
   padding: 5px 15px;
   font-size: 12px;
@@ -630,14 +641,10 @@ body {
   cursor: pointer;
 }
 
-.card__delete.edit {
-  display: none;
-}
-
 .card__title {
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 18px;
+  margin-bottom: 15px;
   color: white;
 }
 
@@ -662,30 +669,6 @@ body {
 .card__user-choice {
   cursor: pointer;
   border-radius: 6px;
-}
-
-.card__confirmation {
-  display: none;
-}
-
-.card__cancel {
-  padding: 5px 15px;
-  font-size: 12px;
-  font-weight: 400;
-  background-color: black;
-  color: white;
-  border-radius: 6px;
-  border: none;
-}
-
-@media (max-width: 767px) {
-  .card__cancel {
-    font-size: 17px;
-  }
-}
-
-.card__cancel:hover {
-  cursor: pointer;
 }
 
 .card__confirm {
@@ -715,21 +698,10 @@ body {
 }
 
 .card__description {
-  display: none;
-  color: white;
-  margin-bottom: 30px;
-}
-
-.card__description.edit {
   display: block;
-  font-size: 16px;
+  color: white;
+  font-size: 13px;
   margin-bottom: 20px;
-  min-height: 100px;
-  width: 100%;
-  border: 1px solid #6dbdd3;
-  border-radius: 6px;
-  background-color: #fffffff1;
-  padding: 8px;
 }
 
 .selected {
@@ -943,9 +915,9 @@ body.light .form__textarea::placeholder {
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
   width: 500px;
-  padding: 8px;
+  padding: 20px;
   border-radius: 10px;
-  background-color: #f8f8f86b;
+  background-color: rgba(247, 247, 247, 0.671);
   border: 1px solid white;
   margin-bottom: 10px;
   -webkit-transition: all 0.5s;
@@ -969,5 +941,20 @@ body.light .form__textarea::placeholder {
   font-size: 16px;
   border-radius: 6px;
   padding: 8px;
+}
+
+.card-edit__title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: black;
+}
+
+.card-edit__text {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: black;
+  font-style: italic;
 }
 /*# sourceMappingURL=style.css.map */

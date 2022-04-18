@@ -96,8 +96,7 @@ function createTask(obj, users) {
 
     const cardDesc = document.createElement("p");
     cardDesc.classList.add("card__description");
-    cardDesc.innerText = "Enter a description of the task.."
-    cardDesc.contentEditable = true;
+    cardDesc.textContent = obj.comment;
     card_el.appendChild(cardDesc);
 
     const footer = document.createElement("div");
@@ -168,6 +167,7 @@ function addNewItem() {
         id: Date.now().toString(),
         board: boardName.innerHTML,
         title: textArea.value,
+        //title: "",
         comment: "",
         priority: 'low',
         status: "backlog",
@@ -348,8 +348,6 @@ function drawPriority(element) {
         } else {
             element.target.style.background = "#b90000"
         }
-        console.log(taskId);
-        console.log(taskItem);
 
         tasks[BACKLOG_COL].forEach((item) => {
             if (taskId === item.id) {
@@ -568,14 +566,19 @@ function editTask(element) {
             taskHeader.appendChild(cardPriority);
         
             const cardTitle = document.createElement("h3");
-            cardTitle.classList.add("card__title");
+            cardTitle.classList.add("card-edit__title");
             cardTitle.innerText = taskItem.title;
             cardTitle.contentEditable = true;
             cardModal.appendChild(cardTitle);
-        
+
+            const cardText = document.createElement("p");
+            cardText.classList.add("card-edit__text")
+            cardText.innerText = "Enter a task description";
+            cardModal.appendChild(cardText);
+
             const cardDesc = document.createElement("p");
             cardDesc.classList.add("card-edit__description");
-            cardDesc.innerText = "Enter a description of the task.."
+            cardDesc.innerText = taskItem.comment;
             cardDesc.contentEditable = true;
             cardModal.appendChild(cardDesc);
         
@@ -648,8 +651,6 @@ function editTask(element) {
                 } else {
                     element.target.style.background = "#b90000"
                 }
-                console.log(taskId);
-                console.log(taskItem);
         
                 tasks[BACKLOG_COL].forEach((item) => {
                     if (taskItem.id === item.id) {
@@ -671,7 +672,6 @@ function editTask(element) {
                         item.priority = element.target.value;
                     }
                 });
-                updateLocalStorage();
             }
         });
         
@@ -698,40 +698,66 @@ function editTask(element) {
                         item.user = element.target.value;
                     }
                 });
-                updateLocalStorage();
             }
         });
 
-        function taskModalConfirmLS(){
-            console.log(tasks[BACKLOG_COL]);
+       /* taskModalWindow.addEventListener('click', function drawTitleModal(element){
+            if (element.target.classList.contains("card__title")) {
+        
+                tasks[BACKLOG_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.title = element.target.value;
+                        console.log(element.target.value)
+                    }
+                });
+                tasks[IN_PROGRESS_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.title = element.target.value;
+                    }
+                });
+                tasks[REVIEW_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.title = element.target.value;
+                    }
+                });
+                tasks[DONE_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.title = element.target.value;
+                    }
+                });
+            }
+        });*/
+
+        confirmBtnTaskModal.addEventListener("click", function(){
+            const titleModal = document.getElementsByClassName("card-edit__title")[0];
+            const commenttModal = document.getElementsByClassName("card-edit__description")[0];
 
             tasks[BACKLOG_COL].forEach((item) => {
-                if (item.id === taskId) {
-                    item.user = taskItem.user;
-                    item.priority = taskItem.priority;
-                    item.title = taskItem.title;
-                    item.comment = taskItem.comment;
+                if (taskItem.id === item.id) {  
+                    item.title = titleModal.innerText;
+                    item.comment = commenttModal.innerText;
                 }
             });
             tasks[IN_PROGRESS_COL].forEach((item) => {
-                if (taskId === item.id) {
-                    item = taskItem;
+                if (taskItem.id === item.id) {
+                    item.title = titleModal.innerText;
+                    item.comment = commenttModal.innerText;
                 }
             });
             tasks[REVIEW_COL].forEach((item) => {
-                if (taskId === item.id) {
-                    item = taskItem;
+                if (taskItem.id === item.id) {
+                    item.title = titleModal.innerText;
+                    item.comment = commenttModal.innerText;
                 }
             });
             tasks[DONE_COL].forEach((item) => {
-                if (taskId === item.id) {
-                    item = taskItem;
+                if (taskItem.id === item.id) {
+                    item.title = titleModal.innerText;
+                    item.comment = commenttModal.innerText;
                 }
-            });   
-        }
-
-        confirmBtnTaskModal.addEventListener("click", function(){
-            taskModalConfirmLS();
+            });
+            updateLocalStorage();
+            displayTasks();
             taskModalWindow.remove();
         }); 
 
