@@ -213,15 +213,12 @@ cancelBtn.addEventListener('click', () => {
    addTaskBtn.style.display = 'block';
 });
 
-
-
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
 switchBtn.addEventListener("click", function () {
    document.body.classList.toggle("light")
 });
-
 
 // drag'n'drop
 
@@ -278,6 +275,41 @@ document.addEventListener('drop', (e) => {
       activeTaskList.removeChild(activeElement);
       currentTaskList.appendChild(activeElement);
    }
+
+   // changing the color in tasks
+
+   function getChangeColor(element) {
+      if (element.target.classList.contains("card")) {
+         let elementId = element.target.getAttribute("id");
+         console.log(elementId);
+
+         tasks[BACKLOG_COL].forEach((item) => {
+            if (elementId === item.id) {
+               element.target.style.boxShadow = 'inset -5px -8px 20px 6px white';
+               element.target.style.border = '1px solid white';
+            }
+         });
+         tasks[IN_PROGRESS_COL].forEach((item) => {
+            if (elementId === item.id) {
+               element.target.style.boxShadow = 'inset 0 0 20px 6px tomato';
+               element.target.style.border = 'none';
+            };
+         });
+         tasks[REVIEW_COL].forEach((item) => {
+            if (elementId === item.id) {
+               element.target.style.boxShadow = 'inset 0 0 20px 6px orange';
+               element.target.style.border = 'none';
+            }
+         });
+         tasks[DONE_COL].forEach((item) => {
+            if (elementId === item.id) {
+               element.target.style.boxShadow = 'inset 0 0 20px 6px green';
+               element.target.style.border = 'none';
+            }
+         });
+      }
+   }
+   tasksList.addEventListener("dragend", getChangeColor);
 
    draggedElement.classList.remove('selected');
    window.setTimeout(() => {
