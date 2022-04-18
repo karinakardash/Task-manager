@@ -48,6 +48,7 @@ function updateLocalStorage() {
 }
 updateLocalStorage();
 displayTasks();
+displayModal();
 
 
 // создание задачи
@@ -424,13 +425,7 @@ document.addEventListener('DOMContentLoaded', function () {
 const btnDeleteAllTasks = document.querySelector('.btn-primary');
 
 const deleteAll = () => {
-   tasks[BACKLOG_COL] = [];
-   tasks[IN_PROGRESS_COL] = [];
-   tasks[REVIEW_COL] = [];
    tasks[DONE_COL] = [];
-   list_backlog.innerHTML = '';
-   list_progress.innerHTML = '';
-   list_review.innerHTML = '';
    list_done.innerHTML = '';
    updateLocalStorage();
    updateCounter();
@@ -450,30 +445,23 @@ function updateCounter() {
    inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
    reviewCount.innerHTML = tasks[REVIEW_COL].length;
    doneCount.innerHTML = tasks[DONE_COL].length;
-
-   if (tasks[IN_PROGRESS_COL].length > 3) {
-      const elemModal = document.querySelector('#modal');
-      const modal = new bootstrap.Modal(elemModal);
-      modal.show();
-   }
-
 }
 updateCounter();
 
-/*modal windows 1
+//modal windows 1
 
 function getModal() {
-    const elemModal = document.querySelector('#modal');
-    const modal = new bootstrap.Modal(elemModal);
-    modal.show();
+   const elemModal = document.querySelector('#modal');
+   const modal = new bootstrap.Modal(elemModal);
+   modal.show();
 }
 
 function displayModal() {
-    if (tasks[IN_PROGRESS_COL].length > 5) {
-        getModal();
-    }
+   if (tasks[IN_PROGRESS_COL].length > 5) {
+      getModal();
+   }
 }
-displayModal();*/
+displayModal();
 
 //userfilter
 
