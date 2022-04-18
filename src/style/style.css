@@ -295,6 +295,12 @@ body {
   scroll-behavior: smooth;
 }
 
+@media (max-width: 767px) {
+  .board__box .board__tasks-list {
+    height: 180px;
+  }
+}
+
 .board__box .board__tasks-list::-webkit-scrollbar {
   width: 5px;
 }

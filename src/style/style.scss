@@ -229,6 +229,10 @@ body {
          height: 430px;
          overflow-y: scroll;
          scroll-behavior: smooth;
+
+         @media (max-width: 767px) {
+            height: 180px;
+         }
          &::-webkit-scrollbar {
             width:5px;
          }

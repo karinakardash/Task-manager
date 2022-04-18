@@ -114,19 +114,6 @@ function createTask(obj, users) {
     initializeUserSelectOptions(cardUser, users, obj.user);
     footer.appendChild(cardUser);
 
-    /*const cardConfirm = document.createElement("div");
-    cardConfirm.classList.add("card__confirmation");
-    footer.appendChild(cardConfirm);*/
-
-    /*const confirmBtn = document.createElement("button");
-    confirmBtn.classList.add("card__confirm");
-    confirmBtn.innerHTML = "Confirm";
-    cardConfirm.appendChild(confirmBtn);
-
-    const revokeBtn = document.createElement("button");
-    revokeBtn.classList.add("card__confirm");
-    revokeBtn.innerHTML = "Cancel";
-    cardConfirm.appendChild(revokeBtn);*/
 
     if (obj.priority === "Low") {
         card_priority.value = "Low";
