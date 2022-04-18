@@ -411,9 +411,7 @@ body {
     margin-bottom: 10px;
     cursor: grab;
     transition: all 0.5s;
-    &.modal {
-        width: 500px;
-    }
+
     &__header {
         display: flex;
         justify-content: space-between;
@@ -454,8 +452,8 @@ body {
         &:hover {
             cursor: pointer;
         }
-        &.modal {
-            display: none;
+        &.edit {
+            display: block;
         }
     }
     &__delete {
@@ -472,7 +470,7 @@ body {
         &:hover {
             cursor: pointer;
         }
-        &.modal {
+        &.edit {
             display: none;
         }
     }
@@ -496,9 +494,6 @@ body {
     }
     &__confirmation {
         display: none;
-        &.modal {
-            display: block;
-        }
     }
     &__cancel {
         padding: 5px 15px;
@@ -518,24 +513,29 @@ body {
     &__confirm {
         padding: 5px 15px;
         font-size: 12px;
+        width: calc((100% - 10px) / 2);
         font-weight: 400;
         background-color: $colorBlack;
         color: $colorWhite;
         border-radius: 6px;
         border: none;
         margin-right: 10px;
+
         @media (max-width: 767px) {
             font-size: 17px;
         }
         &:hover {
             cursor: pointer;
         }
+        &.card__cancel {
+           margin-right: 0;
+        }
     }
     &__description {
         display: none;
         color: $colorText;
         margin-bottom: 30px;
-        &.modal {
+        &.edit {
             display: block;
             font-size: 16px;
             margin-bottom: 20px;
@@ -702,5 +702,52 @@ body.light {
     }
     .form__textarea::placeholder {
       color: $colorTextLightTheme;
+   }
+}
+
+//modal window edit
+
+.modalWrapper-edit {
+   display: block; 
+   position: fixed; 
+   z-index: 1; 
+   padding-top: 100px; 
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: 100%; 
+   overflow: auto; 
+   background-color: rgba(0, 0, 0, 0.7);
+}
+.card-edit {
+   position: relative;
+   top: 0;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 500px;
+   padding: 8px;
+   border-radius: 10px;
+   background-color: #f8f8f86b;
+   border: 1px solid $colorWhite;
+   margin-bottom: 10px;
+   transition: all 0.5s;
+
+   &__description {
+      display: block;
+      font-size: 16px;
+      margin-bottom: 20px;
+      min-height: 100px;
+      width: 100%;
+      border: 1px solid $colorWhite;
+      border-radius: 6px;
+      background-color: #fffffff1;
+      padding: 8px;
+   }
+
+   &__confirmation {
+      display: block;
+      font-size: 16px;
+      border-radius: 6px;
+      padding: 8px;
    }
 }

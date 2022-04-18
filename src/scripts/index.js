@@ -109,11 +109,11 @@ function createTask(obj, users) {
     initializeUserSelectOptions(cardUser, users, obj.user);
     footer.appendChild(cardUser);
 
-    const cardConfirm = document.createElement("div");
+    /*const cardConfirm = document.createElement("div");
     cardConfirm.classList.add("card__confirmation");
-    footer.appendChild(cardConfirm);
+    footer.appendChild(cardConfirm);*/
 
-    const confirmBtn = document.createElement("button");
+    /*const confirmBtn = document.createElement("button");
     confirmBtn.classList.add("card__confirm");
     confirmBtn.innerHTML = "Confirm";
     cardConfirm.appendChild(confirmBtn);
@@ -121,7 +121,7 @@ function createTask(obj, users) {
     const revokeBtn = document.createElement("button");
     revokeBtn.classList.add("card__confirm");
     revokeBtn.innerHTML = "Cancel";
-    cardConfirm.appendChild(revokeBtn);
+    cardConfirm.appendChild(revokeBtn);*/
 
     if (obj.priority === "Low") {
         card_priority.value = "Low";
@@ -348,6 +348,8 @@ function drawPriority(element) {
         } else {
             element.target.style.background = "#b90000"
         }
+        console.log(taskId);
+        console.log(taskItem);
 
         tasks[BACKLOG_COL].forEach((item) => {
             if (taskId === item.id) {
@@ -507,3 +509,233 @@ function filterPriority() {
     }
 }
 filterPr.addEventListener("change", filterPriority);
+
+//модальное окно для редактирования
+
+function editTask(element) {
+    if (element.target.classList.contains("card__edit")){
+        let taskItem = element.target.parentElement.parentElement;
+        let taskId = taskItem.getAttribute("id");
+
+        tasks[BACKLOG_COL].forEach((item) => {
+            if (taskId === item.id) {
+                taskItem = item;
+            }
+        });
+        tasks[IN_PROGRESS_COL].forEach((item) => {
+            if (taskId === item.id) {
+                taskItem = item;
+            }
+        });
+        tasks[REVIEW_COL].forEach((item) => {
+            if (taskId === item.id) {
+                taskItem = item;
+            }
+        });
+        tasks[DONE_COL].forEach((item) => {
+            if (taskId === item.id) {
+                taskItem = item;
+            }
+        });  
+        
+        //рисование модального окна
+
+        function createTaskEditModal(taskItem) {
+            const modalWrapper = document.createElement("div");
+            modalWrapper.classList.add("modalWrapper-edit");
+        
+            const cardModal = document.createElement("article");
+            cardModal.classList.add("card-edit");
+        
+            const taskHeader = document.createElement("div");
+            taskHeader.classList.add("card__header");
+            cardModal.appendChild(taskHeader);
+        
+            const cardPriority = document.createElement("select");
+            cardPriority.classList.add("card__priority");
+            const optionLow = document.createElement("option");
+            optionLow.innerText = 'Low';
+            optionLow.classList.add("card__option-low");
+            cardPriority.appendChild(optionLow);
+            const optionMedium = document.createElement("option");
+            optionMedium.classList.add("card__option-medium");
+            optionMedium.innerText = 'Medium';
+            cardPriority.appendChild(optionMedium);
+            const optionHigh = document.createElement("option");
+            optionHigh.innerText = 'High';
+            optionHigh.classList.add("card__option-high");
+            cardPriority.appendChild(optionHigh);
+            taskHeader.appendChild(cardPriority);
+        
+            const cardTitle = document.createElement("h3");
+            cardTitle.classList.add("card__title");
+            cardTitle.innerText = taskItem.title;
+            cardTitle.contentEditable = true;
+            cardModal.appendChild(cardTitle);
+        
+            const cardDesc = document.createElement("p");
+            cardDesc.classList.add("card-edit__description");
+            cardDesc.innerText = "Enter a description of the task.."
+            cardDesc.contentEditable = true;
+            cardModal.appendChild(cardDesc);
+        
+            const footer = document.createElement("div");
+            footer.classList.add("card__footer");
+            cardModal.appendChild(footer);
+        
+            const cardUser = document.createElement("select");
+            cardUser.classList.add("card__user-choice");
+            getUsers().then(users => initializeUserSelectOptions(cardUser, users, taskItem.user));
+            footer.appendChild(cardUser);
+        
+            const cardConfirm = document.createElement("div");
+            cardConfirm.classList.add("card-edit__confirmation");
+            footer.appendChild(cardConfirm);
+        
+            const confirmBtn = document.createElement("button");
+            confirmBtn.classList.add("card__confirm");
+            confirmBtn.innerHTML = "Confirm";
+            cardConfirm.appendChild(confirmBtn);
+        
+            const revokeBtn = document.createElement("button");
+            revokeBtn.classList.add("card__confirm");
+            revokeBtn.classList.add("card__cancel");
+            revokeBtn.innerHTML = "Cancel";
+            cardConfirm.appendChild(revokeBtn);
+        
+            if (taskItem.priority === "Low") {
+                cardPriority.value = "Low";
+                cardPriority.style.background = "b90000"
+            } else if (taskItem.priority === "Medium") {
+                cardPriority.value = "Medium";
+                cardPriority.style.background = "#ccb034";
+            } else if (taskItem.priority === "High") {
+                cardPriority.value = "High";
+                cardPriority.style.background = "#026b02";
+            }
+        
+            modalWrapper.appendChild(cardModal)
+        
+            return modalWrapper;
+        }
+
+        document.querySelector("main").append(createTaskEditModal(taskItem));
+
+        //закрытие модального окна edit
+
+        const cancelBtnTaskModal = document.getElementsByClassName("card__cancel")[0];
+        const confirmBtnTaskModal = document.getElementsByClassName("card__confirm")[0];
+        const taskModalWindow = document.querySelector(".modalWrapper-edit");
+
+        cancelBtnTaskModal.addEventListener("click", function(){
+            taskModalWindow.remove();
+        }); 
+
+        window.onclick = function(event) {
+            if (event.target == taskModalWindow) {
+                taskModalWindow.remove();
+            }
+        }
+
+        //изменение данных и их запись
+        
+        taskModalWindow.addEventListener('change', function drawPriorityModal(element){
+            if (element.target.classList.contains("card__priority")) {
+                if (element.target.value === "Medium") {
+                    element.target.style.background = "#ccb034"
+                } else if (element.target.value === "High") {
+                    element.target.style.background = "#026b02"
+                } else {
+                    element.target.style.background = "#b90000"
+                }
+                console.log(taskId);
+                console.log(taskItem);
+        
+                tasks[BACKLOG_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.priority = element.target.value;
+                    }
+                });
+                tasks[IN_PROGRESS_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.priority = element.target.value;
+                    }
+                });
+                tasks[REVIEW_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.priority = element.target.value;
+                    }
+                });
+                tasks[DONE_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.priority = element.target.value;
+                    }
+                });
+                updateLocalStorage();
+            }
+        });
+        
+        taskModalWindow.addEventListener('change', function drawUsersModal(element){
+            if (element.target.classList.contains("card__user-choice")) {
+        
+                tasks[BACKLOG_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.user = element.target.value;
+                    }
+                });
+                tasks[IN_PROGRESS_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.user = element.target.value;
+                    }
+                });
+                tasks[REVIEW_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.user = element.target.value;
+                    }
+                });
+                tasks[DONE_COL].forEach((item) => {
+                    if (taskItem.id === item.id) {
+                        item.user = element.target.value;
+                    }
+                });
+                updateLocalStorage();
+            }
+        });
+
+        function taskModalConfirmLS(){
+            console.log(tasks[BACKLOG_COL]);
+
+            tasks[BACKLOG_COL].forEach((item) => {
+                if (item.id === taskId) {
+                    item.user = taskItem.user;
+                    item.priority = taskItem.priority;
+                    item.title = taskItem.title;
+                    item.comment = taskItem.comment;
+                }
+            });
+            tasks[IN_PROGRESS_COL].forEach((item) => {
+                if (taskId === item.id) {
+                    item = taskItem;
+                }
+            });
+            tasks[REVIEW_COL].forEach((item) => {
+                if (taskId === item.id) {
+                    item = taskItem;
+                }
+            });
+            tasks[DONE_COL].forEach((item) => {
+                if (taskId === item.id) {
+                    item = taskItem;
+                }
+            });   
+        }
+
+        confirmBtnTaskModal.addEventListener("click", function(){
+            taskModalConfirmLS();
+            taskModalWindow.remove();
+        }); 
+
+    }
+}
+
+tasksList.addEventListener('click', editTask);
