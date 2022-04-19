@@ -595,6 +595,10 @@ body {
 @media (max-width: 767px) {
   .card__select-status-mobile {
     display: block;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    width: 90%;
   }
 }
 

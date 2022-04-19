@@ -458,6 +458,10 @@ body {
         display: none;
         @media (max-width: 767px) {
             display: block;
+            cursor: pointer;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            width: 90%;
         }
     }
     &__edit {

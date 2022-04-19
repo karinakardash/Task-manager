@@ -94,16 +94,15 @@ function createTask(obj, users) {
     //cardTitle.contentEditable = true;
     card_el.appendChild(cardTitle);
 
-    const statusSelect = document.createElement('select');
-    statusSelect.classList.add('card__select-status-mobile');
-
-    initializeStatusSelectOptions(statusSelect, tasks, cardTitle);
-    card_el.appendChild(statusSelect);
-
     const cardDesc = document.createElement("p");
     cardDesc.classList.add("card__description");
     cardDesc.textContent = obj.comment;
     card_el.appendChild(cardDesc);
+
+    const statusSelect = document.createElement('select');
+    statusSelect.classList.add('card__select-status-mobile');
+    initializeStatusSelectOptions(statusSelect, tasks, cardTitle);
+    card_el.appendChild(statusSelect);
 
     const footer = document.createElement("div");
     footer.classList.add("card__footer");
