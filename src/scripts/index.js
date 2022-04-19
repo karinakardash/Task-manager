@@ -1,4 +1,4 @@
-/*import '@babel/polyfill';*/
+import '@babel/polyfill';
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
@@ -49,7 +49,6 @@ function updateLocalStorage() {
 updateLocalStorage();
 displayModal();
 displayTasks();
-
 
 
 // создание задачи
@@ -195,6 +194,7 @@ function addNewItem() {
         id: Date.now().toString(),
         board: boardName.innerHTML,
         title: textArea.value,
+        //title: "",
         comment: "",
         priority: 'low',
         status: "backlog",
@@ -237,12 +237,15 @@ cancelBtn.addEventListener('click', () => {
    addTaskBtn.style.display = 'block';
 });
 
+
+
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
 switchBtn.addEventListener("click", function () {
    document.body.classList.toggle("light")
 });
+
 
 // drag'n'drop
 
@@ -323,40 +326,40 @@ const isCardHigher = (cursorPosition, currentCard) => {
    return (cursorPosition < currentElementCenter);
 }
 
-   // changing the color in tasks
+// changing the color in tasks
 
-   function getChangeColor(element) {
-      if (element.target.classList.contains("card")) {
-         let elementId = element.target.getAttribute("id");
-         console.log(elementId);
+function getChangeColor(element) {
+   if (element.target.classList.contains("card")) {
+      let elementId = element.target.getAttribute("id");
+      console.log(elementId);
 
-         tasks[BACKLOG_COL].forEach((item) => {
-            if (elementId === item.id) {
-               element.target.style.boxShadow = 'inset -5px -8px 20px 6px white';
-               element.target.style.border = '1px solid white';
-            }
-         });
-         tasks[IN_PROGRESS_COL].forEach((item) => {
-            if (elementId === item.id) {
-               element.target.style.boxShadow = 'inset 0 0 20px 6px tomato';
-               element.target.style.border = 'none';
-            };
-         });
-         tasks[REVIEW_COL].forEach((item) => {
-            if (elementId === item.id) {
-               element.target.style.boxShadow = 'inset 0 0 20px 6px orange';
-               element.target.style.border = 'none';
-            }
-         });
-         tasks[DONE_COL].forEach((item) => {
-            if (elementId === item.id) {
-               element.target.style.boxShadow = 'inset 0 0 20px 6px green';
-               element.target.style.border = 'none';
-            }
-         });
-      }
+      tasks[BACKLOG_COL].forEach((item) => {
+         if (elementId === item.id) {
+            element.target.style.boxShadow = 'inset -5px -8px 20px 6px white';
+            element.target.style.border = '1px solid white';
+         }
+      });
+      tasks[IN_PROGRESS_COL].forEach((item) => {
+         if (elementId === item.id) {
+            element.target.style.boxShadow = 'inset 0 0 20px 6px tomato';
+            element.target.style.border = 'none';
+         };
+      });
+      tasks[REVIEW_COL].forEach((item) => {
+         if (elementId === item.id) {
+            element.target.style.boxShadow = 'inset 0 0 20px 6px orange';
+            element.target.style.border = 'none';
+         }
+      });
+      tasks[DONE_COL].forEach((item) => {
+         if (elementId === item.id) {
+            element.target.style.boxShadow = 'inset 0 0 20px 6px green';
+            element.target.style.border = 'none';
+         }
+      });
    }
-   tasksList.addEventListener("dragend", getChangeColor);
+}
+tasksList.addEventListener("dragend", getChangeColor);
 
 //удаление задачи
 
@@ -466,6 +469,7 @@ function drawUsers(element) {
 
 tasksList.addEventListener('change', drawUsers);
 
+
 //btn delete all tasks + modal windows 2
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -524,6 +528,7 @@ function displayModal() {
    }
 }
 displayModal();
+
 
 //userfilter
 

@@ -600,7 +600,7 @@ body {
     cursor: pointer;
     border-radius: 6px;
     margin-bottom: 10px;
-    width: 90%;
+    width: 91%;
   }
 }
 
@@ -870,10 +870,10 @@ body.light .footer {
 body.light .footer__team-title {
   color: black;
   font-weight: 600;
+}
 
 body.light .board__box-counter {
   color: black;
-
 }
 
 body.light .board__box-btn:hover {
