@@ -117,7 +117,7 @@ function createTask(obj, users) {
 
     if (obj.priority === "Low") {
         card_priority.value = "Low";
-        card_priority.style.background = "b90000"
+        card_priority.style.background = "#7c0202"
     } else if (obj.priority === "Medium") {
         card_priority.value = "Medium";
         card_priority.style.background = "#ccb034";
@@ -373,7 +373,7 @@ function drawPriority(element) {
       } else if (element.target.value === "High") {
          element.target.style.background = "#026b02"
       } else {
-         element.target.style.background = "#b90000"
+         element.target.style.background = "#7c0202"
       }
 
       tasks[BACKLOG_COL].forEach((item) => {
@@ -616,6 +616,7 @@ function editTask(element) {
         
             const cardUser = document.createElement("select");
             cardUser.classList.add("card__user-choice");
+            cardUser.classList.add("card__user-choice-modal");
             getUsers().then(users => initializeUserSelectOptions(cardUser, users, taskItem.user));
             footer.appendChild(cardUser);
         
@@ -636,7 +637,7 @@ function editTask(element) {
         
             if (taskItem.priority === "Low") {
                 cardPriority.value = "Low";
-                cardPriority.style.background = "b90000"
+                cardPriority.style.background = "#7c0202"
             } else if (taskItem.priority === "Medium") {
                 cardPriority.value = "Medium";
                 cardPriority.style.background = "#ccb034";
@@ -677,7 +678,7 @@ function editTask(element) {
                 } else if (element.target.value === "High") {
                     element.target.style.background = "#026b02"
                 } else {
-                    element.target.style.background = "#b90000"
+                    element.target.style.background = "#7c0202"
                 }
         
                 tasks[BACKLOG_COL].forEach((item) => {
