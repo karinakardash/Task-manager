@@ -14,9 +14,11 @@ $colorBackgroundBoards: rgba(7,7,7,0.5);
 $colorWhite: rgb(255,255,255);
 $colorBlack: rgb(0,0,0);
 $colorText: rgb(255,255,255);
+$colorRed: rgb(185, 0, 0);
 $colorTextLightTheme: rgb(0,0,0);
 $colorBackgroundFotterLightTheme:rgba(170,170,170,0.4);
 $colorBackgroundBoardsLightTheme: rgba(255,255,255,0.6);
+$colorHover: linear-gradient(20deg, #9d3e73 38%, #db2348 65%);
 
 html,
 body {
@@ -34,15 +36,20 @@ body {
     margin-left: 170px;
     display: flex;
     flex-direction: column;
-    @media (max-width: 767px) {
-        width: 100%;
-    }
+
+    @media (max-width: 545px) {
+      margin-left: 120px;
+  }
 }
 
 .container {
     max-width: 1200px;
     padding: 0 15px;
     margin: 0 auto;
+
+    @media (max-width: 545px) {
+      padding: 0 10px;
+  }
 }
 
 
@@ -57,31 +64,40 @@ body {
     background-color: $colorBackgroundFotter;
     @media (max-width: 767px) {
         padding-top: 25px;
-        height: 100%;
     }
+    @media (max-width: 545px) {
+      width: 120px;
+  }
     a {
         text-decoration: none;
-        color: $colorText;
-        text-align: center;
     }
     &__title {
-        display: block;
-        color: $colorText;
         text-align: center;
         font-size: 22px;
         margin-bottom: 50px;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        background-image: linear-gradient(20deg, #9d3e73 38%, #db2348 65%);
+        background-size: 100%;
     }
-    &__logo svg {
+    &__logo img {
         width: 65px;
         height: 65px;
         margin: 0 auto 30px;
         display: block;
+        object-fit: cover;
     }
+
     &__filter {
         padding: 10px;
         border-radius: 8px;
         border: 1px solid $colorWhite;
         margin-bottom: 30px;
+
+        @media (max-width: 545px) {
+         padding: 5px;
+     }
         &-title {
             color: $colorText;
             text-align: center;
@@ -89,10 +105,12 @@ body {
         &-users {
             width: 100%;
             border-radius: 5px;
+            cursor: pointer;
         }
         &-priority {
             width: 100%;
             border-radius: 5px;
+            cursor: pointer;
         }
     }
 }
@@ -102,6 +120,11 @@ body {
 
 .header {
     margin-bottom: 15px;
+    padding:10px 0;
+
+    @media (max-width: 545px) {
+      padding:20px 0 10px;
+  }
     &__block {
         display: flex;
         justify-content: space-between;
@@ -115,12 +138,10 @@ body {
         color: $colorText;
         margin-bottom: 0;
         @media (max-width: 1024px) {
-            font-size: 22px;
-            line-height: 25px;
+            font-size: 24px;
         }
         @media (max-width: 767px) {
-            font-size: 20px;
-            line-height: 23px;
+            font-size: 22px;
             text-align: center;
             padding: 0 10px;
         }
@@ -128,14 +149,11 @@ body {
     &__search {
         width: 60%;
         position: relative;
-        @media (max-width: 1024px) {
-            width: 40%;
-        }
         @media (max-width: 767px) {
-            width: 30%;
+            width: 40%;
         }
         @media (max-width: 545px) {
-            width: 40%;
+            width: 50%;
         }
         @media (max-width: 1024px) {
             width: 50%;
@@ -154,6 +172,7 @@ body {
         cursor: pointer;
         padding: 10px 35px;
         border-radius: 10px;
+        background-color: $colorWhite;
         border: 1px solid $colorBlack;
         position: relative;
         &:focus {
@@ -186,27 +205,43 @@ body {
 
 
 /*main*/
-
 .main__wrapper {
     flex: 1 1 auto;
-    @media (max-width: 767px) {
-        margin-bottom: 30px;
-    }
 }
 
 .board {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 27px;
-    @media (max-width: 767px) {
-        grid-template-columns: 1fr;
-        grid-row-gap: 35px;
-        margin: 0 auto;
-    }
+    display: flex;
+    flex-wrap: nowrap;
+    align-content: flex-start;
+    justify-content: flex-start;
+    //overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+
+         &::-webkit-scrollbar {
+            width:3px;
+            height: 3px;
+         }
+         &::-webkit-scrollbar-track {
+            background-color: $colorBackgroundBoards;
+         }
+         &::-webkit-scrollbar-thumb {
+            background-color: $colorBackgroundBoards;
+         }
+
     &__box {
         background-color: $colorBackgroundBoards;
         border-radius: 10px;
-        padding: 13px;
+        padding: 10px;
+        margin-right: 20px;
+        width: calc((100% - 20px - 20px - 20px) / 4);
+        min-width: 260px;
+        overflow-x: hidden;
+        margin-bottom: 5px;
+
+        &:last-child{
+           margin-right: 0;
+        }
         
       &-item {
             display: flex;
@@ -216,33 +251,29 @@ body {
             &::before {
                 content: "";
                 display: block;
-                width: 100%;
+                width: 80%;
                 height: 2px;
                 position: absolute;
-                top: 30px;
+                top: 33px;
                 left: 50%;
                 transform: translate(-50%, 0);
-                background-color: $colorWhite
+                background-color: $colorWhite;
             }
         }
         .board__tasks-list {
-         height: 430px;
-         overflow-y: scroll;
+         height: 440px;
          scroll-behavior: smooth;
+         overflow-x: hidden;
 
-         @media (max-width: 767px) {
-            height: 180px;
-         }
          &::-webkit-scrollbar {
-            width:5px;
+            width:3px;
          }
          &::-webkit-scrollbar-track {
-            background-color: rgb(77, 70, 70);
+            background-color: $colorBackgroundBoards;
          }
          &::-webkit-scrollbar-thumb {
-            background-color:rgb(204, 204, 204);
+            background-color: $colorBackgroundBoards;
             border-radius: 10px;
-            border:1px solid rgb(77, 70, 70);
          }
         }
         &-counter {
@@ -252,38 +283,22 @@ body {
             text-align: center;
             color: $colorText;
             margin-bottom: 20px;
-            @media (max-width: 1024px) {
-                font-size: 20px;
-                line-height: 22px;
-            }
-            @media (max-width: 845px) {
-                font-size: 16px;
-                line-height: 19px;
-            }
+
             @media (max-width: 767px) {
-                font-size: 25px;
-                line-height: 28px;
-            }
+               font-size: 20px;
+               line-height: 22px;
+           }
         }
         &-title {
             text-transform: capitalize;
             font-size: 22px;
             line-height: 26px;
-            text-align: center;
             color: $colorText;
             margin-bottom: 20px;
-            @media (max-width: 1024px) {
-                font-size: 20px;
-                line-height: 22px;
-            }
-            @media (max-width: 845px) {
-                font-size: 16px;
-                line-height: 19px;
-            }
             @media (max-width: 767px) {
-                font-size: 25px;
-                line-height: 28px;
-            }
+               font-size: 20px;
+               line-height: 22px;
+           }
         }
         &-btn {
             width: 100%;
@@ -295,8 +310,9 @@ body {
             font-size: 18px;
             cursor: pointer;
             margin-bottom: 10px;
+            transition: all 0.3s linear;
             &:hover {
-                background-color: $colorBackgroundBody;
+               background: $colorHover;
             }
         }
     }
@@ -310,7 +326,6 @@ body {
         justify-content: center;
         @media (max-width: 767px) {
             flex-wrap: wrap;
-            margin-bottom: 10px;
         }
     }
     &__team {
@@ -331,17 +346,13 @@ body {
             margin-left: 10px;
             color: $colorText;
             margin-bottom: 0;
-            @media (max-width: 767px) {
-                font-size: 18px;
-            }
         }
         &-icon svg {
             width: 30px;
             height: 30px;
         }
         &-icon:hover path {
-            fill: $colorBackgroundBody;
-            color: $colorBackgroundBody;
+         fill: url(#linear-gradient);
         }
     }
 }
@@ -385,8 +396,8 @@ body {
         padding: 6px 15px;
         font-size: 15px;
         font-weight: 400;
-        background-color: #000000;
-        color: #ffffff;
+        background-color: $colorBlack;
+        color: $colorWhite;
         border-radius: 6px;
         border: none;
         cursor: pointer;
@@ -399,8 +410,8 @@ body {
         padding: 6px 15px;
         font-size: 15px;
         font-weight: 400;
-        background-color: #b90000;
-        color: #ffffff;
+        background-color: $colorRed;
+        color: $colorWhite;
         border-radius: 6px;
         border: none;
         cursor: pointer;
@@ -410,10 +421,11 @@ body {
 
 //cards
 .card {
-    width: 100%;
+    width: calc(100% - 3px);
     padding: 5px;
+    margin-right: 3px;
     border-radius: 10px;
-    background-color: #f8f8f86b;
+    background-color: rgba(248, 248, 248, 0.42);
     border: 1px solid $colorWhite;
     margin-bottom: 10px;
     cursor: grab;
@@ -426,18 +438,17 @@ body {
         margin-bottom: 15px;
     }
     &__priority {
-        padding: 5px 10px;
+        padding: 5px 8px;
         font-size: 12px;
         font-weight: 400;
-        background-color: #b90000;
+        background-color: rgb(124, 2, 2);
         color: $colorWhite;
         border-radius: 6px;
         margin-right: 10px;
-        @media (max-width: 1024px) {
-            margin-right: 5px;
-        }
+        border:none;
         @media (max-width: 767px) {
-            font-size: 17px;
+            margin-right: 3px;
+            font-size: 14px;
         }
         &:hover {
             cursor: pointer;
@@ -458,12 +469,10 @@ body {
         border-radius: 6px;
         margin-right: 10px;
         border: none;
-        @media (max-width: 1024px) {
-            margin-right: 5px;
-        }
         @media (max-width: 767px) {
-            font-size: 17px;
-        }
+         margin-right: 3px;
+         font-size: 14px;
+     }
         &:hover {
             cursor: pointer;
         }
@@ -472,13 +481,13 @@ body {
         padding: 5px 15px;
         font-size: 12px;
         font-weight: 400;
-        background-color: #b90000;
-        color: #ffffff;
+        background-color: $colorRed;
+        color: $colorWhite;
         border-radius: 6px;
         border: none;
         @media (max-width: 767px) {
-            font-size: 17px;
-        }
+         font-size: 14px;
+     }
         &:hover {
             cursor: pointer;
         }
@@ -486,11 +495,8 @@ body {
     &__title {
         font-size: 16px;
         font-weight: 600;
-        margin-bottom: 15px;
+        margin-bottom: 8px;
         color: $colorText;
-        @media (max-width: 767px) {
-            font-size: 20px;
-        }
     }
     &__footer {
         display: flex;
@@ -500,6 +506,12 @@ body {
     &__user-choice {
         cursor: pointer;
         border-radius: 6px;
+
+        &.card__user-choice-modal{
+           @media (max-width:545px) {
+            width: 50%;
+           }
+        }
     }
     &__confirm {
         padding: 5px 15px;
@@ -512,13 +524,16 @@ body {
         border: none;
         margin-right: 10px;
 
-        @media (max-width: 767px) {
-            font-size: 17px;
+        @media (max-width:545px) {
+         padding: 5px 10px;
+         margin-right: 5px;
+         width: calc((100% - 5px) / 2);
         }
+
         &:hover {
             cursor: pointer;
         }
-        &.card__cancel {
+        &:last-child {
            margin-right: 0;
         }
     }
@@ -526,7 +541,7 @@ body {
         display: block;
         color: $colorText;
         font-size: 13px;
-        margin-bottom: 20px;
+        margin-bottom: 10px;
     }
 }
 
@@ -535,7 +550,7 @@ body {
 }
 
 .isMoved {
-    background-color: antiquewhite;
+    background-color: rgb(250, 235, 215);
 }
 
 .hide {
@@ -545,6 +560,7 @@ body {
 .py-3{
 padding: 0!important;
 }
+
 //switcher
 .sidebar__switch {
     position: fixed;
@@ -558,6 +574,10 @@ padding: 0!important;
     display: inline-block;
     width: 70px;
     height: 34px;
+
+    @media (max-width: 545px) {
+      left: 27px;
+   }
     &::before {
         content: '\263C';
         position: absolute;
@@ -583,7 +603,7 @@ padding: 0!important;
         left: 0;
         right: 0;
         bottom: 0;
-        background-color: #ccc;
+        background-color: rgb(204, 204, 204);
         transition: all 0.4s linear;
         border-radius: 34px;
         border: 1px solid rgba(255, 238, 0, 0.6);
@@ -594,7 +614,7 @@ padding: 0!important;
             width: 26px;
             left: 4px;
             bottom: 4px;
-            background-color: white;
+            background-color: $colorWhite;
             transition: all 0.4s linear;
             border-radius: 50%;
         }
@@ -728,6 +748,11 @@ body.light {
    margin-bottom: 10px;
    transition: all 0.5s;
 
+   @media (max-width: 545px) {
+      width: 300px;
+      padding:10px;
+  }
+
    &__description {
       display: block;
       font-size: 16px;
@@ -736,7 +761,7 @@ body.light {
       width: 100%;
       border: 1px solid $colorWhite;
       border-radius: 6px;
-      background-color: #fffffff1;
+      background-color: rgba(255, 255, 255, 0.945);
       padding: 8px;
    }
 
@@ -745,6 +770,10 @@ body.light {
       font-size: 16px;
       border-radius: 6px;
       padding: 8px;
+
+      @media (max-width:545px) {
+         padding: 0px;
+        }
    }
    &__title {
       font-size: 16px;
