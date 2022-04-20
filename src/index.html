@@ -3,81 +3,81 @@
 
 <head>
 
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="stylesheet" href="style/bootstrap.min.css">
-   <link rel="stylesheet" href="style/style.css">
-   <title>Trello</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/bootstrap.min.css">
+    <link rel="stylesheet" href="style/style.css">
+    <title>Trello</title>
 
 </head>
 
 <body>
-   <aside class="sidebar">
-      <div class="sidebar__wrapper">
-         <div class="sidebar__logo">
-            <a href="#" class="sidebar__logo">
-               <img src="./media/TM_Icon.png" alt="Logo">  
-           <p class="sidebar__title">Task Manager</p>
-         </a>
-      </div> 
-         <div class="sidebar__filter">
-            <p class="sidebar__filter-title">Filter by user</p>
-            <select class="sidebar__filter-users">
+    <aside class="sidebar">
+        <div class="sidebar__wrapper">
+            <div class="sidebar__logo">
+                <a href="#" class="sidebar__logo">
+                    <img src="./media/TM_Icon.png" alt="Logo">
+                    <p class="sidebar__title">Task Manager</p>
+                </a>
+            </div>
+            <div class="sidebar__filter">
+                <p class="sidebar__filter-title">Filter by users</p>
+                <select class="sidebar__filter-users">
                <option>Show all</option>
             </select>
-         </div>
-         <div class="sidebar__filter">
-            <p class="sidebar__filter-title">Filter by priority</p>
-            <select class="sidebar__filter-priority">
+            </div>
+            <div class="sidebar__filter">
+                <p class="sidebar__filter-title">Filter by priority</p>
+                <select class="sidebar__filter-priority">
                <option>Show all</option>
                <option>Low</option>
                <option>Medium</option>
                <option>High</option>
             </select>
-         </div>
-         <div class="sidebar__switch">
-            <label class="switch">
+            </div>
+            <div class="sidebar__switch">
+                <label class="switch">
                <input type="checkbox" class="switch__input" id="switchBtn">
                <span class="switch__slider"></span>
             </label>
-         </div>
-      </div>
-   </aside>
-   <div class="wrapper">
-      <!--wrapper нужен только, чтобы прижать футтер к низу-->
-      <header class="header">
-         <div class="container">
-            <div class="header__block">
-               <h1 class="header__title" contenteditable="true">My board</h1>
-               <div class="header__search">
-                  <input type="text" placeholder="Search tasks..." class="header__input" id="searchInput">
-               </div>
-               <div class="header__time">
-                  <p class="header__time-clock" id="currentClock"></p>
-                  <p class="header__time-date" id="currentDate"></p>
-               </div>
             </div>
-         </div>
-      </header>
-      <main class="main__wrapper">
-         <div class="container">
-            <div class="board">
-               <article class="board__box">
-                  <div class="board__box-item">
-                     <h2 class="board__box-title">backlog</h2>
-                     <p class="board__box-counter backlog-count" id="counter__backlog">0</p>
-                  </div>
-                  <button class="board__box-btn" id="AddTaskBtn">+ Add new task</button>
-                  <div class="form">
-                     <textarea class="form__textarea" placeholder="Enter task name.."></textarea>
-                     <div class="form__btn">
-                        <button class="form__add-btn">Add</button>
-                        <button class="form__cancel-btn">Cancel</button>
-                     </div>
-                  </div>
-                  <div class="board__tasks-list backlog_list" id="backlog_list">
-                     <!--<article class="card">
+        </div>
+    </aside>
+    <div class="wrapper">
+        <!--wrapper нужен только, чтобы прижать футтер к низу-->
+        <header class="header">
+            <div class="container">
+                <div class="header__block">
+                    <h1 class="header__title" contenteditable="true">My board</h1>
+                    <div class="header__search">
+                        <input type="text" placeholder="Search for tasks..." class="header__input" id="searchInput">
+                    </div>
+                    <div class="header__time">
+                        <p class="header__time-clock" id="currentClock"></p>
+                        <p class="header__time-date" id="currentDate"></p>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main class="main__wrapper">
+            <div class="container">
+                <div class="board">
+                    <article class="board__box">
+                        <div class="board__box-item">
+                            <h2 class="board__box-title">backlog</h2>
+                            <p class="board__box-counter backlog-count" id="counter__backlog">0</p>
+                        </div>
+                        <button class="board__box-btn" id="AddTaskBtn">+ Add a new task</button>
+                        <form class="form">
+                            <input type="text" class="form__textarea" placeholder="Enter a task name..">
+                            <div class="form__btn">
+                                <button type="submit" class="form__add-btn">Add</button>
+                                <button class="form__cancel-btn">Cancel</button>
+                            </div>
+                        </form>
+                        <div class="board__tasks-list backlog_list" id="backlog_list">
+                            <!--<article class="card">
                         <div class="card__header">
                            <p class="card__priority">High</p>
                            <button class="card__edit">EDIT</button>
@@ -96,85 +96,78 @@
                            </div>
                         </div>
                      </article>-->
-                  </div>
-               </article>
-               <article class="board__box">
-                  <div class="board__box-item">
-                     <h2 class="board__box-title">in progress</h2>
-                     <p class="board__box-counter inprogress-count" id="counter__inprogress">0</p>
-                  </div>
-                  <div class="board__tasks-list in_progress_list" id="in_progress_list">
-                     <!--модальное окно 1-->
-                     <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <h5 class="modal-title" id="exampleModalLabel">Ooops!</h5>
-                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                 <img class="img-fluid" alt="">
-                                 <p>I see you are a busy person, try to finish the previous tasks if you
-                                    want to continue</p>
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
-                              </div>
-                           </div>
                         </div>
-                     </div>
-               </article>
-               <article class="board__box">
-                  <div class="board__box-item">
-                     <h2 class="board__box-title">review</h2>
-                     <p class="board__box-counter review-count" id="counter__review">0</p>
-                  </div>
-                  <div class="board__tasks-list review_list" id="review_list"></div>
-               </article>
-               <article class="board__box">
-                  <div class="board__box-item">
-                     <h2 class="board__box-title">done</h2>
-                     <p class="board__box-counter done-count" id="counter__done">0</p>
-                  </div>
-                  <!--модальное окно 2-->
-                  <div class="modal__window-2">
-                     <div class="container py-3 text-center">
-                        <button type="button" class="board__box-btn delete" id="DeleteAllTasks">
+                    </article>
+                    <article class="board__box">
+                        <div class="board__box-item">
+                            <h2 class="board__box-title">in progress</h2>
+                            <p class="board__box-counter inprogress-count" id="counter__inprogress">0</p>
+                        </div>
+                        <div class="board__tasks-list in_progress_list" id="in_progress_list">
+                            <!--модальное окно 1-->
+                            <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hiddeform__btn <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Ooops!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img class="img-fluid" alt="">
+                                        <p>I see you are a busy person, try to finish the previous tasks if you want to continue</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Ok</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="board__box">
+                        <div class="board__box-item">
+                            <h2 class="board__box-title">review</h2>
+                            <p class="board__box-counter review-count" id="counter__review">0</p>
+                        </div>
+                        <div class="board__tasks-list review_list" id="review_list"></div>
+                    </article>
+                    <article class="board__box">
+                        <div class="board__box-item">
+                            <h2 class="board__box-title">done</h2>
+                            <p class="board__box-counter done-count" id="counter__done">0</p>
+                        </div>
+                        <!--модальное окно 2-->
+                        <div class="modal__window-2">
+                            <div class="container py-3 text-center">
+                                <button type="button" class="board__box-btn delete" id="DeleteAllTasks">
                            Delete All
                         </button>
-                     </div>
-                     <div class="modal fade" id="modalDeleteAll" tabindex="-1" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog">
-                           <div class="modal-content">
-                              <div class="modal-header">
-                                 <h5 class="modal-title" id="exampleModalLabel">WARNING!</h5>
-                                 <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                              </div>
-                              <div class="modal-body">
-                                 <img class="img-fluid" alt="">
-                                 <p>Are you sure?!</p>
-                              </div>
-                              <div class="modal-footer">
-                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                 <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
-                              </div>
-                           </div>
+                            </div>
+                            <div class="modal fade" id="modalDeleteAll" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hiddeform__btn <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">WARNING!</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img class="img-fluid" alt="">
+                                        <p>Are you sure?!</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Ok</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                     </div>
-                  </div>
-                  <div class="board__tasks-list done_list" id="done_list"></div>
-               </article>
+                </div>
+                <div class="board__tasks-list done_list" id="done_list"></div>
+                </article>
             </div>
-      </main>
-      <footer class="footer">
-         <div class="container">
-            <div class="footer__items footer-items">
-               <article class="footer__team">
-                  <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
+        </main>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer__items footer-items">
+                    <article class="footer__team">
+                        <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
                         height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                            d="M46.4326 18.4094C46.4102 16.7306 46.096 15.0684 45.5038 13.4973C44.9903 12.1721 44.206 10.9685 43.2011 9.96357C42.1961 8.9586 40.9926 8.17432 39.6673 7.66083C38.1164 7.07864 36.4779 6.76383 34.8217 6.72983C32.6893 6.63451 32.0132 6.60791 26.6001 6.60791C21.187 6.60791 20.4932 6.60791 18.3763 6.72983C16.7208 6.76408 15.0831 7.07888 13.5328 7.66083C12.2074 8.17396 11.0037 8.95812 9.99865 9.96313C8.99364 10.9681 8.20948 12.1719 7.69635 13.4973C7.11299 15.0471 6.79887 16.6851 6.76757 18.3407C6.67225 20.4754 6.64343 21.1515 6.64343 26.5646C6.64343 31.9777 6.64343 32.6693 6.76757 34.7884C6.80082 36.4465 7.11337 38.0824 7.69635 39.6362C8.21034 40.9613 8.99509 42.1645 10.0004 43.1691C11.0058 44.1737 12.2096 44.9575 13.535 45.4705C15.081 46.0761 16.719 46.4134 18.3785 46.468C20.5131 46.5633 21.1892 46.5921 26.6023 46.5921C32.0154 46.5921 32.7092 46.5921 34.8261 46.468C36.4823 46.4354 38.1209 46.1213 39.6718 45.5392C40.9967 45.0251 42.1999 44.2407 43.2048 43.2358C44.2097 42.2309 44.9942 41.0276 45.5083 39.7027C46.0912 38.1511 46.4038 36.5152 46.437 34.8549C46.5323 32.7225 46.5612 32.0464 46.5612 26.6311C46.5567 21.218 46.5567 20.5308 46.4326 18.4094ZM26.5868 36.8011C20.9254 36.8011 16.3391 32.2148 16.3391 26.5535C16.3391 20.8921 20.9254 16.3058 26.5868 16.3058C29.3046 16.3058 31.9112 17.3855 33.833 19.3073C35.7548 21.2291 36.8344 23.8356 36.8344 26.5535C36.8344 29.2713 35.7548 31.8779 33.833 33.7997C31.9112 35.7215 29.3046 36.8011 26.5868 36.8011ZM37.2423 18.3163C36.9284 18.3166 36.6176 18.255 36.3275 18.135C36.0375 18.0151 35.7739 17.8391 35.552 17.6171C35.33 17.3952 35.154 17.1316 35.034 16.8416C34.914 16.5515 34.8524 16.2407 34.8527 15.9268C34.8527 15.6131 34.9145 15.3025 35.0345 15.0128C35.1546 14.723 35.3305 14.4597 35.5523 14.2379C35.7741 14.0161 36.0374 13.8402 36.3272 13.7201C36.617 13.6001 36.9275 13.5383 37.2412 13.5383C37.5549 13.5383 37.8654 13.6001 38.1552 13.7201C38.445 13.8402 38.7083 14.0161 38.9301 14.2379C39.1519 14.4597 39.3278 14.723 39.4478 15.0128C39.5679 15.3025 39.6297 15.6131 39.6297 15.9268C39.6297 17.2479 38.5612 18.3163 37.2423 18.3163Z"
@@ -188,10 +181,10 @@
                            </linearGradient>
                      </svg>
                   </a>
-                  <h3 class="footer__team-title">Andrew</h3>
-               </article>
-               <article class="footer__team">
-                  <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
+                        <h3 class="footer__team-title">Andrew</h3>
+                    </article>
+                    <article class="footer__team">
+                        <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
                         height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                            d="M46.4326 18.4094C46.4102 16.7306 46.096 15.0684 45.5038 13.4973C44.9903 12.1721 44.206 10.9685 43.2011 9.96357C42.1961 8.9586 40.9926 8.17432 39.6673 7.66083C38.1164 7.07864 36.4779 6.76383 34.8217 6.72983C32.6893 6.63451 32.0132 6.60791 26.6001 6.60791C21.187 6.60791 20.4932 6.60791 18.3763 6.72983C16.7208 6.76408 15.0831 7.07888 13.5328 7.66083C12.2074 8.17396 11.0037 8.95812 9.99865 9.96313C8.99364 10.9681 8.20948 12.1719 7.69635 13.4973C7.11299 15.0471 6.79887 16.6851 6.76757 18.3407C6.67225 20.4754 6.64343 21.1515 6.64343 26.5646C6.64343 31.9777 6.64343 32.6693 6.76757 34.7884C6.80082 36.4465 7.11337 38.0824 7.69635 39.6362C8.21034 40.9613 8.99509 42.1645 10.0004 43.1691C11.0058 44.1737 12.2096 44.9575 13.535 45.4705C15.081 46.0761 16.719 46.4134 18.3785 46.468C20.5131 46.5633 21.1892 46.5921 26.6023 46.5921C32.0154 46.5921 32.7092 46.5921 34.8261 46.468C36.4823 46.4354 38.1209 46.1213 39.6718 45.5392C40.9967 45.0251 42.1999 44.2407 43.2048 43.2358C44.2097 42.2309 44.9942 41.0276 45.5083 39.7027C46.0912 38.1511 46.4038 36.5152 46.437 34.8549C46.5323 32.7225 46.5612 32.0464 46.5612 26.6311C46.5567 21.218 46.5567 20.5308 46.4326 18.4094ZM26.5868 36.8011C20.9254 36.8011 16.3391 32.2148 16.3391 26.5535C16.3391 20.8921 20.9254 16.3058 26.5868 16.3058C29.3046 16.3058 31.9112 17.3855 33.833 19.3073C35.7548 21.2291 36.8344 23.8356 36.8344 26.5535C36.8344 29.2713 35.7548 31.8779 33.833 33.7997C31.9112 35.7215 29.3046 36.8011 26.5868 36.8011ZM37.2423 18.3163C36.9284 18.3166 36.6176 18.255 36.3275 18.135C36.0375 18.0151 35.7739 17.8391 35.552 17.6171C35.33 17.3952 35.154 17.1316 35.034 16.8416C34.914 16.5515 34.8524 16.2407 34.8527 15.9268C34.8527 15.6131 34.9145 15.3025 35.0345 15.0128C35.1546 14.723 35.3305 14.4597 35.5523 14.2379C35.7741 14.0161 36.0374 13.8402 36.3272 13.7201C36.617 13.6001 36.9275 13.5383 37.2412 13.5383C37.5549 13.5383 37.8654 13.6001 38.1552 13.7201C38.445 13.8402 38.7083 14.0161 38.9301 14.2379C39.1519 14.4597 39.3278 14.723 39.4478 15.0128C39.5679 15.3025 39.6297 15.6131 39.6297 15.9268C39.6297 17.2479 38.5612 18.3163 37.2423 18.3163Z"
@@ -205,10 +198,10 @@
                            </linearGradient>
                      </svg>
                   </a>
-                  <h3 class="footer__team-title">Dana</h3>
-               </article>
-               <article class="footer__team">
-                  <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
+                        <h3 class="footer__team-title">Dana</h3>
+                    </article>
+                    <article class="footer__team">
+                        <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
                         height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                            d="M46.4326 18.4094C46.4102 16.7306 46.096 15.0684 45.5038 13.4973C44.9903 12.1721 44.206 10.9685 43.2011 9.96357C42.1961 8.9586 40.9926 8.17432 39.6673 7.66083C38.1164 7.07864 36.4779 6.76383 34.8217 6.72983C32.6893 6.63451 32.0132 6.60791 26.6001 6.60791C21.187 6.60791 20.4932 6.60791 18.3763 6.72983C16.7208 6.76408 15.0831 7.07888 13.5328 7.66083C12.2074 8.17396 11.0037 8.95812 9.99865 9.96313C8.99364 10.9681 8.20948 12.1719 7.69635 13.4973C7.11299 15.0471 6.79887 16.6851 6.76757 18.3407C6.67225 20.4754 6.64343 21.1515 6.64343 26.5646C6.64343 31.9777 6.64343 32.6693 6.76757 34.7884C6.80082 36.4465 7.11337 38.0824 7.69635 39.6362C8.21034 40.9613 8.99509 42.1645 10.0004 43.1691C11.0058 44.1737 12.2096 44.9575 13.535 45.4705C15.081 46.0761 16.719 46.4134 18.3785 46.468C20.5131 46.5633 21.1892 46.5921 26.6023 46.5921C32.0154 46.5921 32.7092 46.5921 34.8261 46.468C36.4823 46.4354 38.1209 46.1213 39.6718 45.5392C40.9967 45.0251 42.1999 44.2407 43.2048 43.2358C44.2097 42.2309 44.9942 41.0276 45.5083 39.7027C46.0912 38.1511 46.4038 36.5152 46.437 34.8549C46.5323 32.7225 46.5612 32.0464 46.5612 26.6311C46.5567 21.218 46.5567 20.5308 46.4326 18.4094ZM26.5868 36.8011C20.9254 36.8011 16.3391 32.2148 16.3391 26.5535C16.3391 20.8921 20.9254 16.3058 26.5868 16.3058C29.3046 16.3058 31.9112 17.3855 33.833 19.3073C35.7548 21.2291 36.8344 23.8356 36.8344 26.5535C36.8344 29.2713 35.7548 31.8779 33.833 33.7997C31.9112 35.7215 29.3046 36.8011 26.5868 36.8011ZM37.2423 18.3163C36.9284 18.3166 36.6176 18.255 36.3275 18.135C36.0375 18.0151 35.7739 17.8391 35.552 17.6171C35.33 17.3952 35.154 17.1316 35.034 16.8416C34.914 16.5515 34.8524 16.2407 34.8527 15.9268C34.8527 15.6131 34.9145 15.3025 35.0345 15.0128C35.1546 14.723 35.3305 14.4597 35.5523 14.2379C35.7741 14.0161 36.0374 13.8402 36.3272 13.7201C36.617 13.6001 36.9275 13.5383 37.2412 13.5383C37.5549 13.5383 37.8654 13.6001 38.1552 13.7201C38.445 13.8402 38.7083 14.0161 38.9301 14.2379C39.1519 14.4597 39.3278 14.723 39.4478 15.0128C39.5679 15.3025 39.6297 15.6131 39.6297 15.9268C39.6297 17.2479 38.5612 18.3163 37.2423 18.3163Z"
@@ -222,10 +215,10 @@
                            </linearGradient>
                      </svg>
                   </a>
-                  <h3 class="footer__team-title">Darya</h3>
-               </article>
-               <article class="footer__team">
-                  <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
+                        <h3 class="footer__team-title">Darya</h3>
+                    </article>
+                    <article class="footer__team">
+                        <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
                         height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                            d="M46.4326 18.4094C46.4102 16.7306 46.096 15.0684 45.5038 13.4973C44.9903 12.1721 44.206 10.9685 43.2011 9.96357C42.1961 8.9586 40.9926 8.17432 39.6673 7.66083C38.1164 7.07864 36.4779 6.76383 34.8217 6.72983C32.6893 6.63451 32.0132 6.60791 26.6001 6.60791C21.187 6.60791 20.4932 6.60791 18.3763 6.72983C16.7208 6.76408 15.0831 7.07888 13.5328 7.66083C12.2074 8.17396 11.0037 8.95812 9.99865 9.96313C8.99364 10.9681 8.20948 12.1719 7.69635 13.4973C7.11299 15.0471 6.79887 16.6851 6.76757 18.3407C6.67225 20.4754 6.64343 21.1515 6.64343 26.5646C6.64343 31.9777 6.64343 32.6693 6.76757 34.7884C6.80082 36.4465 7.11337 38.0824 7.69635 39.6362C8.21034 40.9613 8.99509 42.1645 10.0004 43.1691C11.0058 44.1737 12.2096 44.9575 13.535 45.4705C15.081 46.0761 16.719 46.4134 18.3785 46.468C20.5131 46.5633 21.1892 46.5921 26.6023 46.5921C32.0154 46.5921 32.7092 46.5921 34.8261 46.468C36.4823 46.4354 38.1209 46.1213 39.6718 45.5392C40.9967 45.0251 42.1999 44.2407 43.2048 43.2358C44.2097 42.2309 44.9942 41.0276 45.5083 39.7027C46.0912 38.1511 46.4038 36.5152 46.437 34.8549C46.5323 32.7225 46.5612 32.0464 46.5612 26.6311C46.5567 21.218 46.5567 20.5308 46.4326 18.4094ZM26.5868 36.8011C20.9254 36.8011 16.3391 32.2148 16.3391 26.5535C16.3391 20.8921 20.9254 16.3058 26.5868 16.3058C29.3046 16.3058 31.9112 17.3855 33.833 19.3073C35.7548 21.2291 36.8344 23.8356 36.8344 26.5535C36.8344 29.2713 35.7548 31.8779 33.833 33.7997C31.9112 35.7215 29.3046 36.8011 26.5868 36.8011ZM37.2423 18.3163C36.9284 18.3166 36.6176 18.255 36.3275 18.135C36.0375 18.0151 35.7739 17.8391 35.552 17.6171C35.33 17.3952 35.154 17.1316 35.034 16.8416C34.914 16.5515 34.8524 16.2407 34.8527 15.9268C34.8527 15.6131 34.9145 15.3025 35.0345 15.0128C35.1546 14.723 35.3305 14.4597 35.5523 14.2379C35.7741 14.0161 36.0374 13.8402 36.3272 13.7201C36.617 13.6001 36.9275 13.5383 37.2412 13.5383C37.5549 13.5383 37.8654 13.6001 38.1552 13.7201C38.445 13.8402 38.7083 14.0161 38.9301 14.2379C39.1519 14.4597 39.3278 14.723 39.4478 15.0128C39.5679 15.3025 39.6297 15.6131 39.6297 15.9268C39.6297 17.2479 38.5612 18.3163 37.2423 18.3163Z"
@@ -239,10 +232,10 @@
                            </linearGradient>
                      </svg>
                   </a>
-                  <h3 class="footer__team-title">Karina</h3>
-               </article>
-               <article class="footer__team">
-                  <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
+                        <h3 class="footer__team-title">Karina</h3>
+                    </article>
+                    <article class="footer__team">
+                        <a class="footer__team-icon" href="https://www.instagram.com/" target="_blank"><svg width="54"
                         height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                            d="M46.4326 18.4094C46.4102 16.7306 46.096 15.0684 45.5038 13.4973C44.9903 12.1721 44.206 10.9685 43.2011 9.96357C42.1961 8.9586 40.9926 8.17432 39.6673 7.66083C38.1164 7.07864 36.4779 6.76383 34.8217 6.72983C32.6893 6.63451 32.0132 6.60791 26.6001 6.60791C21.187 6.60791 20.4932 6.60791 18.3763 6.72983C16.7208 6.76408 15.0831 7.07888 13.5328 7.66083C12.2074 8.17396 11.0037 8.95812 9.99865 9.96313C8.99364 10.9681 8.20948 12.1719 7.69635 13.4973C7.11299 15.0471 6.79887 16.6851 6.76757 18.3407C6.67225 20.4754 6.64343 21.1515 6.64343 26.5646C6.64343 31.9777 6.64343 32.6693 6.76757 34.7884C6.80082 36.4465 7.11337 38.0824 7.69635 39.6362C8.21034 40.9613 8.99509 42.1645 10.0004 43.1691C11.0058 44.1737 12.2096 44.9575 13.535 45.4705C15.081 46.0761 16.719 46.4134 18.3785 46.468C20.5131 46.5633 21.1892 46.5921 26.6023 46.5921C32.0154 46.5921 32.7092 46.5921 34.8261 46.468C36.4823 46.4354 38.1209 46.1213 39.6718 45.5392C40.9967 45.0251 42.1999 44.2407 43.2048 43.2358C44.2097 42.2309 44.9942 41.0276 45.5083 39.7027C46.0912 38.1511 46.4038 36.5152 46.437 34.8549C46.5323 32.7225 46.5612 32.0464 46.5612 26.6311C46.5567 21.218 46.5567 20.5308 46.4326 18.4094ZM26.5868 36.8011C20.9254 36.8011 16.3391 32.2148 16.3391 26.5535C16.3391 20.8921 20.9254 16.3058 26.5868 16.3058C29.3046 16.3058 31.9112 17.3855 33.833 19.3073C35.7548 21.2291 36.8344 23.8356 36.8344 26.5535C36.8344 29.2713 35.7548 31.8779 33.833 33.7997C31.9112 35.7215 29.3046 36.8011 26.5868 36.8011ZM37.2423 18.3163C36.9284 18.3166 36.6176 18.255 36.3275 18.135C36.0375 18.0151 35.7739 17.8391 35.552 17.6171C35.33 17.3952 35.154 17.1316 35.034 16.8416C34.914 16.5515 34.8524 16.2407 34.8527 15.9268C34.8527 15.6131 34.9145 15.3025 35.0345 15.0128C35.1546 14.723 35.3305 14.4597 35.5523 14.2379C35.7741 14.0161 36.0374 13.8402 36.3272 13.7201C36.617 13.6001 36.9275 13.5383 37.2412 13.5383C37.5549 13.5383 37.8654 13.6001 38.1552 13.7201C38.445 13.8402 38.7083 14.0161 38.9301 14.2379C39.1519 14.4597 39.3278 14.723 39.4478 15.0128C39.5679 15.3025 39.6297 15.6131 39.6297 15.9268C39.6297 17.2479 38.5612 18.3163 37.2423 18.3163Z"
@@ -256,15 +249,15 @@
                            </linearGradient>
                      </svg>
                   </a>
-                  <h3 class="footer__team-title">Igor</h3>
-               </article>
+                        <h3 class="footer__team-title">Igor</h3>
+                    </article>
+                </div>
             </div>
-         </div>
-   </div>
-   </footer>
-   </div>
+    </div>
+    </footer>
+    </div>
 
-   <script type="module" src="scripts/index.js"></script>
+    <script type="module" src="scripts/index.js"></script>
 </body>
 
 </html>
