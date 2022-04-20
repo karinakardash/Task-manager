@@ -235,10 +235,10 @@ body {
             height: 3px;
          }
          &::-webkit-scrollbar-track {
-            background-color: $colorBackgroundBoards;
+            background-color: $colorWhite;
          }
          &::-webkit-scrollbar-thumb {
-            background-color: $colorBackgroundBoards;
+            background-color: $colorBackgroundFotter;
          }
 
     &__box {
@@ -324,7 +324,7 @@ body {
             margin-bottom: 10px;
             transition: all 0.3s linear;
             &:hover {
-               background: $colorHover;
+               background:$colorHover;
             }
         }
     }

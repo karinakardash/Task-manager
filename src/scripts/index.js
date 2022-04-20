@@ -341,7 +341,7 @@ function getChangeColor(element) {
       });
       tasks[IN_PROGRESS_COL].forEach((item) => {
          if (elementId === item.id) {
-            element.target.style.boxShadow = 'inset 0 0 20px 6px tomato';
+            element.target.style.boxShadow = 'inset 0 0 10px 3px tomato';
             element.target.style.border = 'none';
          };
       });
