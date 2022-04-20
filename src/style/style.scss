@@ -158,6 +158,7 @@ body {
         @media (max-width: 1024px) {
             width: 50%;
         }
+
         &::before {
             position: absolute;
             display: block;
@@ -177,6 +178,17 @@ body {
         position: relative;
         &:focus {
             outline: auto;
+        }
+        &::placeholder{
+         @media (max-width: 610px) {
+            font-size: 14px;
+        }
+         @media (max-width: 545px) {
+            font-size: 12px;
+        }
+        @media (max-width: 450px) {
+            color: transparent;
+     }
         }
     }
     &__time {
@@ -502,6 +514,7 @@ body {
         font-weight: 600;
         margin-bottom: 8px;
         color: $colorText;
+        padding-left: 10px;
     }
     &__footer {
         display: flex;
@@ -547,6 +560,7 @@ body {
         color: $colorText;
         font-size: 13px;
         margin-bottom: 10px;
+        padding-left: 10px;
     }
 }
 
