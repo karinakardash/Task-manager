@@ -328,7 +328,6 @@ const isCardHigher = (cursorPosition, currentCard) => {
 function getChangeColor(element) {
    if (element.target.classList.contains("card")) {
       let elementId = element.target.getAttribute("id");
-      console.log(elementId);
 
       tasks[BACKLOG_COL].forEach((item) => {
          if (elementId === item.id) {
@@ -501,7 +500,7 @@ function updateCounter() {
    inprogressCount.innerHTML = tasks[IN_PROGRESS_COL].length;
    reviewCount.innerHTML = tasks[REVIEW_COL].length;
    doneCount.innerHTML = tasks[DONE_COL].length;
-   if (tasks[IN_PROGRESS_COL].length > 2) {
+   if (tasks[IN_PROGRESS_COL].length > 5) {
       getModal();
    }
 }
@@ -515,13 +514,6 @@ function getModal() {
    const modal = new bootstrap.Modal(elemModal);
    modal.show();
 }
-
-/*function displayModal() {
-   if (tasks[IN_PROGRESS_COL].length > 2) {
-      getModal();
-   }
-}
-displayModal();*/
 
 //userfilter
 
