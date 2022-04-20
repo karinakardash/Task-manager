@@ -242,8 +242,20 @@ cancelBtn.addEventListener('click', () => {
 //свитчер
 
 const switchBtn = document.getElementById('switchBtn');
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme == "light") {
+   document.body.classList.add("light");
+   switchBtn.checked = true;
+ }
+ 
 switchBtn.addEventListener("click", function () {
-   document.body.classList.toggle("light")
+   document.body.classList.toggle("light");
+   let theme = "dark";
+  if (document.body.classList.contains("light")) {
+    theme = "light";
+  }
+  localStorage.setItem("theme", theme);
 });
 
 
