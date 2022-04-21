@@ -125,7 +125,7 @@ function createTask(obj, users) {
    footer.appendChild(cardUser);
 
    if (obj.priority === "Low") {
-      cardUser.value = "Low";
+      card_priority.value = "Low";
       card_priority.style.background = "#7c0202"
    } else if (obj.priority === "Medium") {
       card_priority.value = "Medium";
