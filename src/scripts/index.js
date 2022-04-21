@@ -758,7 +758,8 @@ function editTask(element) {
                         item.user = element.target.value;
                     }
                 });
-            }
+         }
+      });
 
         confirmBtnTaskModal.addEventListener("click", function() {
             const titleModal = document.getElementsByClassName("card-edit__title")[0];
