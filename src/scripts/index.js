@@ -8,24 +8,13 @@ currentTime();
 searchItems();
 
 const addTaskBtn = document.querySelector('#AddTaskBtn');
-const list_backlog = document.querySelector('#backlog_list');
-const list_progress = document.querySelector('#in_progress_list');
-const list_review = document.querySelector('#review_list');
 const list_done = document.querySelector('#done_list');
 const addBtn = document.querySelector('.form__add-btn');
 const cancelBtn = document.querySelector('.form__cancel-btn');
 const textArea = document.querySelector('.form__textarea');
 const form = document.querySelector('.form');
-const itemDel = document.querySelector('.card__delete');
-const editBtn = document.querySelector('.card__edit');
-const itemDesc = document.querySelector('.card__description');
 const boardName = document.querySelector('.header__title');
 const tasksList = document.querySelector('.board');
-const backlog = document.getElementsByClassName('backlog_list');
-const progress = document.getElementsByClassName('in_progress_list');
-const review = document.getElementsByClassName('review_list');
-const done = document.getElementsByClassName('done_list');
-const userChoice = document.querySelector(".card__user-choice");
 
 //локал сторидж
 
@@ -48,6 +37,29 @@ function updateLocalStorage() {
 }
 updateLocalStorage();
 displayTasks();
+
+//Модальное окно ввода названия задачи
+
+addTaskBtn.addEventListener('click', () => {
+   form.style.display = 'block';
+   addTaskBtn.style.display = 'none';
+   addBtn.style.display = 'none';
+
+   //Проверяем, если инпут пустой, тогда кнопку добавления прячем
+   textArea.addEventListener('input', () => {
+       if (textArea.value.trim()) {
+           addBtn.style.display = 'block';
+       } else {
+           addBtn.style.display = 'none';
+       }
+   })
+});
+
+cancelBtn.addEventListener('click', () => {
+   textArea.value = '';
+   form.style.display = 'none';
+   addTaskBtn.style.display = 'block';
+});
 
 
 // создание задачи
@@ -91,7 +103,6 @@ function createTask(obj, users) {
    const cardTitle = document.createElement("h3");
    cardTitle.classList.add("card__title");
    cardTitle.textContent = obj.title;
-   //cardTitle.contentEditable = true;
    card_el.appendChild(cardTitle);
 
    const cardDesc = document.createElement("p");
@@ -113,9 +124,8 @@ function createTask(obj, users) {
    initializeUserSelectOptions(cardUser, users, obj.user);
    footer.appendChild(cardUser);
 
-
    if (obj.priority === "Low") {
-      card_priority.value = "Low";
+      cardUser.value = "Low";
       card_priority.style.background = "#7c0202"
    } else if (obj.priority === "Medium") {
       card_priority.value = "Medium";
@@ -125,40 +135,35 @@ function createTask(obj, users) {
       card_priority.style.background = "#026b02";
    }
 
+   if (obj.color === "white") {
+      card_el.style.boxShadow = 'inset 0 0 18px 4px white';
+      card_el.style.border = '1px solid white';
+   } else if (obj.color === "tomato") {
+      card_el.style.boxShadow = 'inset 0 0 18px 4px tomato';
+      card_el.style.border = 'none';
+   } else if (obj.color === "orange") {
+      card_el.style.boxShadow = 'inset 0 0 18px 4px orange';
+      card_el.style.border = 'none';
+   } else if (obj.color === "green") {
+      card_el.style.boxShadow = 'inset 0 0 18px 4px green';
+      card_el.style.border = 'none';
+   }
+
    return card_el;
 }
 
-function initializeStatusSelectOptions(selectedElement, tasks, cardTitle) {
-   for (let key in tasks) {
-      const option = document.createElement('option');
-      option.textContent = key;
-      option.value = key;
-      tasks[key].forEach(item => {
-         if (item.title === cardTitle.textContent) {
-            option.selected = true;
-         }
-      });
-      selectedElement.appendChild(option);
+function initializeUserSelectOptions(selectElement, users, selectedUser) {
+   for (let i = 0; i < users.length; i++) {
+       const option = document.createElement('option');
+       option.classList.add("card__user-option")
+       option.value = users[i].name;
+       option.textContent = users[i].name;
+       if (selectedUser && users[i].name === selectedUser) {
+           option.selected = true;
+       }
+       selectElement.appendChild(option);
    }
 }
-
-function addCardToAnotherColumn(e) {
-    if (e.target.classList.contains('card__select-status-mobile')) {
-        for (let key in tasks) {
-            if (e.target.value === key) {
-                const sourceColumn = e.target.closest('.board__tasks-list');
-                const card = e.target.closest('.card');
-                sourceColumn.removeChild(card);
-
-                const targetColumn = document.getElementById(key);
-                targetColumn.appendChild(card);
-
-            moveTaskToNewColumn(sourceColumn.id, targetColumn.id, card.id);
-         }
-      }
-   }
-}
-tasksList.addEventListener('change', addCardToAnotherColumn);
 
 function displayTasks() {
     getUsers().then(users => {
@@ -173,35 +178,20 @@ function displayTasks() {
     });
 }
 
-function initializeUserSelectOptions(selectElement, users, selectedUser) {
-    for (let i = 0; i < users.length; i++) {
-        const option = document.createElement('option');
-        option.classList.add("card__user-option")
-        option.value = users[i].name;
-        option.textContent = users[i].name;
-        if (selectedUser && users[i].name === selectedUser) {
-            option.selected = true;
-        }
-        selectElement.appendChild(option);
-    }
-}
-
 function addNewItem() {
     if (!textArea.value.trim()) return;
     tasks[BACKLOG_COL].push({
         id: Date.now().toString(),
         board: boardName.innerHTML,
         title: textArea.value,
-        //title: "",
         comment: "",
         priority: 'low',
         status: "backlog",
         user: "Leanne Graham",
+        color: "white",
     });
     displayTasks();
     updateLocalStorage();
-    // const userSelect = document.querySelector(".card__user-choice");
-    // getUsers().then(users => initializeUserSelectOptions(userSelect, users));
     updateCounter();
     textArea.value = ''
     form.style.display = 'none';
@@ -213,50 +203,9 @@ form.addEventListener('submit', function(e) {
     addNewItem();
 });
 
-//Модальное окно ввода названия задачи
-
-addTaskBtn.addEventListener('click', () => {
-    form.style.display = 'block';
-    addTaskBtn.style.display = 'none';
-    addBtn.style.display = 'none';
-
-    //Проверяем, если инпут пустой, тогда кнопку добавления прячем
-    textArea.addEventListener('input', () => {
-        if (textArea.value.trim()) {
-            addBtn.style.display = 'block';
-        } else {
-            addBtn.style.display = 'none';
-        }
-    })
+addBtn.addEventListener('click', function () {
+   addNewItem();
 });
-
-cancelBtn.addEventListener('click', () => {
-    textArea.value = '';
-    form.style.display = 'none';
-    addTaskBtn.style.display = 'block';
-});
-
-
-
-//свитчер
-
-const switchBtn = document.getElementById('switchBtn');
-const currentTheme = localStorage.getItem("theme");
-
-if (currentTheme == "light") {
-   document.body.classList.add("light");
-   switchBtn.checked = true;
- }
- 
-switchBtn.addEventListener("click", function () {
-   document.body.classList.toggle("light");
-   let theme = "dark";
-  if (document.body.classList.contains("light")) {
-    theme = "light";
-  }
-  localStorage.setItem("theme", theme);
-});
-
 
 // drag'n'drop
 
@@ -330,9 +279,40 @@ document.addEventListener('drop', (e) => {
 const isCardHigher = (cursorPosition, currentCard) => {
     const { height, y } = currentCard.getBoundingClientRect();
     const currentElementCenter = y + height / 2;
-
     return (cursorPosition < currentElementCenter);
 }
+
+function initializeStatusSelectOptions(selectedElement, tasks, cardTitle) {
+   for (let key in tasks) {
+      const option = document.createElement('option');
+      option.textContent = key;
+      option.value = key;
+      tasks[key].forEach(item => {
+         if (item.title === cardTitle.textContent) {
+            option.selected = true;
+         }
+      });
+      selectedElement.appendChild(option);
+   }
+}
+
+function addCardToAnotherColumn(e) {
+    if (e.target.classList.contains('card__select-status-mobile')) {
+        for (let key in tasks) {
+            if (e.target.value === key) {
+                const sourceColumn = e.target.closest('.board__tasks-list');
+                const card = e.target.closest('.card');
+                sourceColumn.removeChild(card);
+
+                const targetColumn = document.getElementById(key);
+                targetColumn.appendChild(card);
+
+            moveTaskToNewColumn(sourceColumn.id, targetColumn.id, card.id);
+         }
+      }
+   }
+}
+tasksList.addEventListener('change', addCardToAnotherColumn);
 
 // changing the color in tasks
 
@@ -367,6 +347,46 @@ function getChangeColor(element) {
    }
 }
 tasksList.addEventListener("dragend", getChangeColor);
+
+// цвета тасок
+
+function saveColors() {
+   tasks[BACKLOG_COL].forEach((item) => {
+      item.color = "white"
+   });
+   tasks[IN_PROGRESS_COL].forEach((item) => {
+      item.color = "tomato"
+   });
+   tasks[REVIEW_COL].forEach((item) => {
+      item.color = "orange"
+   });
+   tasks[DONE_COL].forEach((item) => {
+      item.color = "green"
+   });
+}
+
+window.onload = function() {
+   saveColors()
+}
+
+//свитчер
+
+const switchBtn = document.getElementById('switchBtn');
+const currentTheme = localStorage.getItem("theme");
+
+if (currentTheme == "light") {
+   document.body.classList.add("light");
+   switchBtn.checked = true;
+ }
+ 
+switchBtn.addEventListener("click", function () {
+   document.body.classList.toggle("light");
+   let theme = "dark";
+  if (document.body.classList.contains("light")) {
+    theme = "light";
+  }
+  localStorage.setItem("theme", theme);
+});
 
 //удаление задачи
 
@@ -522,14 +542,22 @@ updateCounter();
 //modal windows 2
 
 function getModal() {
-    const elemModal = document.querySelector('#modal');
-    const modal = new bootstrap.Modal(elemModal);
-    modal.show();
+   const elemModal = document.getElementById('modal');
+   const modal = new bootstrap.Modal(elemModal, {});
+   modal.show();
 }
 
 //userfilter
 
 const filterSelect = document.querySelector(".sidebar__filter-users");
+getUsers().then(users => {
+for (let k = 0; k < users.length; k++) {
+    const sidebar_option = document.createElement('option');
+    sidebar_option.classList.add("sidebar__option")
+    sidebar_option.textContent = users[k].name;
+    filterSelect.appendChild(sidebar_option)
+}
+});
 
 function filterUser() {
     const allCardsUser = document.querySelectorAll(".card__user-choice");
