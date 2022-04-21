@@ -218,6 +218,51 @@ body {
   outline: auto;
 }
 
+@media (max-width: 610px) {
+  .header__input::-webkit-input-placeholder {
+    font-size: 14px;
+  }
+  .header__input:-ms-input-placeholder {
+    font-size: 14px;
+  }
+  .header__input::-ms-input-placeholder {
+    font-size: 14px;
+  }
+  .header__input::placeholder {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 545px) {
+  .header__input::-webkit-input-placeholder {
+    font-size: 12px;
+  }
+  .header__input:-ms-input-placeholder {
+    font-size: 12px;
+  }
+  .header__input::-ms-input-placeholder {
+    font-size: 12px;
+  }
+  .header__input::placeholder {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 450px) {
+  .header__input::-webkit-input-placeholder {
+    color: transparent;
+  }
+  .header__input:-ms-input-placeholder {
+    color: transparent;
+  }
+  .header__input::-ms-input-placeholder {
+    color: transparent;
+  }
+  .header__input::placeholder {
+    color: transparent;
+  }
+}
+
 .header__time {
   padding: 15px;
   font-size: 16px;
@@ -276,11 +321,11 @@ body {
 }
 
 .board::-webkit-scrollbar-track {
-  background-color: rgba(7, 7, 7, 0.5);
+  background-color: white;
 }
 
 .board::-webkit-scrollbar-thumb {
-  background-color: rgba(7, 7, 7, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 .board__box {
@@ -651,6 +696,7 @@ body {
   font-weight: 600;
   margin-bottom: 8px;
   color: white;
+  padding-left: 10px;
 }
 
 .card__footer {
@@ -709,6 +755,7 @@ body {
   color: white;
   font-size: 13px;
   margin-bottom: 10px;
+  padding-left: 10px;
 }
 
 .selected {
