@@ -15,9 +15,6 @@ const textArea = document.querySelector('.form__textarea');
 const form = document.querySelector('.form');
 const boardName = document.querySelector('.header__title');
 const tasksList = document.querySelector('.board');
-
-//локал сторидж
-
 const BACKLOG_COL = "backlog_list"
 const IN_PROGRESS_COL = "in_progress_list"
 const REVIEW_COL = "review_list"
@@ -38,14 +35,11 @@ function updateLocalStorage() {
 updateLocalStorage();
 displayTasks();
 
-//Модальное окно ввода названия задачи
-
 addTaskBtn.addEventListener('click', () => {
    form.style.display = 'block';
    addTaskBtn.style.display = 'none';
    addBtn.style.display = 'none';
 
-   //Проверяем, если инпут пустой, тогда кнопку добавления прячем
    textArea.addEventListener('input', () => {
        if (textArea.value.trim()) {
            addBtn.style.display = 'block';
@@ -61,8 +55,6 @@ cancelBtn.addEventListener('click', () => {
    addTaskBtn.style.display = 'block';
 });
 
-
-// создание задачи
 
 function createTask(obj, users) {
    const card_el = document.createElement("article");
@@ -152,6 +144,7 @@ function createTask(obj, users) {
    return card_el;
 }
 
+
 function initializeUserSelectOptions(selectElement, users, selectedUser) {
    for (let i = 0; i < users.length; i++) {
        const option = document.createElement('option');
@@ -165,6 +158,7 @@ function initializeUserSelectOptions(selectElement, users, selectedUser) {
    }
 }
 
+
 function displayTasks() {
     getUsers().then(users => {
         COLUMN_IDS.forEach(id => {
@@ -177,6 +171,7 @@ function displayTasks() {
         })
     });
 }
+
 
 function addNewItem() {
     if (!textArea.value.trim()) return;
@@ -193,6 +188,7 @@ function addNewItem() {
     displayTasks();
     updateLocalStorage();
     updateCounter();
+    saveColors();
     textArea.value = ''
     form.style.display = 'none';
     addTaskBtn.style.display = 'block';
@@ -207,7 +203,6 @@ addBtn.addEventListener('click', function () {
    addNewItem();
 });
 
-// drag'n'drop
 
 let draggedElement;
 document.addEventListener('dragstart', (e) => {
@@ -219,7 +214,6 @@ document.addEventListener('dragover', (e) => {
     e.preventDefault();
 });
 
-// функция для помещения тасок в новом положении в local storage
 function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
     const movedTask = tasks[sourceColumnId].find(obj => obj.id === movedTaskId)
     tasks[sourceColumnId] = tasks[sourceColumnId].filter(obj => obj.id !== movedTask.id)
@@ -230,8 +224,6 @@ function moveTaskToNewColumn(sourceColumnId, targetColumnId, movedTaskId) {
     updateLocalStorage();
     updateCounter();
 }
-
-// само перетаскивание либо между задачами, либо между колонками
 
 document.addEventListener('drop', (e) => {
     e.preventDefault();
@@ -270,8 +262,6 @@ document.addEventListener('drop', (e) => {
     window.setTimeout(() => {
         draggedElement.classList.remove('isMoved');
     }, 500);
-
-    // добавление изменения положения элементов в local storage
 
     moveTaskToNewColumn(activeTaskList.id, currentTaskList.id, activeElement.id);
 });
@@ -314,7 +304,6 @@ function addCardToAnotherColumn(e) {
 }
 tasksList.addEventListener('change', addCardToAnotherColumn);
 
-// changing the color in tasks
 
 function getChangeColor(element) {
    if (element.target.classList.contains("card")) {
@@ -348,8 +337,6 @@ function getChangeColor(element) {
 }
 tasksList.addEventListener("dragend", getChangeColor);
 
-// цвета тасок
-
 function saveColors() {
    tasks[BACKLOG_COL].forEach((item) => {
       item.color = "white"
@@ -369,7 +356,6 @@ window.onload = function() {
    saveColors()
 }
 
-//свитчер
 
 const switchBtn = document.getElementById('switchBtn');
 const currentTheme = localStorage.getItem("theme");
@@ -387,8 +373,6 @@ switchBtn.addEventListener("click", function () {
   }
   localStorage.setItem("theme", theme);
 });
-
-//удаление задачи
 
 function deleteTask(element) {
     if (element.target.classList.contains("card__delete")) {
@@ -420,10 +404,8 @@ function deleteTask(element) {
         updateCounter();
     }
 };
-
 tasksList.addEventListener('click', deleteTask);
 
-//select priority
 
 function drawPriority(element) {
     if (element.target.classList.contains("card__priority")) {
@@ -460,10 +442,8 @@ function drawPriority(element) {
         updateLocalStorage();
     }
 };
-
 tasksList.addEventListener('change', drawPriority);
 
-//select users
 
 function drawUsers(element) {
     if (element.target.classList.contains("card__user-choice")) {
@@ -493,11 +473,8 @@ function drawUsers(element) {
         updateLocalStorage();
     }
 };
-
 tasksList.addEventListener('change', drawUsers);
 
-
-//btn delete all tasks + modal windows 3
 
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -508,6 +485,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
 const btnDeleteAllTasks = document.querySelector('.btn-primary');
 
 const deleteAll = () => {
@@ -516,10 +494,8 @@ const deleteAll = () => {
     updateLocalStorage();
     updateCounter();
 };
-
 btnDeleteAllTasks.addEventListener('click', deleteAll);
 
-//counter
 
 const backlogCount = document.querySelector('.backlog-count');
 const inprogressCount = document.querySelector('.inprogress-count');
@@ -539,15 +515,12 @@ function updateCounter() {
 updateCounter();
 
 
-//modal windows 2
-
 function getModal() {
    const elemModal = document.getElementById('modal');
    const modal = new bootstrap.Modal(elemModal, {});
    modal.show();
 }
 
-//userfilter
 
 const filterSelect = document.querySelector(".sidebar__filter-users");
 getUsers().then(users => {
@@ -558,6 +531,7 @@ for (let k = 0; k < users.length; k++) {
     filterSelect.appendChild(sidebar_option)
 }
 });
+
 
 function filterUser() {
     const allCardsUser = document.querySelectorAll(".card__user-choice");
@@ -575,7 +549,6 @@ function filterUser() {
 }
 filterSelect.addEventListener("change", filterUser);
 
-//priorityfilter
 
 const filterPr = document.querySelector(".sidebar__filter-priority");
 
@@ -595,7 +568,6 @@ function filterPriority() {
 }
 filterPr.addEventListener("change", filterPriority);
 
-//модальное окно для редактирования
 
 function editTask(element) {
     if (element.target.classList.contains("card__edit")) {
@@ -622,8 +594,6 @@ function editTask(element) {
                 taskItem = item;
             }
         });
-
-        //рисование модального окна
 
         function createTaskEditModal(taskItem) {
             const modalWrapper = document.createElement("div");
@@ -712,8 +682,6 @@ function editTask(element) {
 
       document.querySelector("main").append(createTaskEditModal(taskItem));
 
-      //закрытие модального окна edit
-
       const cancelBtnTaskModal = document.getElementsByClassName("card__cancel")[0];
       const confirmBtnTaskModal = document.getElementsByClassName("card__confirm")[0];
       const taskModalWindow = document.querySelector(".modalWrapper-edit");
@@ -727,8 +695,6 @@ function editTask(element) {
                 taskModalWindow.remove();
             }
         }
-
-        //изменение данных и их запись
 
         taskModalWindow.addEventListener('change', function drawPriorityModal(element) {
             if (element.target.classList.contains("card__priority")) {
@@ -823,5 +789,4 @@ function editTask(element) {
         });
    }
 }
-
 tasksList.addEventListener('click', editTask);
