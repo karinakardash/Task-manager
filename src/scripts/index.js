@@ -1,4 +1,4 @@
-//import '@babel/polyfill';
+import '@babel/polyfill';
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
