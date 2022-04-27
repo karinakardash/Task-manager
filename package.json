@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/karinakardash/Task-meneger#readme",
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.4.1",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-polyfill": "^6.26.0",
     "cssnano": "^5.1.7",
