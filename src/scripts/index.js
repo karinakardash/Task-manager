@@ -2,7 +2,7 @@
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
-import * as modal from './modal.js';
+import * as bootstrap from './bootstrap.bundle.js';
 
 currentTime();
 searchItems();
@@ -479,7 +479,7 @@ tasksList.addEventListener('change', drawUsers);
 document.addEventListener('DOMContentLoaded', function () {
 
    const btn = document.querySelector('#DeleteAllTasks');
-   const modal = new modal.Modal(document.querySelector('#modalDeleteAll'));
+   const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
    btn.addEventListener('click', function () {
       modal.show();
    });
