@@ -1,37 +1,37 @@
 {
-  "name": "task-meneger",
-  "version": "1.0.0",
-  "description": "The application that helps manage tasks",
-  "scripts": {
-    "dev": "parcel index.html",
-    "build": "parcel build index.html --no-minify --no-source-maps",
-    "predeploy": "npm run dev",
-    "deploy": "gh-pages -d dev"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/karinakardash/Task-meneger.git"
-  },
-  "author": "Karina Kushnir, Dana Mashirova, Andrew Ashmankevich, Igor Meleshko, Daria Zmachinskaya",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/karinakardash/Task-meneger/issues"
-  },
-  "homepage": "https://github.com/karinakardash/Task-meneger#readme",
-  "devDependencies": {
-    "@parcel/transformer-sass": "^2.4.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-polyfill": "^6.26.0",
-    "cssnano": "^5.1.7",
-    "parcel": "^2.4.1",
-    "parcel-bundler": "^1.3.1",
-    "sass": "^1.49.10"
-  },
-  "dependencies": {
-    "@babel/runtime": "^7.17.9",
-    "@popperjs/core": "^2.11.5",
-    "bootstrap": "^5.1.3",
-    "github-pages": "^0.1.0",
-    "src": "^1.0.0"
-  }
+   "name": "task-manager",
+   "version": "1.0.0",
+   "description": "The application that helps manage tasks",
+   "scripts": {
+      "dev": "parcel index.html",
+      "build": "parcel build index.html --no-minify --no-source-maps",
+      "predeploy": "npm run dev",
+      "deploy": "gh-pages -d dev"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+https://github.com/karinakardash/Task-manager.git"
+   },
+   "author": "Karina Kushnir, Dana Mashirova, Andrew Ashmankevich, Igor Meleshko, Daria Zmachinskaya",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://github.com/karinakardash/Task-manager/issues"
+   },
+   "homepage": "https://github.com/karinakardash/Task-manager#readme",
+   "devDependencies": {
+      "@parcel/transformer-sass": "^2.4.1",
+      "babel-plugin-transform-runtime": "^6.23.0",
+      "babel-polyfill": "^6.26.0",
+      "cssnano": "^5.1.7",
+      "parcel": "^2.4.1",
+      "parcel-bundler": "^1.3.1",
+      "sass": "^1.49.10"
+   },
+   "dependencies": {
+      "@babel/runtime": "^7.17.9",
+      "@popperjs/core": "^2.11.5",
+      "bootstrap": "^5.1.3",
+      "github-pages": "^0.1.0",
+      "src": "^1.0.0"
+   }
 }
