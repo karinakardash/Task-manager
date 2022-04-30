@@ -2,7 +2,7 @@
 import { currentTime } from './time.js';
 import { searchItems } from './search.js';
 import { getUsers } from './users.js';
-import * as bootstrap from './bootstrap.bundle.js';
+import * as bootstrap from './bootstrap.min.js';
 
 currentTime();
 searchItems();
