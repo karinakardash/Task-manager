@@ -481,7 +481,6 @@ document.addEventListener('DOMContentLoaded', function () {
    const btn = document.querySelector('#DeleteAllTasks');
    const modalDeleteAll = document.querySelector('#modalDeleteAll')
    const modal = bootstrap.Modal.getOrCreateInstance(modalDeleteAll);
-   //const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
    btn.addEventListener('click', function () {
       modal.show();
    });
