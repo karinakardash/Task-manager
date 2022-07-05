@@ -476,17 +476,17 @@ function drawUsers(element) {
 tasksList.addEventListener('change', drawUsers);
 
 
-document.addEventListener('DOMContentLoaded', function () {
+/*document.addEventListener('DOMContentLoaded', function () {
 
    const btn = document.querySelector('#DeleteAllTasks');
    const modal = new bootstrap.Modal(document.querySelector('#modalDeleteAll'));
    btn.addEventListener('click', function () {
       modal.show();
    });
-});
+});*/
 
 
-const btnDeleteAllTasks = document.querySelector('.btn-primary');
+const btnDeleteAllTasks = document.querySelector('#DeleteAllTasks');
 
 const deleteAll = () => {
    tasks[DONE_COL] = [];
@@ -508,18 +508,18 @@ function updateCounter() {
    reviewCount.innerHTML = tasks[REVIEW_COL].length;
    doneCount.innerHTML = tasks[DONE_COL].length;
 
-   if (tasks[IN_PROGRESS_COL].length > 5) {
+  /* if (tasks[IN_PROGRESS_COL].length > 5) {
       getModal();
-   }
+   }*/
 }
 updateCounter();
 
 
-function getModal() {
+/*function getModal() {
    const elemModal = document.getElementById('modal');
    const modal = new bootstrap.Modal(elemModal, {});
    modal.show();
-}
+}*/
 
 
 const filterSelect = document.querySelector(".sidebar__filter-users");
