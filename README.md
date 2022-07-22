@@ -3,6 +3,8 @@
 To organize the workspace for your tasks, we created a multi-function board with cards, which are distributed to different columns depending on the implementation phase: backlog, in progress, review or done.
 Here in this app users have accesss to a wide range of different features: 
 
+![This is an image](./video_sample.gif)
+
 - [x] creating task cards;
 - [x] filling in the description and editting the text of a task;
 - [x] changing the position of a task card on the list;
@@ -13,7 +15,6 @@ Here in this app users have accesss to a wide range of different features:
 
 Besides there is a convenient filter filtering the cards by various parameters, as well as a task search.
 For the convenience of the user, there's an apportunity to change the color theme (from dark to light).
-
 
 ### Technologies:
 
