@@ -26,7 +26,7 @@ For the convenience of the user, there's an apportunity to change the color them
 
 1. Download a repository from github:
 
-> https://github.com/karinakardash/Task-manager
+> https://github.com/Danadarko/Task-manager-1
 
 2. $ npm i
 
